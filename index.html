@@ -1458,7 +1458,7 @@ async function loadFromSupabase(onStatus){
         if(!entry.thumb&&entry.url) entry.thumb=thumbFromUrl(entry.url);
         L.push(entry);
       });
-      document.getElementById("stat-live").textContent=L.length;
+      const sl=document.getElementById("stat-live"); if(sl) sl.textContent=L.length;
     }
     if(data.radio&&data.radio.length){
       data.radio.forEach(r=>{
@@ -1469,7 +1469,7 @@ async function loadFromSupabase(onStatus){
         if(!entry.thumb&&entry.url) entry.thumb=thumbFromUrl(entry.url);
         R.push(entry);
       });
-      document.getElementById("stat-radio").textContent=R.length;
+      const sr=document.getElementById("stat-radio"); if(sr) sr.textContent=R.length;
     }
     if(data.lassgo&&data.lassgo.length){
       data.lassgo.forEach(r=>{
@@ -1478,7 +1478,7 @@ async function loadFromSupabase(onStatus){
         if(!entry.thumb&&entry.url) entry.thumb=thumbFromUrl(entry.url);
         P.push(entry);
       });
-      document.getElementById("stat-lassgo").textContent=P.length;
+      const sp=document.getElementById("stat-lassgo"); if(sp) sp.textContent=P.length;
     }
     render();
   }catch(e){console.warn("Supabase 로드 실패:",e);}
@@ -2723,11 +2723,13 @@ function refreshSongTagList(sid,tags){
     :'<span class="song-tag-empty">없음</span>';
 }
 
-render();
-loadSongsFromSheet();
-loadFromSupabase().then(()=>{
-  setTimeout(updateStickyOffsets,200);
-  setTimeout(updateEraRowSeps,300);
+document.addEventListener("DOMContentLoaded", function(){
+  render();
+  loadSongsFromSheet();
+  loadFromSupabase().then(()=>{
+    setTimeout(updateStickyOffsets,200);
+    setTimeout(updateEraRowSeps,300);
+  });
 });
 
 // 시즌 필터 드래그 스크롤
