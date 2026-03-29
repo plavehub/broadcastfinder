@@ -659,7 +659,7 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
           <button id="song-search-clear" onclick="document.getElementById('song-search').value='';curSongQ='';renderSongs();this.style.display='none';"
             style="display:none;position:absolute;right:60px;background:none;border:none;cursor:pointer;font-size:13px;padding:0 4px;color:var(--muted);align-items:center;justify-content:center;">✕</button>
           <button id="song-tag-search-btn" onclick="toggleSongTagSearch()"
-            style="position:absolute;right:34px;background:none;border:none;cursor:pointer;font-size:14px;font-weight:700;padding:0 4px;line-height:1;color:var(--muted);font-family:'Syne',sans-serif;transition:color .15s;"
+            style="position:absolute;right:34px;font-size:11px;font-weight:700;color:rgba(168,85,247,.45);font-family:'Noto Sans KR',sans-serif;border:1px solid rgba(168,85,247,.3);border-radius:4px;padding:1px 6px;background:none;cursor:pointer;transition:all .15s;line-height:1.4;"
             title="태그만 검색">#</button>
           <button onclick="renderSongs()"
             style="position:absolute;right:8px;background:none;border:none;cursor:pointer;font-size:16px;padding:0;line-height:1;color:var(--muted);">🔍</button>
@@ -2347,8 +2347,9 @@ function toggleSongTagSearch(){
   curSongTagSearchMode=!curSongTagSearchMode;
   const btn=document.getElementById("song-tag-search-btn");
   if(btn){
-    btn.style.color=curSongTagSearchMode?"#a855f7":"var(--muted)";
-    btn.style.textShadow=curSongTagSearchMode?"0 0 8px rgba(168,85,247,.6)":"none";
+    btn.style.color=curSongTagSearchMode?"#a855f7":"rgba(168,85,247,.45)";
+    btn.style.borderColor=curSongTagSearchMode?"rgba(168,85,247,.7)":"rgba(168,85,247,.3)";
+    btn.style.background=curSongTagSearchMode?"rgba(168,85,247,.12)":"none";
   }
   renderSongs();
 }
