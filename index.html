@@ -13,7 +13,7 @@
   --border:rgba(255,255,255,0.07);--text:#e8e8f0;--muted:#8888aa;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-top:44px;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-top:0;}
 body::before{content:'';position:fixed;inset:0;
   background-image:
     radial-gradient(1px 1px at 15% 20%,rgba(255,255,255,.4) 0%,transparent 100%),
@@ -33,18 +33,14 @@ body::before{content:'';position:fixed;inset:0;
     radial-gradient(1px 1px at 5% 50%,rgba(255,255,255,.15) 0%,transparent 100%);
   pointer-events:none;z-index:0;}
 
-header{position:sticky;top:44px;z-index:101;background:rgba(6,6,17,.97);backdrop-filter:blur(12px);text-align:center;padding:18px 20px 14px;border-bottom:1px solid var(--border);}
+header{position:sticky;top:0;z-index:101;background:rgba(6,6,17,.97);backdrop-filter:blur(12px);text-align:center;padding:18px 20px 14px;border-bottom:1px solid var(--border);}
 
 .logo-title{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(22px,4.5vw,42px);letter-spacing:.12em;
   background:linear-gradient(90deg,var(--yejun) 0%,var(--yejun) 12%,var(--noah) 28%,var(--bambi) 50%,var(--eunho) 72%,var(--hamin) 88%,var(--hamin) 100%);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .logo-sub{font-size:11px;letter-spacing:.3em;color:var(--muted);text-transform:uppercase;margin-top:5px;}
-.stats-row{display:flex;gap:12px;justify-content:center;margin-top:18px;flex-wrap:wrap;}
-.stat{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:6px 14px;text-align:center;}
-.stat-num{font-family:'Syne',sans-serif;font-size:17px;font-weight:600;color:var(--all);}
-.stat-label{font-size:10px;color:var(--muted);letter-spacing:.08em;margin-top:1px;}
 
-.tab-bar{position:sticky;top:44px;z-index:100;background:rgba(6,6,17,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.tab-bar{position:sticky;top:0;z-index:100;background:rgba(6,6,17,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
 .tab-row{max-width:1200px;margin:0 auto;display:flex;padding:0 16px;align-items:center;justify-content:space-between;}
 .btn-add-live{background:rgba(168,85,247,.12);border:1px solid rgba(168,85,247,.3);border-radius:7px;
   color:var(--noah);font-family:'Noto Sans KR',sans-serif;font-size:11px;font-weight:500;
@@ -57,14 +53,19 @@ header{position:sticky;top:44px;z-index:101;background:rgba(6,6,17,.97);backdrop
 .tab-btn:hover{color:var(--text);}
 .tab-btn.active{color:var(--text);border-bottom-color:var(--noah);}
 
-.controls{position:sticky;top:44px;z-index:99;background:rgba(6,6,17,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:10px 20px;}
-#filters-collapsible{transition:max-height .12s ease,opacity .1s ease;overflow:hidden;max-height:600px;opacity:1;}
+.controls{position:sticky;top:0;z-index:99;background:rgba(6,6,17,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:10px 20px;isolation:isolate;}
+#filters-collapsible{transition:max-height .18s cubic-bezier(0.4,0,0.2,1),opacity .15s ease;overflow:hidden;max-height:300px;opacity:1;position:relative;}
 #filters-collapsible.collapsed{max-height:0!important;opacity:0;}
+#filters-collapsible::after{content:'';position:absolute;bottom:0;left:0;right:0;height:50%;background:linear-gradient(to bottom,transparent,var(--bg));opacity:0;pointer-events:none;transition:opacity .1s ease;z-index:1;}
+#filters-collapsible::before{content:'';position:absolute;top:0;left:0;right:0;height:50%;background:linear-gradient(to top,transparent,var(--bg));opacity:0;pointer-events:none;transition:opacity .1s ease;z-index:1;}
+#filters-collapsible.collapsing::after{opacity:1;}
+#filters-collapsible.expanding::before{opacity:1;}
 .controls-inner{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:6px;}
 .search-row{position:relative;}
 .search-input{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;
-  padding:8px 14px 8px 36px;color:rgba(255,255,255,.55);font-family:'Noto Sans KR',sans-serif;font-size:13px;outline:none;transition:border-color .2s;}
-.search-input:focus{border-color:rgba(168,85,247,.5);color:rgba(255,255,255,.75);}
+  padding:8px 72px 8px 36px;color:#ffffff;font-family:'Noto Sans KR',sans-serif;font-size:13px;outline:none;transition:border-color .2s;}
+.search-input:focus{border-color:rgba(168,85,247,.5);background:var(--bg3);}
+.search-input:-webkit-autofill,.search-input:-webkit-autofill:focus{-webkit-box-shadow:0 0 0 1000px var(--bg3) inset;-webkit-text-fill-color:#ffffff;}
 .search-input::placeholder{color:var(--muted);}
 .search-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:14px;pointer-events:none;}
 .filter-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
@@ -88,6 +89,14 @@ header{position:sticky;top:44px;z-index:101;background:rgba(6,6,17,.97);backdrop
 .filter-label{font-family:'Noto Sans KR',sans-serif;font-size:11px;font-weight:600;
   color:rgba(255,255,255,.3);white-space:nowrap;}
 .filter-label-btn{white-space:nowrap;transition:color .15s;}
+.era-scroll{overflow-x:auto;overflow-y:hidden;flex-wrap:nowrap!important;scrollbar-width:none;-ms-overflow-style:none;min-width:0;cursor:grab;}
+.era-scroll.dragging{cursor:grabbing;user-select:none;}
+.era-scroll::-webkit-scrollbar{display:none;}
+@media(max-width:500px){
+  .filter-row-labeled > div[style*="flex-wrap:wrap"]{flex-wrap:nowrap!important;overflow-x:auto;scrollbar-width:none;}
+  .filter-row-labeled > div[style*="flex-wrap:wrap"]::-webkit-scrollbar{display:none;}
+}
+.era-row-sep{width:100%;height:1px;background:var(--border);flex-shrink:0;margin:2px 0;}
 /* 생일: 미선택=흐림, 선택=민트 테두리만 */
 .btn.btn-special{border:1px solid rgba(255,255,255,.12) !important;color:rgba(255,255,255,.3) !important;background:transparent !important;}
 .btn.btn-special.active{border:1px solid #2dd4bf !important;color:#2dd4bf !important;background:transparent !important;}
@@ -97,7 +106,9 @@ header{position:sticky;top:44px;z-index:101;background:rgba(6,6,17,.97);backdrop
 .btn.btn-comeback.active{border:1px solid #e8c97a !important;color:#e8c97a !important;background:transparent !important;}
 .btn.btn-comeback:hover{color:rgba(255,255,255,.7);background:rgba(255,255,255,.04);}
 .filter-sep{width:1px;background:rgba(255,255,255,.1);flex-shrink:0;height:22px;align-self:center;}
-.filter-row-labeled{display:flex;align-items:center;gap:10px;}
+.filter-row-labeled{display:flex;align-items:center;gap:10px;min-width:0;}
+.filter-row-labeled > div[style*="flex:1"]{min-width:0;overflow-x:auto;scrollbar-width:none;}
+.filter-row-labeled > div[style*="flex:1"]::-webkit-scrollbar{display:none;}
 .card.special-bday{box-shadow:0 0 0 1.5px rgba(45,212,191,.6),0 0 16px rgba(45,212,191,.2);}
 .card.special-bday::before{opacity:1!important;background:linear-gradient(90deg,#2dd4bf,#a7f3d0,#2dd4bf)!important;}
 .card.special-milestone{box-shadow:0 0 0 1.5px rgba(45,212,191,.6),0 0 16px rgba(45,212,191,.2);}
@@ -175,13 +186,13 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 .card-row{display:flex;align-items:flex-start;gap:7px;margin-bottom:5px;}
 .card-row-label{font-size:10px;color:var(--muted);white-space:nowrap;margin-top:3px;}
 .card-members{display:flex;gap:4px;flex-wrap:wrap;}
-.member-pill{font-size:11px;border-radius:4px;padding:2px 7px;font-weight:500;}
-.pill-yejun{background:rgba(77,166,255,.1);color:var(--yejun);}
-.pill-noah{background:rgba(168,85,247,.1);color:var(--noah);}
-.pill-bambi{background:rgba(255,107,157,.1);color:var(--bambi);}
-.pill-eunho{background:rgba(255,82,82,.1);color:var(--eunho);}
-.pill-hamin{background:rgba(82,204,122,.1);color:var(--hamin);}
-.pill-all{background:rgba(240,230,255,.07);color:var(--all);}
+.member-pill{font-size:11px;border-radius:8px;padding:3px 9px;font-weight:500;border:1px solid transparent;display:inline-flex;align-items:center;gap:3px;}
+.pill-yejun{background:rgba(77,166,255,.1);color:var(--yejun);border-color:rgba(77,166,255,.35);}
+.pill-noah{background:rgba(168,85,247,.1);color:var(--noah);border-color:rgba(168,85,247,.35);}
+.pill-bambi{background:rgba(255,107,157,.1);color:var(--bambi);border-color:rgba(255,107,157,.35);}
+.pill-eunho{background:rgba(255,82,82,.1);color:var(--eunho);border-color:rgba(255,82,82,.35);}
+.pill-hamin{background:rgba(82,204,122,.1);color:var(--hamin);border-color:rgba(82,204,122,.35);}
+.pill-all{background:rgba(240,230,255,.07);color:var(--all);border-color:rgba(240,230,255,.2);}
 .guest-none{font-size:11px;color:var(--muted);}
 .guest-special{background:rgba(255,215,0,.08);color:#d4a800;border:1px solid rgba(255,215,0,.18);
   border-radius:4px;padding:2px 7px;font-size:11px;}
@@ -261,7 +272,7 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 
 /* MODAL */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.78);backdrop-filter:blur(7px);
-  z-index:1000;display:none;align-items:center;justify-content:center;padding:16px;}
+  z-index:9999;display:none;align-items:center;justify-content:center;padding:16px;}
 .modal-overlay.open{display:flex;}
 .modal-box{background:#0b0b1e;border:1px solid rgba(255,255,255,.12);border-radius:16px;
   width:100%;max-width:540px;max-height:88vh;overflow-y:auto;
@@ -342,12 +353,12 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 .song-thumb-wrap{width:100%;aspect-ratio:1;position:relative;overflow:hidden;background:#111;}
 .song-thumb-blur{position:absolute;inset:0;background-size:cover;background-position:center;filter:blur(16px);opacity:.6;transform:scale(1.15);}
 .song-thumb-img{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
-.song-thumb-img img{max-width:100%;max-height:100%;object-fit:contain;}
+.song-thumb-img img{width:100%;height:100%;object-fit:cover;}
 .song-thumb-ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:28px;}
 .song-top-badges{position:absolute;top:5px;left:5px;display:flex;gap:3px;flex-wrap:wrap;}
 .song-link-icon{position:absolute;top:5px;right:5px;background:rgba(0,0,0,.6);color:#aaa;padding:2px 5px;border-radius:4px;font-size:10px;}
 .song-body{padding:8px 9px;}
-.song-title-text{color:#eee;font-size:11px;font-weight:700;margin-bottom:3px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.song-title-text{color:#eee;font-size:11px;font-weight:700;margin-bottom:3px;line-height:1.3;word-break:keep-all;overflow-wrap:break-word;}
 .song-meta-mini{color:#555;font-size:9px;line-height:1.5;}
 .song-badge{padding:2px 5px;border-radius:4px;font-size:9px;font-weight:700;}
 .sb-title{background:rgba(168,85,247,.9);color:#f0e6ff;}
@@ -355,7 +366,7 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 .sb-ost{background:rgba(45,212,191,.75);color:#003d35;}
 .sb-inst{background:rgba(255,183,77,.75);color:#3d2000;}
 /* 모달 */
-.song-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1000;display:flex;align-items:center;justify-content:center;}
+.song-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1000;display:none;align-items:center;justify-content:center;}
 .song-modal-box{background:#0f0f1e;border:1px solid rgba(255,255,255,.12);border-radius:12px;overflow:hidden;display:flex;width:min(500px,95vw);max-height:90vh;}
 .song-modal-left{width:180px;height:180px;flex-shrink:0;position:relative;overflow:hidden;background:#111;cursor:pointer;}
 .song-modal-left:hover .song-modal-hover{opacity:1;}
@@ -396,12 +407,6 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
   <div class="logo-title">PLAVE ARCHIVE</div>
   <div class="logo-sub">라이브 방송 · 라디오 아카이브</div>
 </header>
-<div class="stats-row">
-  <div class="stat"><div class="stat-num" id="stat-live">—</div><div class="stat-label">라이브 방송</div></div>
-  <div class="stat"><div class="stat-num" id="stat-radio">—</div><div class="stat-label">라디오 회차</div></div>
-  <div class="stat"><div class="stat-num" id="stat-lassgo">—</div><div class="stat-label">라쓰고 플레이브</div></div>
-  <div class="stat"><div class="stat-num" id="stat-songs">—</div><div class="stat-label">발매곡</div></div>
-</div>
 
 <div class="tab-bar">
   <div class="tab-row">
@@ -412,7 +417,6 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
     <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
       <!-- 백업하기 (태그 + 수기 추가 통합) -->
       <div style="position:relative;display:inline-flex;flex-direction:column;gap:2px;">
-
       </div>
       <button class="btn-add-live" onclick="openAddLive()" title="새 방송 추가" style="padding:5px 10px;font-size:16px;">＋</button>
     </div>
@@ -420,7 +424,7 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 </div>
 
 <!-- 연동하기 고정 바 (최상단 단독) -->
-<div style="position:fixed;top:0;right:0;left:0;z-index:999;display:flex;justify-content:flex-end;align-items:center;gap:12px;padding:6px 16px;background:rgba(11,11,30,.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.06);">
+<div id="sync-fixed-bar" style="position:fixed;top:0;right:0;left:0;z-index:999;display:flex;justify-content:flex-end;align-items:center;gap:12px;padding:6px 16px;background:rgba(11,11,30,.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.06);">
   <span id="sync-status" style="font-size:10px;font-weight:400;color:rgba(255,255,255,.35);font-family:'Noto Sans KR',sans-serif;"></span>
   <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px;min-width:100px;">
     <button id="sync-btn" onclick="syncAll()"
@@ -523,8 +527,11 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
       <div style="width:1px;height:18px;background:rgba(255,255,255,.1);flex-shrink:0;"></div>
       <div class="search-row" style="flex:1;position:relative;display:flex;align-items:center;">
         <input class="search-input" id="search" type="text" placeholder="검색어 입력 후 Enter"
-          style="padding-right:36px;"
+          oninput="document.getElementById('search-clear').style.display=this.value?'flex':'none';"
           onkeydown="if(event.key==='Enter'){render();}">
+        <button id="search-clear" onclick="document.getElementById('search').value='';curQ='';render();this.style.display='none';"
+          style="display:none;position:absolute;right:36px;background:none;border:none;cursor:pointer;
+                 font-size:13px;padding:0 4px;line-height:1;color:var(--muted);align-items:center;justify-content:center;">✕</button>
         <button onclick="render()"
           style="position:absolute;right:8px;background:none;border:none;cursor:pointer;
                  font-size:16px;padding:0;line-height:1;color:var(--muted);">🔍</button>
@@ -579,7 +586,7 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
       <button class="filter-label filter-label-btn grad-border" onclick="resetTGFilter()" title="태그 초기화">태그</button>
       <div class="filter-sep"></div>
       <div style="display:flex;gap:5px;flex-wrap:wrap;flex:1;">
-        <button class="btn active" id="tg-filter-a" data-tg="a" onclick="setTGFilter(this)">#라방</button>
+        <button class="btn active" id="tg-filter-a" data-tg="a" onclick="setTGFilter(this)">#컨텐츠</button>
         <button class="btn active" id="tg-filter-b" data-tg="b" onclick="setTGFilter(this)">#대사</button>
         <button class="btn active" id="tg-filter-c" data-tg="c" onclick="setTGFilter(this)">#움찔</button>
       </div>
@@ -614,8 +621,8 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
     <!-- 시즌 -->
     <div class="filter-row-labeled" style="align-items:flex-start;">
       <button class="filter-label filter-label-btn grad-border" onclick="resetEra()" title="시즌 초기화">시즌</button>
-      <div class="filter-sep" style="height:54px;align-self:center;"></div>
-      <div class="era-scroll" id="era-filters" style="flex:1;display:flex;flex-wrap:wrap;gap:5px;">
+      <div class="filter-sep" style="height:22px;align-self:center;"></div>
+      <div class="era-scroll" id="era-filters" style="flex:1;display:flex;gap:5px;">
         <button class="btn btn-comeback" data-era="comeback" onclick="setEra(this)">✦ 컴백</button>
         <button class="btn btn-era" data-era="22연생뱅" onclick="setEra(this)">22연생뱅</button>
         <button class="btn btn-era" data-era="23연생뱅" onclick="setEra(this)">23연생뱅</button>
@@ -624,11 +631,11 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
         <button class="btn btn-era era-여여름" data-era="여여름" onclick="setEra(this)">여여름</button>
         <button class="btn btn-era era-메리플리" data-era="메리플리" onclick="setEra(this)">메리플리</button>
         <button class="btn btn-era" data-era="24새해" onclick="setEra(this)">24새해</button>
-        <button class="btn btn-era era-웨사럽" data-era="웨사럽" onclick="setEra(this)">웨사럽</button>
+        <button class="btn btn-era era-웨사럽" data-era="웨사럽" onclick="setEra(this)">W4L</button>
         <button class="btn btn-era era-펌펍볼" data-era="펌펍볼" onclick="setEra(this)">펌펍볼</button>
         <button class="btn btn-era" data-era="25새해" onclick="setEra(this)">25새해</button>
         <button class="btn btn-era era-대쉬" data-era="대쉬" onclick="setEra(this)">대쉬</button>
-        <button class="btn btn-era era-카쿠렌보" data-era="카쿠렌보" onclick="setEra(this)">카쿠렌보</button>
+        <button class="btn btn-era era-카쿠렌보" data-era="카쿠렌보" onclick="setEra(this)">카쿠</button>
         <button class="btn btn-era era-숨꼭" data-era="숨꼭" onclick="setEra(this)">숨꼭</button>
         <button class="btn btn-era era-뿌우" data-era="뿌우" onclick="setEra(this)">뿌우</button>
         <button class="btn btn-era era-뿌우크리" data-era="뿌우(크리)" onclick="setEra(this)">뿌우(크리)</button>
@@ -640,6 +647,97 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
   </div>
 </div>
 
+<div id="songs-filter" style="display:none;padding:10px 20px 6px;flex-direction:column;gap:6px;background:rgba(6,6,17,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:99;">
+      <!-- 검색 행 -->
+      <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+        <button id="song-search-mode-btn" onclick="toggleSongSearchMode()"
+          style="background:transparent;border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:4px 11px;
+                 font-family:'Noto Sans KR',sans-serif;font-size:11px;cursor:pointer;color:rgba(255,255,255,.3);
+                 white-space:nowrap;transition:all .15s;flex-shrink:0;">검색</button>
+        <div class="search-row" style="flex:1;position:relative;display:flex;align-items:center;">
+          <span class="search-icon">🔍</span>
+          <input class="search-input" id="song-search" type="text" placeholder="곡명, 앨범명 검색..."
+            oninput="curSongQ=this.value;document.getElementById('song-search-clear').style.display=this.value?'flex':'none';renderSongs();"
+            onkeydown="if(event.key==='Enter'){renderSongs();}if(event.key==='Escape'){this.value='';curSongQ='';document.getElementById('song-search-clear').style.display='none';renderSongs();}">
+          <button id="song-search-clear" onclick="document.getElementById('song-search').value='';curSongQ='';renderSongs();this.style.display='none';"
+            style="display:none;position:absolute;right:36px;background:none;border:none;cursor:pointer;font-size:13px;padding:0 4px;color:var(--muted);align-items:center;justify-content:center;">✕</button>
+          <button onclick="renderSongs()"
+            style="position:absolute;right:8px;background:none;border:none;cursor:pointer;font-size:16px;padding:0;line-height:1;color:var(--muted);">🔍</button>
+        </div>
+        <div style="display:flex;border-radius:8px;overflow:hidden;border:1px solid var(--border);flex-shrink:0;">
+          <button id="song-tag-mode-include" class="tc-tab active" style="padding:5px 10px;font-size:10px;border-radius:0;" onclick="setSongTagMode('include')">포함</button>
+          <button id="song-tag-mode-exact" class="tc-tab" style="padding:5px 10px;font-size:10px;border-left:1px solid var(--border);border-radius:0;" onclick="setSongTagMode('exact')">일치</button>
+        </div>
+        <div style="display:flex;border-radius:8px;overflow:hidden;border:1px solid rgba(168,85,247,.3);flex-shrink:0;">
+          <button id="song-sort-desc" onclick="setSongSort('desc',this)"
+            style="padding:5px 10px;font-size:10px;font-weight:600;background:transparent;color:var(--muted);border:none;cursor:pointer;border-radius:0;">최신순▼</button>
+          <button id="song-sort-asc" onclick="setSongSort('asc',this)"
+            style="padding:5px 10px;font-size:10px;font-weight:600;background:rgba(168,85,247,.12);color:#a855f7;border:none;border-left:1px solid rgba(168,85,247,.3);cursor:pointer;border-radius:0;">오래된순▲</button>
+        </div>
+      </div>
+
+      <!-- 구분선 + 필터 토글 -->
+      <div style="display:flex;align-items:center;gap:8px;margin-top:6px;">
+        <button onclick="toggleSongFilters()"
+          style="background:transparent;border:none;color:var(--muted);font-size:10px;
+                 cursor:pointer;padding:2px 4px;display:flex;align-items:center;gap:3px;
+                 font-family:'Noto Sans KR',sans-serif;white-space:nowrap;flex-shrink:0;transition:color .15s;"
+          onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">
+          필터 <span id="song-filter-arrow">▼</span>
+        </button>
+        <div style="flex:1;height:1px;background:rgba(255,255,255,.08);"></div>
+      </div>
+
+      <!-- 접히는 필터 영역 -->
+      <div id="songs-filters-collapsible" style="display:flex;flex-direction:column;gap:6px;overflow:hidden;transition:max-height .18s cubic-bezier(0.4,0,0.2,1),opacity .15s ease;max-height:300px;opacity:1;">
+      <!-- 앨범 -->
+      <div class="filter-row-labeled" style="align-items:flex-start;margin-top:6px;">
+        <button class="filter-label filter-label-btn grad-border" onclick="resetSongAlbum()" title="앨범 초기화">앨범</button>
+        <div class="filter-sep"></div>
+        <div style="display:flex;gap:5px;flex-wrap:wrap;flex:1;">
+          <button class="btn btn-song-album active" data-album="all">전체</button>
+          <button class="btn btn-song-album" data-album="기다릴게" style="--ac:#1E3A8A;--bc:#3b5bc8;--tc:#bfdbfe;">기다릴게</button>
+          <button class="btn btn-song-album" data-album="삼왜" style="--ac:rgba(244,114,182,.22);--bc:#f472b6;--tc:#fce7f3;">삼왜</button>
+          <button class="btn btn-song-album" data-album="여여름" style="--ac:rgba(132,204,22,.15);--bc:#84cc16;--tc:#d9f99d;">여여름</button>
+          <button class="btn btn-song-album" data-album="메리플리" style="--ac:rgba(100,116,139,.25);--bc:#64748b;--tc:#cbd5e1;">메리플리</button>
+          <button class="btn btn-song-album" data-album="웨사럽" style="--ac:rgba(148,163,184,.15);--bc:#94a3b8;--tc:#e2e8f0;">W4L</button>
+          <button class="btn btn-song-album" data-album="펌펍볼" style="--ac:rgba(249,115,22,.2);--bc:#f97316;--tc:#fed7aa;">펌펍볼</button>
+          <button class="btn btn-song-album" data-album="멈추지않아" style="--ac:rgba(55,65,81,.4);--bc:#6b7280;--tc:#d1d5db;">멈추지</button>
+          <button class="btn btn-song-album" data-album="대쉬" style="--ac:rgba(30,30,30,.6);--bc:#444;--tc:#aaa;">대쉬</button>
+          <button class="btn btn-song-album" data-album="카쿠렌보" style="--ac:rgba(56,189,248,.15);--bc:#38bdf8;--tc:#bae6fd;">카쿠</button>
+          <button class="btn btn-song-album" data-album="숨꼭" style="--ac:rgba(249,168,212,.15);--bc:#f9a8d4;--tc:#fce7f3;">숨꼭</button>
+          <button class="btn btn-song-album" data-album="뿌우통합" style="--ac:rgba(30,58,138,.4);--bc:#3b5bc8;--tc:#bfdbfe;">뿌우</button>
+          <button class="btn btn-song-album" data-album="이밤빌" style="--ac:rgba(100,60,200,.25);--bc:#8b5cf6;--tc:#ede9fe;">이밤빌</button>
+        </div>
+      </div>
+      <!-- 연도 -->
+      <div class="filter-row-labeled" style="align-items:flex-start;">
+        <button class="filter-label filter-label-btn grad-border" onclick="resetSongYear()" title="연도 초기화">연도</button>
+        <div class="filter-sep"></div>
+        <div style="display:flex;gap:5px;flex-wrap:wrap;flex:1;">
+          <button class="btn btn-song-year active" data-year="all">전체</button>
+          <button class="btn btn-song-year" data-year="2023">2023</button>
+          <button class="btn btn-song-year" data-year="2024">2024</button>
+          <button class="btn btn-song-year" data-year="2025">2025</button>
+          <button class="btn btn-song-year" data-year="2026">2026</button>
+        </div>
+      </div>
+      <!-- 구분 -->
+      <div class="filter-row-labeled" style="align-items:flex-start;">
+        <button class="filter-label filter-label-btn grad-border" onclick="resetSongType()" title="구분 초기화">구분</button>
+        <div class="filter-sep"></div>
+        <div style="display:flex;gap:5px;flex-wrap:wrap;flex:1;">
+          <button class="btn btn-song-type active" data-type="all">전체</button>
+          <button class="btn btn-song-type" data-type="타이틀">타이틀</button>
+          <button class="btn btn-song-type" data-type="수록곡">수록곡</button>
+          <button class="btn btn-song-type" data-type="ost">OST</button>
+          <button class="btn btn-song-type" data-type="inst">inst</button>
+        </div>
+      </div>
+      </div><!-- /songs-filters-collapsible -->
+
+</div>
+
 <main>
   <div class="result-count" id="result-count"></div>
   <div class="section-view active" id="view-broadcast">
@@ -648,41 +746,7 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
     <div id="lassgo-content"></div>
   </div>
   <div class="section-view" id="view-songs">
-    <div id="songs-filter" style="padding:10px 0 6px;">
-      <div style="display:flex;gap:5px;flex-wrap:wrap;align-items:center;margin-bottom:5px;">
-        <span style="color:var(--muted);font-size:9px;letter-spacing:.08em;width:28px;flex-shrink:0;">앨범</span>
-        <button class="btn btn-song-album active" data-album="all">전체</button>
-        <button class="btn btn-song-album" data-album="기다릴게" style="--ac:#1E3A8A;--bc:#3b5bc8;--tc:#bfdbfe;">기다릴게</button>
-        <button class="btn btn-song-album" data-album="삼왜" style="--ac:rgba(244,114,182,.22);--bc:#f472b6;--tc:#fce7f3;">삼왜</button>
-        <button class="btn btn-song-album" data-album="여여름" style="--ac:rgba(132,204,22,.15);--bc:#84cc16;--tc:#d9f99d;">여여름</button>
-        <button class="btn btn-song-album" data-album="메리플리" style="--ac:rgba(100,116,139,.25);--bc:#64748b;--tc:#cbd5e1;">메리플리</button>
-        <button class="btn btn-song-album" data-album="웨사럽" style="--ac:rgba(148,163,184,.15);--bc:#94a3b8;--tc:#e2e8f0;">웨사럽</button>
-        <button class="btn btn-song-album" data-album="펌펍볼" style="--ac:rgba(249,115,22,.2);--bc:#f97316;--tc:#fed7aa;">펌펍볼</button>
-        <button class="btn btn-song-album" data-album="멈추지않아" style="--ac:rgba(55,65,81,.4);--bc:#6b7280;--tc:#d1d5db;">멈추지않아</button>
-        <button class="btn btn-song-album" data-album="대쉬" style="--ac:rgba(30,30,30,.6);--bc:#444;--tc:#aaa;">대쉬</button>
-        <button class="btn btn-song-album" data-album="카쿠렌보" style="--ac:rgba(56,189,248,.15);--bc:#38bdf8;--tc:#bae6fd;">카쿠렌보</button>
-        <button class="btn btn-song-album" data-album="숨꼭" style="--ac:rgba(249,168,212,.15);--bc:#f9a8d4;--tc:#fce7f3;">숨꼭</button>
-        <button class="btn btn-song-album" data-album="뿌우" style="--ac:rgba(30,58,138,.4);--bc:#3b5bc8;--tc:#bfdbfe;">뿌우</button>
-        <button class="btn btn-song-album" data-album="뿌우크리" style="--ac:rgba(248,113,113,.2);--bc:#f87171;--tc:#fecaca;">뿌우(크리)</button>
-        <button class="btn btn-song-album" data-album="이밤빌" style="--ac:rgba(100,60,200,.25);--bc:#8b5cf6;--tc:#ede9fe;">이밤빌</button>
-      </div>
-      <div style="display:flex;gap:5px;flex-wrap:wrap;align-items:center;margin-bottom:5px;">
-        <span style="color:var(--muted);font-size:9px;letter-spacing:.08em;width:28px;flex-shrink:0;">연도</span>
-        <button class="btn btn-song-year active" data-year="all">전체</button>
-        <button class="btn btn-song-year" data-year="2023">2023</button>
-        <button class="btn btn-song-year" data-year="2024">2024</button>
-        <button class="btn btn-song-year" data-year="2025">2025</button>
-        <button class="btn btn-song-year" data-year="2026">2026</button>
-      </div>
-      <div style="display:flex;gap:5px;flex-wrap:wrap;align-items:center;">
-        <span style="color:var(--muted);font-size:9px;letter-spacing:.08em;width:28px;flex-shrink:0;">구분</span>
-        <button class="btn btn-song-type active" data-type="all">전체</button>
-        <button class="btn btn-song-type" data-type="타이틀">타이틀</button>
-        <button class="btn btn-song-type" data-type="수록곡">수록곡</button>
-        <button class="btn btn-song-type" data-type="ost">OST</button>
-        <button class="btn btn-song-type" data-type="inst">inst</button>
-      </div>
-    </div>
+
     <div id="songs-content"></div>
   </div>
 
@@ -704,28 +768,23 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
         <div class="modal-main-title" id="m-title"></div>
       </div>
       <button class="modal-close" onclick="closeModal()">✕</button>
-      <button id="m-link-icon-btn" onclick="openModalLink()" title="영상 링크 열기/수정"
-        style="background:none;border:none;cursor:pointer;font-size:15px;padding:4px 6px;color:var(--muted);border-radius:5px;transition:background .15s;"
-        onmouseover="this.style.background='rgba(255,255,255,.08)'" onmouseout="this.style.background='none'">🔗</button>
     </div>
     <div class="modal-body">
 
       <!-- Tags: 3-column horizontal layout -->
       <div>
         <div class="section-head">🏷️ 태그</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;align-items:end;">
 
           <!-- A -->
           <div style="display:flex;flex-direction:column;gap:5px;">
             <div style="display:flex;align-items:center;gap:5px;">
               <span style="font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:var(--noah);">A</span>
-              <span style="font-size:10px;color:var(--muted);">라방태그</span>
+              <span style="font-size:10px;color:var(--muted);">컨텐츠태그</span>
             </div>
-            <div class="tags-display" id="m-tags-a" style="margin-bottom:0;min-height:24px;flex-wrap:wrap;"></div>
-            <div style="display:flex;gap:5px;">
-              <input class="m-input" id="m-tag-in-a" placeholder="입력 후 Enter" style="flex:1;font-size:11px;padding:6px 8px;"
-                onkeydown="if(event.key==='Enter'&&!event.isComposing){addTagG('a');event.preventDefault();}">
-            </div>
+            <div class="tags-display" id="m-tags-a" style="margin-bottom:0;min-height:24px;flex-wrap:wrap;flex:1;"></div>
+            <input class="m-input" id="m-tag-in-a" placeholder="입력 후 Enter" style="font-size:10px;padding:1px 6px;font-size:9px;border-radius:4px;"
+              onkeydown="if(event.key==='Enter'&&!event.isComposing){addTagG('a');event.preventDefault();}">
           </div>
 
           <!-- B -->
@@ -734,11 +793,9 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
               <span style="font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:var(--yejun);">B</span>
               <span style="font-size:10px;color:var(--muted);">대사태그</span>
             </div>
-            <div class="tags-display" id="m-tags-b" style="margin-bottom:0;min-height:24px;flex-wrap:wrap;"></div>
-            <div style="display:flex;gap:5px;">
-              <input class="m-input" id="m-tag-in-b" placeholder="입력 후 Enter" style="flex:1;font-size:11px;padding:6px 8px;"
-                onkeydown="if(event.key==='Enter'&&!event.isComposing){addTagG('b');event.preventDefault();}">
-            </div>
+            <div class="tags-display" id="m-tags-b" style="margin-bottom:0;min-height:24px;flex-wrap:wrap;flex:1;"></div>
+            <input class="m-input" id="m-tag-in-b" placeholder="입력 후 Enter" style="font-size:10px;padding:1px 6px;font-size:9px;border-radius:4px;"
+              onkeydown="if(event.key==='Enter'&&!event.isComposing){addTagG('b');event.preventDefault();}">
           </div>
 
           <!-- C -->
@@ -747,43 +804,11 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
               <span style="font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:var(--hamin);">C</span>
               <span style="font-size:10px;color:var(--muted);">움찔태그</span>
             </div>
-            <div class="tags-display" id="m-tags-c" style="margin-bottom:0;min-height:24px;flex-wrap:wrap;"></div>
-            <div style="display:flex;gap:5px;">
-              <input class="m-input" id="m-tag-in-c" placeholder="입력 후 Enter" style="flex:1;font-size:11px;padding:6px 8px;"
-                onkeydown="if(event.key==='Enter'&&!event.isComposing){addTagG('c');event.preventDefault();}">
-            </div>
+            <div class="tags-display" id="m-tags-c" style="margin-bottom:0;min-height:24px;flex-wrap:wrap;flex:1;"></div>
+            <input class="m-input" id="m-tag-in-c" placeholder="입력 후 Enter" style="font-size:10px;padding:1px 6px;font-size:9px;border-radius:4px;"
+              onkeydown="if(event.key==='Enter'&&!event.isComposing){addTagG('c');event.preventDefault();}">
           </div>
 
-        </div>
-      </div>
-
-      <!-- Timecode links -->
-      <div>
-        <div class="section-head">⏱️ 타임코드 / 링크</div>
-        <div class="tc-list" id="m-tc-list"></div>
-        <div class="tc-tabs">
-          <button class="tc-tab active" id="tc-tab-d" onclick="setTCTab('d')">직접 링크</button>
-          <button class="tc-tab" id="tc-tab-yt" onclick="setTCTab('yt')">YouTube 타임코드</button>
-        </div>
-        <!-- Direct link pane: label required + URL -->
-        <div class="tc-pane" id="tc-pane-d">
-          <div class="m-row">
-            <input class="m-input" id="tc-d-label" placeholder="라벨 (필수)" style="flex:0 0 130px;">
-            <input class="m-input" id="tc-d-url" placeholder="https://..."
-              onkeydown="if(event.key==='Enter'){addLink('d');event.preventDefault();}">
-            <button class="m-btn" onclick="addLink('d')" style="flex-shrink:0;">추가</button>
-          </div>
-        </div>
-        <!-- YouTube timecode pane: label required + time only, auto-uses main video URL -->
-        <div class="tc-pane" id="tc-pane-yt" style="display:none">
-          <div class="m-row">
-            <input class="m-input" id="tc-yt-label" placeholder="라벨 (필수)" style="flex:0 0 130px;">
-            <input class="m-input" id="tc-yt-time" placeholder="시간 (예: 023456 = 02:34:56)"
-              oninput="onYTTimeInput(this)"
-              onkeydown="if(event.key==='Enter'){addLink('yt');event.preventDefault();}">
-            <button class="m-btn" onclick="addLink('yt')" style="flex-shrink:0;">⏎ 추가</button>
-          </div>
-          <div class="tc-preview-box" id="tc-yt-preview" style="display:none"></div>
         </div>
       </div>
 
@@ -793,10 +818,17 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 
 <script>
 /* ── helpers ── */
+/* ── YouTube ID 추출 helper ── */
+function ytThumb(url){
+  if(!url) return "";
+  const m=(url||"").match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|live\/|embed\/|v\/))([a-zA-Z0-9_-]{11})/);
+  return m?`https://i.ytimg.com/vi/${m[1]}/mqdefault.jpg`:"";
+}
 const MC={예준:"yejun",노아:"noah",밤비:"bambi",은호:"eunho",하민:"hamin",전원:"all"};
+const ME={예준:"💙",노아:"💜",밤비:"🩷",은호:"❤️",하민:"🖤",전원:"✨"};
 const TGK={a:"tagsA",b:"tagsB",c:"tagsC"};
 const pc=m=>"pill-"+(MC[m]||"all");
-const pills=arr=>arr.map(m=>`<span class="member-pill ${pc(m)}">${m}</span>`).join("");
+const pills=arr=>arr.map(m=>`<span class="member-pill ${pc(m)}">${ME[m]||""} ${m}</span>`).join("");
 function cc(arr){
   if(!arr||!arr.length)return"c-mixed";
   if(arr.includes("전원"))return"c-all";
@@ -811,19 +843,32 @@ const matchM=(arr)=>{
 };
 
 /* ── state ── */
-let curTab="broadcast",curYear="all",curMemSet=new Set(),curQ="",curTagQ="",curTagMode="include",curEra="all",curSpecial="all",curTGFilter="all",curSort="desc";
+let curTab="broadcast",curYearSet=new Set(),curMemSet=new Set(),curQ="",curTagQ="",curTagMode="include",curEra="all",curSpecial="all",curTGFilter="all",curSort="desc";
 let curTGSet=new Set(["a","b","c"]); // 태그 복수선택
 let curSearchTitleOnly=false;
 let curBcastSet=new Set(["live"]); // 방송 타입 기본: 라이브만
+let curBcastAllActive=false; // 방송 라벨 토글 상태
 
 // Birthday dates (MM.DD) and milestone title patterns
 const BDAY_DATES=new Set(["02.10","03.12","05.24","06.19","07.15","09.12","11.01"]);
 const MILESTONE_RE=/100일|1000일|100회|200회|300회|회 특집/;
-function isSpecialBday(d){return BDAY_DATES.has(d);}
-function isSpecialMilestone(d,t){return !isSpecialBday(d)&&MILESTONE_RE.test(t);}
+// gviz CSV는 "11.10" → "11.1" (trailing zero 제거)로 내보냄
+// 일(day)이 1자리면 오른쪽에 0 붙여서 복원: "11.1" → "11.10"
+function normD(d){
+  if(!d) return d;
+  const p=d.split(".");
+  if(p.length!==2) return d;
+  const mo=p[0].padStart(2,"0");
+  const day=p[1].length===1 ? p[1]+"0" : p[1].padStart(2,"0");
+  return mo+"."+day;
+}
+function isSpecialBday(d,t){
+  return BDAY_DATES.has(normD(d))||(t&&t.includes("생일"));
+}
+function isSpecialMilestone(d,t){return !isSpecialBday(d,t)&&MILESTONE_RE.test(t);}
 function matchSpecial(d,t){
   if(curSpecial==="all")return true;
-  if(curSpecial==="bday")return isSpecialBday(d);
+  if(curSpecial==="bday")return isSpecialBday(d,t);
   if(curSpecial==="milestone")return isSpecialMilestone(d,t);
   return true;
 }
@@ -917,6 +962,32 @@ function setData(id,d){try{localStorage.setItem(SK+id,JSON.stringify(d))}catch{}
 /* ── modal state ── */
 let mId=null, tcTab="d", curTGTab="a";
 
+function handleCardClick(el){
+  if(!el) return;
+  const sid=el.dataset.sid||"";
+  const type=el.dataset.type||"live";
+  const date=el.dataset.date||"";
+  // 제목은 배열에서 직접 조회 (인코딩 이슈 원천 차단)
+  let title="";
+  if(type==="live"){
+    const item=findBySid("live",sid);
+    title=item?item.t:"";
+  } else if(type==="radio"){
+    const item=findBySid("radio",sid);
+    title=item?`DJ ${(item.dj||[]).join("·")}`:""
+  } else if(type==="lassgo"){
+    const item=findBySid("lassgo",sid);
+    title=item?item.t:"";
+  }
+  openEdit(sid,title,date,type);
+}
+function findBySid(type,sid){
+  if(type==="live") return L.find(b=>makeSid("live",b.y,b.d,b.t)===sid)||null;
+  if(type==="radio") return R.find(r=>makeSid("radio",r.y,r.d,r.dj.join(""))===sid)||null;
+  if(type==="lassgo") return P.find(p=>makeSid("lassgo",p.y,p.d,p.t)===sid)||null;
+  return null;
+}
+
 function openEdit(id,title,dateStr,type){
   mId=id;
   document.getElementById("m-date").textContent=dateStr;
@@ -927,25 +998,38 @@ function openEdit(id,title,dateStr,type){
   else{tb.textContent="📺 라이브";tb.className="badge badge-type-live";}
   // thumbnail in header
   const thumbWrap=document.getElementById("m-thumb-wrap");
-  const thumbImg=document.getElementById("m-thumb-img");
   const thumbLink=document.getElementById("m-thumb-link");
-  const thumb=getThumbUrl(id);
-  const vurl=getVideoUrl(id);
+  // 모든 URL 소스 시도: localStorage → 시트 기본값 → findBySid item.url
+  const item=findBySid(type,id);
+  const localUrl=(getData(id).videoUrl||"").trim();
+  const defaultUrl=getDefaultUrl(id).trim();
+  const itemUrl=(item?.url||"").trim();
+  const rawUrl=localUrl||defaultUrl||itemUrl||"";
+  const ytm=rawUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|live\/|embed\/))([a-zA-Z0-9_-]{11})/);
+  let thumb=ytm?`https://i.ytimg.com/vi/${ytm[1]}/mqdefault.jpg`:"";
+  const vurl=rawUrl||"#";
   if(thumb){
-    thumbLink.href=vurl||'#';
+    thumbLink.href=vurl;
     thumbWrap.style.display="";
     const mImg=document.getElementById("m-thumb-img");
     mImg.removeAttribute("data-tried");
-    tryLoadThumb(mImg, thumb);
+    tryLoadThumb(mImg,thumb);
   } else {
     thumbWrap.style.display="none";
   }
-  renderAllTags();renderMainLink();renderLinks();
-  setTCTab("d");
-  document.getElementById("edit-modal").classList.add("open");
+  renderAllTags();
+  const modal=document.getElementById("edit-modal");
+  document.body.appendChild(modal);
+  modal.classList.add("open");
+  document.querySelector("header")?.style.setProperty("z-index","0");
+  document.querySelector(".tab-bar")?.style.setProperty("z-index","0");
+  document.querySelector(".controls")?.style.setProperty("z-index","0");
 }
 function closeModal(){
   document.getElementById("edit-modal").classList.remove("open");
+  document.querySelector("header")?.style.removeProperty("z-index");
+  document.querySelector(".tab-bar")?.style.removeProperty("z-index");
+  document.querySelector(".controls")?.style.removeProperty("z-index");
   mId=null;render();
 }
 function setTCTab(t){
@@ -996,7 +1080,7 @@ function renderMainLink(){
 }
 
 
-function writeLog(){} // 비활성화됨
+function writeLog(){} // 비활성화
 
 function openModalLink(){
   const d=getData(mId);
@@ -1017,8 +1101,7 @@ function openModalLink(){
     if(vid){thumb.src=`https://i.ytimg.com/vi/${vid[1]}/hqdefault.jpg`;thumbWrap.style.display="";}
     if(thumbLink) thumbLink.href=d.videoUrl;
   }
-  // 링크 저장 (localStorage)
-  setData(mId,d);
+  // 구글 시트에 업데이트
 }
 
 function saveMainLink(){
@@ -1233,11 +1316,18 @@ function setTagMode(mode){
 function setTGFilter(btn){
   const t=btn.dataset.tg;
   if(curTGSet.has(t)){
-    if(curTGSet.size>1){curTGSet.delete(t);btn.classList.remove("active");}
+    if(curTGSet.size===1){
+      // 마지막 하나 → 3개 전부로 복귀
+      curTGSet=new Set(["a","b","c"]);curTGFilter="all";
+      document.querySelectorAll("#tg-filter-a,#tg-filter-b,#tg-filter-c").forEach(b=>b.classList.add("active"));
+    } else {
+      curTGSet.delete(t);btn.classList.remove("active");
+      curTGFilter=curTGSet.size===3?"all":[...curTGSet].join(",");
+    }
   } else {
     curTGSet.add(t);btn.classList.add("active");
+    curTGFilter=curTGSet.size===3?"all":[...curTGSet].join(",");
   }
-  curTGFilter=curTGSet.size===3?"all":[...curTGSet].join(",");
   render();
 }
 
@@ -1254,7 +1344,7 @@ function matchTag(sid){
   return allTagsInScope.some(t=>t.toLowerCase().includes(q2));
 }
 
-function escH(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+function escH(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
 
 function thumbErr(imgEl){
   const cur=imgEl.src||"";
@@ -1263,8 +1353,14 @@ function thumbErr(imgEl){
     imgEl.dataset.tried="1";
     imgEl.src="https://i.ytimg.com/vi/"+vid[1]+"/hqdefault.jpg";
   } else {
+    // 카드 썸네일 숨기기
     const wrap=imgEl.closest?imgEl.closest(".card-thumb-link"):null;
-    if(wrap)wrap.style.display="none";
+    if(wrap) wrap.style.display="none";
+    // 모달 썸네일 숨기기
+    if(imgEl.id==="m-thumb-img"){
+      const mWrap=document.getElementById("m-thumb-wrap");
+      if(mWrap) mWrap.style.display="none";
+    }
   }
 }
 window.thumbErr=thumbErr;
@@ -1304,7 +1400,12 @@ function savedExtras(id){
    2. 각 시트(라이브/라디오/라쓰고)를 CSV로 게시
    3. 아래 URL에 복사·붙여넣기 (빈 문자열이면 내장 데이터 사용)
 ──────────────────────────────────────────────────────────────── */
+/* ── APPS SCRIPT 웹훅 ──────────────────────────────────────────
+   태그 백업용. Apps Script doPost에 saveTag 핸들러 추가 후 URL 입력
+──────────────────────────────────────────────────────────────── */
 const WEBHOOK_URL = "";
+
+/* localStorage에서 태그 전체 수집 → 웹훅으로 일괄 전송 */
 /* ── 진행바 헬퍼 ── */
 function showBar(barId,fillId){document.getElementById(barId).style.display="";setBar(fillId,0);}
 function setBar(fillId,pct){document.getElementById(fillId).style.width=pct+"%";}
@@ -1312,7 +1413,7 @@ function hideBar(barId){setTimeout(()=>{document.getElementById(barId).style.dis
 
 
 
-/* ── 연동하기 (Supabase 동기화) ── */
+/* ── 연동하기 (시트 동기화 + 태그 복원 + 로그) ── */
 async function syncAll(){
   const btn=document.getElementById("sync-btn");
   const status=document.getElementById("sync-status");
@@ -1320,15 +1421,18 @@ async function syncAll(){
   btn.style.opacity=".5";btn.disabled=true;
   showBar("sync-bar","sync-fill");setBar("sync-fill",5);
 
-  setStatus("데이터 불러오는 중");
+  setStatus("라이브 불러오는 중");
   try{ await loadFromSupabase(setStatus); }catch(e){console.warn("Supabase 동기화 실패",e);}
+
+  setStatus("발매곡 불러오는 중");
+  try{ await loadSongsFromSheet(); }catch(e){console.warn("발매곡 동기화 실패",e);}
 
   setBar("sync-fill",100);
   setStatus("");
   btn.style.opacity="";btn.disabled=false;hideBar("sync-bar");
 }
 const WORKER_URL = "https://plave-worker.kgb2020sr-be5.workers.dev";
-
+/* ── Supabase에서 데이터 로드 ── */
 function safeParseArr(str){
   try{const v=JSON.parse(str||"[]");return Array.isArray(v)?v:[];}catch{return[];}
 }
@@ -1339,19 +1443,21 @@ function thumbFromUrl(url){
   return vid?`https://i.ytimg.com/vi/${vid[1]}/mqdefault.jpg`:"";
 }
 
-/* ── Supabase에서 데이터 로드 ── */
 async function loadFromSupabase(onStatus){
   const st=onStatus||((t)=>{});
   try{
-    st("라이브 불러오는 중");
+    st("데이터 불러오는 중");
     const res=await fetch(WORKER_URL+"?action=getArchive");
     if(!res.ok) throw new Error("Worker 응답 오류");
     const data=await res.json();
     if(!data.ok) throw new Error("데이터 오류");
 
-    // 라이브
+    // 커스텀 수기 방송 보존
+    const customBackup=L.filter(b=>b._custom);
+    L.length=0; R.length=0; P.length=0;
+    customBackup.forEach(b=>L.push(b));
+
     if(data.live&&data.live.length){
-      L.length=0;
       data.live.forEach(r=>{
         const members=r.members?r.members.split(/[,，]/).map(s=>s.trim()).filter(Boolean):["전원"];
         const d=r.live_date?r.live_date.slice(5).replace("-","."):"";
@@ -1362,10 +1468,7 @@ async function loadFromSupabase(onStatus){
       document.getElementById("stat-live").textContent=L.length;
     }
 
-    // 라디오
-    st("라디오 불러오는 중");
     if(data.radio&&data.radio.length){
-      R.length=0;
       data.radio.forEach(r=>{
         const djArr=r.dj?r.dj.split(/[,，]/).map(s=>s.trim()).filter(Boolean):[];
         const gArr=r.guests?r.guests.split(/[,，]/).map(s=>s.trim()).filter(Boolean):[];
@@ -1377,10 +1480,7 @@ async function loadFromSupabase(onStatus){
       document.getElementById("stat-radio").textContent=R.length;
     }
 
-    // 라쓰고
-    st("라쓰고 불러오는 중");
     if(data.lassgo&&data.lassgo.length){
-      P.length=0;
       data.lassgo.forEach(r=>{
         const d=r.live_date?r.live_date.slice(5).replace("-","."):"";
         const entry={sid:r.sid,y:r.year,d,ep:r.ep||0,t:r.title||"",url:r.youtube_url||"",thumb:r.thumbnail_url||""};
@@ -1403,7 +1503,8 @@ const R=[];
 /* helpers for built-in URL/thumb */
 /* ── SID 생성 (날짜 기반, 같은 날 N번째) ── */
 function makeSid(type, y, d, t){
-  const dateKey=`${y}${d.replace(".","")}`; // YYYYMMDD
+  const nd=normD(d||"");
+  const dateKey=`${y}${nd.replace(".","")}`; // YYYYMMDD
   if(type==="live"){
     // 같은 날 방송이 여러 개면 L[]에서 몇 번째인지 계산
     const sameDay=L.filter(b=>b.y===y&&b.d===d);
@@ -1430,8 +1531,9 @@ function getLiveIdx(sid){
   const m2=sid.match(/^live_(\d{4})(\d{2})(\d{2})_(\d+)$/);
   if(m2){
     const [,y,mo,dd,n]=[...m2];
-    const d=`${mo}.${dd}`;
-    const sameDay=L.filter(b=>b.y===+y&&b.d===d);
+    const dPad=`${mo}.${dd}`;           // "03.26"
+    const dNoPad=`${+mo}.${+dd}`;       // "3.26"
+    const sameDay=L.filter(b=>b.y===+y&&(b.d===dPad||b.d===dNoPad));
     const entry=sameDay[+n];
     return entry?L.indexOf(entry):-1;
   }
@@ -1453,8 +1555,6 @@ function getThumbUrl(sid){
 }
 function getVideoUrl(sid){const d=getData(sid);return d.videoUrl||getDefaultUrl(sid);}
 
-document.getElementById("stat-live").textContent=L.length;
-document.getElementById("stat-radio").textContent=R.length;
 
 function updateAlPreview(){
   const dateVal=document.getElementById("al-date").value;
@@ -1476,7 +1576,7 @@ function updateAlPreview(){
         if(era&&num>=era.from&&num<=era.to){tags.push(`🎵 ${eraNames[i]}`);break;}
       }
       // special
-      if(isSpecialBday(d)) tags.push("🎂 생일");
+      if(isSpecialBday(d,t)) tags.push("🎂 생일");
     }
   }
   if(titleVal&&!tags.includes("🎂 생일")&&MILESTONE_RE.test(titleVal)) tags.push("✦ N일뱅");
@@ -1529,7 +1629,7 @@ function submitAddLive(){
   // members
   const selMems=[...document.querySelectorAll("#al-members .btn.active")].map(b=>b.dataset.m);
   const m=selMems.length?selMems:["전원"];
-  const entry={y,d,t:title,m,url:url||""};
+  const entry={y,d,t:title,m,url:url||"",_custom:true};
   // extract thumb from URL if youtube
   if(url){
     const vid=url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|live\/|embed\/))([a-zA-Z0-9_-]{11})/);
@@ -1550,7 +1650,6 @@ function submitAddLive(){
     const raw=JSON.parse(localStorage.getItem("plave_v2_"+sid)||"{}");
     if(!raw.videoUrl){raw.videoUrl=url;localStorage.setItem("plave_v2_"+sid,JSON.stringify(raw));}
   }
-  document.getElementById("stat-live").textContent=L.length;
   render();
   // switch to live tab
   document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
@@ -1569,10 +1668,9 @@ function submitAddLive(){
     customs.forEach(e=>{
       // avoid duplicates (same y+d+t)
       if(!L.some(l=>l.y===e.y&&l.d===e.d&&l.t===e.t)){
-        L.push(e);
+        L.push({...e,_custom:true});
       }
     });
-    if(customs.length) document.getElementById("stat-live").textContent=L.length;
   }catch{}
 })();
 /* ── sticky offset calc ── */
@@ -1588,15 +1686,22 @@ function toggleFilters(forceClose){
   const arrow=document.getElementById("filter-toggle-arrow");
   if(!el||!arrow) return;
   if(forceClose===true||(forceClose===undefined&&filtersOpen)){
-    el.classList.add("collapsed");
+    el.classList.add("collapsing");
+    requestAnimationFrame(()=>{
+      el.classList.add("collapsed");
+      setTimeout(()=>el.classList.remove("collapsing"),180);
+    });
     arrow.textContent="▼";
     filtersOpen=false;
   } else {
+    el.classList.add("expanding");
     el.classList.remove("collapsed");
+    el.classList.remove("collapsing");
+    setTimeout(()=>{el.classList.remove("expanding");updateEraRowSeps();},180);
     arrow.textContent="▲";
     filtersOpen=true;
   }
-  setTimeout(updateStickyOffsets,300);
+  setTimeout(updateStickyOffsets,220);
 }
 document.addEventListener("DOMContentLoaded",()=>{
   // 초기 펼친 상태
@@ -1607,29 +1712,54 @@ let lastScrollY=0;
 let scrollTimer=null;
 window.addEventListener("scroll",()=>{
   const sy=window.scrollY;
-  if(scrollTimer) clearTimeout(scrollTimer);
-  scrollTimer=setTimeout(()=>{
-    if(sy>lastScrollY&&sy>10&&filtersOpen) toggleFilters(true);
-    if(sy<=0&&!filtersOpen) toggleFilters(false);
-    lastScrollY=sy;
-  },80);
+  if(sy>lastScrollY&&sy>10&&filtersOpen) toggleFilters(true);
+  if(sy<=0&&!filtersOpen) toggleFilters(false);
+  // 발매곡 탭 스크롤 토글
+  if(curTab==="songs"){
+    if(sy>lastScrollY&&sy>10&&songFiltersOpen) toggleSongFilters();
+    if(sy<=0&&!songFiltersOpen) toggleSongFilters();
+  }
+  lastScrollY=sy;
 },{passive:true});
 
 function updateStickyOffsets(){
-  const syncH=document.querySelector("#sync-fixed-wrap, [id^='sync']")?.offsetHeight||44;
-  const fixedBar=document.querySelector("div[style*='position:fixed']");
-  const fixedH=fixedBar?fixedBar.offsetHeight:44;
+  const fixedBar=document.getElementById("sync-fixed-bar");
+  const fixedH=fixedBar?fixedBar.getBoundingClientRect().height:44;
   const header=document.querySelector("header");
   const tabBar=document.querySelector(".tab-bar");
   const ctrl=document.querySelector(".controls");
   if(header){header.style.top=fixedH+"px";}
-  const headerH=header?header.offsetHeight:0;
+  const headerH=header?header.getBoundingClientRect().height:0;
   if(tabBar){tabBar.style.top=(fixedH+headerH)+"px";}
-  const tabH=tabBar?tabBar.offsetHeight:0;
+  const tabH=tabBar?tabBar.getBoundingClientRect().height:0;
   if(ctrl){ctrl.style.top=(fixedH+headerH+tabH)+"px";}
+  const sf=document.getElementById("songs-filter");
+  if(sf&&sf.style.position==="sticky"){sf.style.top=(fixedH+headerH+tabH)+"px";}
 }
 window.addEventListener("load",updateStickyOffsets);
-window.addEventListener("resize",updateStickyOffsets);
+window.addEventListener("resize",()=>{updateStickyOffsets();updateEraRowSeps();});
+
+function updateEraRowSeps(){
+  const wrap=document.getElementById("era-filters");
+  if(!wrap)return;
+  // 기존 구분선 제거
+  wrap.querySelectorAll(".era-row-sep").forEach(el=>el.remove());
+  // wrap 상태가 아니면(한 줄) 종료
+  const style=getComputedStyle(wrap);
+  if(style.flexWrap==="nowrap")return;
+  // 버튼들의 offsetTop 비교해서 줄 바뀌는 지점에 구분선 삽입
+  const btns=[...wrap.querySelectorAll(".btn")];
+  let lastTop=null;
+  btns.forEach(btn=>{
+    const top=btn.offsetTop;
+    if(lastTop!==null&&top>lastTop){
+      const sep=document.createElement("div");
+      sep.className="era-row-sep";
+      wrap.insertBefore(sep,btn);
+    }
+    lastTop=top;
+  });
+}
 
 function switchTab(t,btn){
   curTab=t;
@@ -1638,18 +1768,22 @@ function switchTab(t,btn){
   document.querySelectorAll(".section-view").forEach(v=>v.classList.remove("active"));
   const viewId=(t==="broadcast")?"view-broadcast":"view-songs";
   document.getElementById(viewId).classList.add("active");
-  const mf=document.getElementById("main-filters-wrap");
-  if(mf) mf.style.display=(t==="songs")?"none":"";
-  if(t==="songs"){renderSongs();return;}
+  const ctrl=document.querySelector(".controls");
+  const sf=document.getElementById("songs-filter");
+  if(t==="songs"){
+    if(ctrl) ctrl.style.display="none";
+    if(sf){sf.style.display="flex";sf.style.position="sticky";setTimeout(updateStickyOffsets,50);}
+    renderSongs();return;
+  } else {
+    if(ctrl) ctrl.style.display="";
+    if(sf){sf.style.display="none";sf.style.position="";}
+  }
   render();
 }
 function resetYear(){
-  curYear="all"; curSpecial="all";
-  document.querySelectorAll("#year-filters .btn").forEach(b=>b.classList.remove("active"));
-  document.querySelectorAll(".btn-special").forEach(b=>{
-    b.classList.remove("active");
-    
-  });
+  curYearSet=new Set(); curSpecial="all";
+  document.querySelectorAll("#year-filters .btn:not(.btn-special)").forEach(b=>b.classList.remove("active"));
+  document.querySelectorAll(".btn-special").forEach(b=>b.classList.remove("active"));
   render();
 }
 function resetMember(){
@@ -1666,32 +1800,25 @@ function setSpecial(btn){
   if(btn.classList.contains("active")){
     btn.classList.remove("active");
     curSpecial="all";
-    render();
   } else {
     document.querySelectorAll(".btn-special").forEach(b=>b.classList.remove("active"));
     curSpecial=btn.dataset.special;
-    document.querySelectorAll("#year-filters .btn").forEach(b=>b.classList.remove("active"));
-    curYear="all";
+    btn.classList.add("active");
+    // 시즌은 해제, 연도는 유지(중복 가능)
     document.querySelectorAll("#era-filters .btn").forEach(b=>b.classList.remove("active"));
     curEra="all";
-    render();
-    // render() 후 active 재적용
-    btn.classList.add("active");
   }
+  render();
 }
 function setYear(btn){
+  const y=btn.dataset.year;
   if(btn.classList.contains("active")){
-    btn.classList.remove("active"); curYear="all";
+    btn.classList.remove("active");
+    curYearSet.delete(y);
   } else {
-    document.querySelectorAll("#year-filters .btn").forEach(b=>b.classList.remove("active"));
-    btn.classList.add("active"); curYear=btn.dataset.year;
-    // clear special(생일)
-    document.querySelectorAll(".btn-special").forEach(b=>{
-      b.classList.remove("active");
-      
-    });
-    curSpecial="all";
-    // clear season
+    btn.classList.add("active");
+    curYearSet.add(y);
+    // 시즌 해제, 생일 유지
     document.querySelectorAll("#era-filters .btn").forEach(b=>b.classList.remove("active"));
     curEra="all";
   }
@@ -1703,15 +1830,10 @@ function setEra(btn){
   } else {
     document.querySelectorAll("#era-filters .btn").forEach(b=>b.classList.remove("active"));
     btn.classList.add("active"); curEra=btn.dataset.era;
-    // clear year
-    document.querySelectorAll("#year-filters .btn").forEach(b=>b.classList.remove("active"));
-    curYear="all";
-    // clear special(생일)
-    document.querySelectorAll(".btn-special").forEach(b=>{
-      b.classList.remove("active");
-      
-    });
-    curSpecial="all";
+    // 연도/생일 초기화
+    document.querySelectorAll("#year-filters .btn:not(.btn-special)").forEach(b=>b.classList.remove("active"));
+    document.querySelectorAll(".btn-special").forEach(b=>b.classList.remove("active"));
+    curYearSet=new Set(); curSpecial="all";
   }
   render();
 }
@@ -1785,9 +1907,9 @@ function matchTitleOrTags(t, sid){
   return allTags.some(tag=>tag.toLowerCase().includes(q2));
 }
 function matchYear(y){
-  if(curYear==="all")return true;
-  if(curTagMode==="exact") return y===+curYear;
-  return y===+curYear; // year is always exact by nature —포함/일치 same effect here
+  if(curEra!=="all") return true; // 시즌 선택 시 연도 필터 무시
+  if(curYearSet.size===0) return true;
+  return curYearSet.has(String(y));
 }
 function renderLive(){
   const f=L.filter((b)=>{
@@ -1839,17 +1961,17 @@ function renderLive(){
           :`<div class="card-thumb-empty">📺</div>`;
         const isDebut=SEASON_DATES.has(toNum(b.y,b.d));
         const eraLabel=isDebut?SEASON_LABEL[toNum(b.y,b.d)]:"";
-        const isBday=isSpecialBday(b.d);
+        const isBday=isSpecialBday(b.d,b.t);
         const isMilestone=isSpecialMilestone(b.d,b.t);
         const specialCls=isBday?"special-bday":isMilestone?"special-milestone":"";
-        return`<div class="card ${cc(b.m)}${isDebut?' season-debut':''}${specialCls?' '+specialCls:''}" onclick="openEdit('${sid}','${escH(b.t)}','${yy}.${b.d}','live')">
+        return`<div class="card ${cc(b.m)}${isDebut?' season-debut':''}${specialCls?' '+specialCls:''}" data-sid="${escH(sid)}" data-title="${escH(b.t)}" data-date="${yy}.${normD(b.d)}" data-type="live" onclick="if(!event.target.closest('a,button'))handleCardClick(this)">
           ${isDebut?`<div style="font-size:10px;font-weight:700;color:#e8c97a;letter-spacing:.08em;margin-bottom:5px;">✦ ${escH(eraLabel)}</div>`:''}
           ${isBday&&!isDebut?`<div style="font-size:10px;font-weight:700;color:#2dd4bf;letter-spacing:.08em;margin-bottom:5px;">🎂 생일</div>`:''}
           ${isMilestone&&!isDebut&&!isBday?`<div style="font-size:10px;font-weight:700;color:#2dd4bf;letter-spacing:.08em;margin-bottom:5px;">✦ 기념</div>`:''}
           <div class="card-with-thumb">
             ${thumbHtml}
             <div class="card-body-wrap">
-              <div class="card-top"><span class="card-date">${yy}.${b.d}</span><div class="card-badges">${badges}</div></div>
+              <div class="card-top"><span class="card-date">${yy}.${normD(b.d)}</span><div class="card-badges">${badges}</div></div>
               <div class="card-title">${b.t}</div>
             </div>
           </div>
@@ -1952,12 +2074,12 @@ function renderRadio(){
         const rThumbHtml=rthumb
           ?`<a class="card-thumb-link" href="${escH(vurl||'#')}" target="_blank" onclick="event.stopPropagation()"><img src="${escH(rthumb)}" onerror="window.thumbErr&&window.thumbErr(this)" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></a>`
           :`<div class="card-thumb-empty">📻</div>`;
-        return`<div class="card ${cc(r.dj)}" onclick="openEdit('${sid}','${escH(cardTitle)}','${yy}.${r.d}','radio')">
+        return`<div class="card ${cc(r.dj)}" data-sid="${escH(sid)}" data-title="${escH(cardTitle)}" data-date="${yy}.${r.d}" data-type="radio" onclick="if(!event.target.closest('a,button'))handleCardClick(this)">
           <div class="card-with-thumb">
             ${rThumbHtml}
             <div class="card-body-wrap">
               <div class="card-top">
-                <span class="card-date">${yy}.${r.d}</span>
+                <span class="card-date">${yy}.${normD(r.d)}</span>
                 <div class="card-badges"><span class="badge badge-type-radio">📻 라디오</span>${vurl?'<span class="badge" style="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);color:var(--muted);">🔗</span>':''}</div>
               </div>
               <div class="card-ep">Ep.${ep}</div>
@@ -1974,8 +2096,13 @@ function renderRadio(){
 }
 
 function resetBcast(){
-  curBcastSet=new Set(["live","radio","lassgo"]);
-  document.querySelectorAll(".btn-bcast").forEach(b=>b.classList.add("active"));
+  if(curBcastAllActive){
+    curBcastSet=new Set(["live"]);curBcastAllActive=false;
+    document.querySelectorAll(".btn-bcast").forEach(b=>b.classList.toggle("active",b.dataset.bcast==="live"));
+  } else {
+    curBcastSet=new Set(["live","radio","lassgo"]);curBcastAllActive=true;
+    document.querySelectorAll(".btn-bcast").forEach(b=>b.classList.add("active"));
+  }
   render();
 }
 function resetTGFilter(){
@@ -1987,10 +2114,17 @@ function resetTGFilter(){
 /* ── 방송 타입 복수선택 ── */
 function setBcast(btn){
   const t=btn.dataset.bcast;
-  if(curBcastSet.has(t)&&curBcastSet.size>1){
-    curBcastSet.delete(t);btn.classList.remove("active");
+  if(curBcastSet.has(t)){
+    if(curBcastSet.size===1){
+      curBcastSet=new Set(["live"]);curBcastAllActive=false;
+      document.querySelectorAll(".btn-bcast").forEach(b=>b.classList.toggle("active",b.dataset.bcast==="live"));
+    } else {
+      curBcastSet.delete(t);btn.classList.remove("active");
+      curBcastAllActive=curBcastSet.size===3;
+    }
   } else {
     curBcastSet.add(t);btn.classList.add("active");
+    curBcastAllActive=curBcastSet.size===3;
   }
   render();
 }
@@ -2030,23 +2164,23 @@ function renderUnifiedCard(item,yy){
   if(type==="live"){
     badge=`<span class="badge badge-type-live">📺 라이브</span>`;
     title=item.t||"";
-    memberPills=(item.m||[]).map(m=>`<span class="pill ${pc(m)}">${m}</span>`).join("");
+    memberPills=(item.m||[]).map(m=>`<span class="member-pill ${pc(m)}">${ME[m]||""} ${m}</span>`).join("");
   } else if(type==="radio"){
     badge=`<span class="badge badge-type-radio">📻 라디오</span>`;
     title=`DJ ${(item.dj||[]).join("·")}${(item.g||[]).length?` · 게스트 ${item.g.join("·")}`:""}`;
-    memberPills=[...(item.dj||[]),...(item.g||[])].map(m=>`<span class="pill ${pc(m)}">${m}</span>`).join("");
+    memberPills=[...(item.dj||[]),...(item.g||[])].map(m=>`<span class="member-pill ${pc(m)}">${ME[m]||""} ${m}</span>`).join("");
   } else {
     badge=`<span class="badge badge-type-lassgo">🚀 라쓰고</span>`;
     title=item.t||"";
     memberPills="";
   }
   const colorClass=type==="live"?cc(item.m||[]):type==="radio"?cc(item.dj||[]):"c-all";
-  return`<div class="card ${colorClass}" onclick="openEdit('${sid}','${escH(title)}','${yy}.${item.d}','${type}')">
+  return`<div class="card ${colorClass}" data-sid="${escH(sid)}" data-title="${escH(title)}" data-date="${yy}.${item.d}" data-type="${type}" onclick="if(!event.target.closest('a,button'))handleCardClick(this)">
     <div class="card-with-thumb">
       ${thumbHtml}
       <div class="card-body-wrap">
         <div class="card-top">
-          <span class="card-date">${yy}.${item.d}</span>
+          <span class="card-date">${yy}.${normD(item.d)}</span>
           <div class="card-badges">${badge}${vurl?'<span class="badge" style="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);color:var(--muted);">🔗</span>':''}</div>
         </div>
         <div class="card-title">${escH(title)}</div>
@@ -2074,19 +2208,19 @@ function renderUnified(){
     if(!matchTitleOrTags(b.t,getSid("live",b)))return false;
     if(curTagQ&&!matchTag(getSid("live",b)))return false;
     return true;
-  }).forEach(b=>items.push({...b,_type:"live"}));
+  }).forEach(b=>items.push({...b,_type:"live",sid:makeSid("live",b.y,b.d,b.t)}));
   if(curBcastSet.has("radio")) R.filter(r=>{
     if(!matchYear(r.y))return false;
     const members=[...(r.dj||[]),...(r.g||[])];
     if(curMemSet.size>0&&!curMemSet.has("all")&&!members.some(m=>curMemSet.has(m)))return false;
     return true;
-  }).forEach(r=>items.push({...r,_type:"radio"}));
+  }).forEach(r=>items.push({...r,_type:"radio",sid:makeSid("radio",r.y,r.d,r.dj.join(""))}));
   if(curBcastSet.has("lassgo")) P.filter(p=>{
     if(!matchYear(p.y))return false;
     if(!matchTitleOrTags(p.t,getSid("lassgo",p)))return false;
     if(curTagQ&&!matchTag(getSid("lassgo",p)))return false;
     return true;
-  }).forEach(p=>items.push({...p,_type:"lassgo"}));
+  }).forEach(p=>items.push({...p,_type:"lassgo",sid:makeSid("lassgo",p.y,p.d,p.t)}));
 
   items.sort((a,b)=>{
     const da=`${a.y}${(a.d||"").replace(".","").padStart(4,"0")}`;
@@ -2137,7 +2271,6 @@ function renderUnified(){
 
 /* ── LASSGO DATA ── */
 const P=[];
-document.getElementById("stat-lassgo").textContent=P.length;
 
 function renderLassgo(){
   const f=P.filter(p=>{
@@ -2168,12 +2301,12 @@ function renderLassgo(){
         const pThumbHtml=pthumb
           ?`<a class="card-thumb-link" href="${escH(pvurl||'#')}" target="_blank" onclick="event.stopPropagation()"><img src="${escH(pthumb)}" onerror="window.thumbErr&&window.thumbErr(this)" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></a>`
           :`<div class="card-thumb-empty">🚀</div>`;
-        return`<div class="card c-all" onclick="openEdit('${sid}','${escH(p.t)}','${p.y}.${p.d}','lassgo')">
+        return`<div class="card c-all" data-sid="${escH(sid)}" data-title="${escH(p.t)}" data-date="${p.y}.${p.d}" data-type="lassgo" onclick="if(!event.target.closest('a,button'))handleCardClick(this)">
           <div class="card-with-thumb">
             ${pThumbHtml}
             <div class="card-body-wrap">
               <div class="card-top">
-                <span class="card-date">${p.y}.${p.d}</span>
+                <span class="card-date">${p.y}.${normD(p.d)}</span>
                 <div class="card-badges"><span class="badge badge-type-lassgo">🚀 라쓰고</span>${pvurl?'<span class="badge" style="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);color:var(--muted);">🔗</span>':''}</div>
               </div>
               <div class="card-ep" style="color:rgba(255,183,77,.8);">Ep.${p.ep}</div>
@@ -2191,7 +2324,29 @@ function renderLassgo(){
    🎵 발매곡
 ══════════════════════════════════════════════ */
 let SONGS=[];
-let curSongAlbum="all", curSongYear="all", curSongType="all";
+let curSongAlbum="all", curSongYear="all", curSongType="all", curSongQ="", curSongSort="asc", curSongTagMode="include", curSongTitleOnly=false;
+
+function toggleSongSearchMode(){
+  curSongTitleOnly=!curSongTitleOnly;
+  const btn=document.getElementById("song-search-mode-btn");
+  if(curSongTitleOnly){btn.textContent="제목";btn.style.borderColor="rgba(255,255,255,.8)";btn.style.color="#fff";}
+  else{btn.textContent="검색";btn.style.borderColor="rgba(255,255,255,.12)";btn.style.color="rgba(255,255,255,.3)";}
+  renderSongs();
+}
+function setSongTagMode(m){
+  curSongTagMode=m;
+  document.getElementById("song-tag-mode-include").classList.toggle("active",m==="include");
+  document.getElementById("song-tag-mode-exact").classList.toggle("active",m==="exact");
+  renderSongs();
+}
+function setSongSort(s){
+  curSongSort=s;
+  const desc=document.getElementById("song-sort-desc");
+  const asc=document.getElementById("song-sort-asc");
+  if(s==="desc"){desc.style.background="rgba(168,85,247,.12)";desc.style.color="#a855f7";asc.style.background="transparent";asc.style.color="var(--muted)";}
+  else{asc.style.background="rgba(168,85,247,.12)";asc.style.color="#a855f7";desc.style.background="transparent";desc.style.color="var(--muted)";}
+  renderSongs();
+}
 
 // 시즌별 스타일
 const SONG_ERA_STYLE={
@@ -2212,7 +2367,7 @@ const SONG_ERA_STYLE={
 
 // 앨범명 → 시즌 매핑 (앨범명에 키워드 포함 시)
 const SONG_ERA_MAP=[
-  ["기다릴게","기다릴게"],["삼왜","삼왜"],["왜요","삼왜"],
+  ["기다릴게","기다릴게"],["ASTERUM","기다릴게"],["삼왜","삼왜"],["왜요","삼왜"],
   ["여름","여여름"],["ELENOI","여여름"],["Shape","여여름"],
   ["Merry","메리플리"],["PLLIstmas","메리플리"],
   ["134-1","웨사럽"],["WAY 4","웨사럽"],
@@ -2246,6 +2401,30 @@ function getSongBadgeLabel(type){
   return type;
 }
 
+// 시트 컬럼: 발매일(A) 앨범구분(B) 앨범명(C) 트랙#(D) 곡명(E) 곡구분(F) [숨김...] 링크(마지막 http 컬럼)
+function csvToSongs(rows){
+  let lastDate="", lastAlbumType="", lastAlbum="";
+  return rows.map(r=>{
+    // URL은 고정 인덱스 대신 http로 시작하는 컬럼 스캔
+    const url=(r.find(v=>(v||"").trim().startsWith("http"))||"").trim();
+    const date=(r[0]||"").trim()||lastDate;
+    // albumType: r[1]이 URL이면 lastAlbumType 사용
+    const rawB=(r[1]||"").trim();
+    const albumType=(rawB&&!rawB.startsWith("http"))?rawB:lastAlbumType;
+    const album=(r[2]||"").trim()||lastAlbum;
+    const track=(r[3]||"").trim();
+    const title=(r[4]||"").trim();
+    // 곡구분: 타이틀/수록곡/OST/inst 중 하나인 컬럼 스캔
+    const typeKeywords=["타이틀","수록곡","ost","inst","참여"];
+    const type=r.slice(5).map(v=>(v||"").trim()).find(v=>v&&!v.startsWith("http")&&typeKeywords.some(k=>v.toLowerCase().includes(k)))||"";
+    if(!title) return null;
+    if((r[0]||"").trim()) lastDate=(r[0]||"").trim();
+    if(rawB&&!rawB.startsWith("http")) lastAlbumType=rawB;
+    if((r[2]||"").trim()) lastAlbum=(r[2]||"").trim();
+    return {date,albumType,album,track,title,type,url};
+  }).filter(Boolean);
+}
+
 async function loadSongsFromSheet(){
   try{
     const res=await fetch(WORKER_URL+"?action=getSongs");
@@ -2261,7 +2440,6 @@ async function loadSongsFromSheet(){
       type:r.song_type||"",
       url:r.youtube_url||""
     }));
-    document.getElementById("stat-songs").textContent=SONGS.length;
     if(curTab==="songs") renderSongs();
   }catch(e){console.warn("발매곡 로드 실패",e);}
 }
@@ -2272,14 +2450,31 @@ function renderSongs(){
     if(curSongYear!=="all"&&!s.date.startsWith(curSongYear)) return false;
     if(curSongAlbum!=="all"){
       const era=getSongEra(s.album,s.title);
-      if(era!==curSongAlbum) return false;
+      if(curSongAlbum==="뿌우통합"){
+        if(era!=="뿌우"&&era!=="뿌우크리") return false;
+      } else {
+        if(era!==curSongAlbum) return false;
+      }
     }
     if(curSongType!=="all"){
       const t=(s.type||"").toLowerCase();
       if(curSongType==="타이틀"&&t!=="타이틀") return false;
-      if(curSongType==="수록곡"&&t!=="수록곡") return false;
+      if(curSongType==="수록곡"&&t!=="수록곡"&&t!=="") return false;
       if(curSongType==="ost"&&!t.includes("ost")&&!t.includes("참여")) return false;
       if(curSongType==="inst"&&!s.title.toLowerCase().includes("inst")) return false;
+    }
+    if(curSongQ){
+      const q=curSongQ.toLowerCase();
+      if(curSongTitleOnly){
+        if(!s.title.toLowerCase().includes(q)) return false;
+      } else {
+        const haystack=(s.title+" "+s.album+" "+(s.albumType||"")+" "+(s.type||"")).toLowerCase();
+        if(curSongTagMode==="exact"){
+          if(!haystack.split(" ").some(w=>w===q)) return false;
+        } else {
+          if(!haystack.includes(q)) return false;
+        }
+      }
     }
     return true;
   });
@@ -2293,7 +2488,13 @@ function renderSongs(){
     byAlbum[k].songs.push(s);
   });
 
-  el.innerHTML=Object.keys(byAlbum).map(album=>{
+  const sortedAlbums=Object.keys(byAlbum).sort((a,b)=>{
+    const da=byAlbum[a].date||"";
+    const db=byAlbum[b].date||"";
+    return curSongSort==="desc"?db.localeCompare(da):da.localeCompare(db);
+  });
+
+  el.innerHTML=sortedAlbums.map(album=>{
     const {songs,date,albumType}=byAlbum[album];
     const era=getSongEra(album,songs[0]?.title||"");
     const st=era?SONG_ERA_STYLE[era]:{bg:"rgba(255,255,255,.05)",border:"#444",text:"#aaa"};
@@ -2301,15 +2502,14 @@ function renderSongs(){
       const sid=`song_${s.date}_${(s.title||"").replace(/[^가-힣a-zA-Z0-9]/g,"").slice(0,15)}`;
       const bc=getSongBadgeClass(s.type);
       const bl=getSongBadgeLabel(s.type);
-      const ytId=s.url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/))([a-zA-Z0-9_-]{11})/);
-      const thumb=ytId?`https://i.ytimg.com/vi/${ytId[1]}/mqdefault.jpg`:"";
+      const thumb=ytThumb(s.url);
       const bgStyle=thumb?`background-image:url('${thumb}')`:(`background:${st.bg}`);
-      return`<div class="song-card" onclick="openSongModal(${JSON.stringify(s).replace(/"/g,'&quot;')})">
+      return`<div class="song-card" onclick="openSongModal(${JSON.stringify(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;')})">
         <div class="song-thumb-wrap">
           <div class="song-thumb-blur" style="${bgStyle};"></div>
           ${thumb?`<div class="song-thumb-img"><img src="${escH(thumb)}" onerror="this.style.display='none'" alt=""></div>`:'<div class="song-thumb-ph">🎵</div>'}
           <div class="song-top-badges">
-            ${albumType?`<span class="song-badge" style="background:${st.bg};color:${st.text};border:1px solid ${st.border};">${escH(albumType)}</span>`:""}
+            ${albumType&&!albumType.startsWith("http")?`<span class="song-badge" style="background:${st.bg};color:${st.text};border:1px solid ${st.border};">${escH(albumType)}</span>`:""}
             <span class="song-badge ${bc}">${bl}</span>
           </div>
           ${s.url?'<div class="song-link-icon">🔗</div>':""}
@@ -2328,6 +2528,40 @@ function renderSongs(){
       <div class="songs-grid">${cardsHtml}</div>
     </div>`;
   }).join("");
+}
+
+let songFiltersOpen=true;
+function toggleSongFilters(){
+  const el=document.getElementById("songs-filters-collapsible");
+  const arrow=document.getElementById("song-filter-arrow");
+  if(!el||!arrow) return;
+  if(songFiltersOpen){
+    el.style.maxHeight="0"; el.style.opacity="0";
+    arrow.textContent="▼"; songFiltersOpen=false;
+  } else {
+    el.style.maxHeight="300px"; el.style.opacity="1";
+    arrow.textContent="▲"; songFiltersOpen=true;
+  }
+}
+
+// 발매곡 필터 라벨 리셋 함수
+function resetSongAlbum(){
+  curSongAlbum="all";
+  document.querySelectorAll(".btn-song-album").forEach(b=>b.classList.remove("active"));
+  document.querySelector(".btn-song-album[data-album='all']")?.classList.add("active");
+  renderSongs();
+}
+function resetSongYear(){
+  curSongYear="all";
+  document.querySelectorAll(".btn-song-year").forEach(b=>b.classList.remove("active"));
+  document.querySelector(".btn-song-year[data-year='all']")?.classList.add("active");
+  renderSongs();
+}
+function resetSongType(){
+  curSongType="all";
+  document.querySelectorAll(".btn-song-type").forEach(b=>b.classList.remove("active"));
+  document.querySelector(".btn-song-type[data-type='all']")?.classList.add("active");
+  renderSongs();
 }
 
 // 발매곡 필터 버튼
@@ -2365,8 +2599,7 @@ function openSongModal(s){
   const bl=getSongBadgeLabel(s.type);
   const era=getSongEra(s.album,s.title);
   const st=era?SONG_ERA_STYLE[era]:{bg:"rgba(255,255,255,.05)",border:"#444",text:"#aaa"};
-  const ytId=s.url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/))([a-zA-Z0-9_-]{11})/);
-  const thumb=ytId?`https://i.ytimg.com/vi/${ytId[1]}/mqdefault.jpg`:"";
+  const thumb=ytThumb(s.url);
   const bgStyle=thumb?`background-image:url('${encodeURI(thumb)}')`:(`background:${st.bg}`);
 
   const tagsData=JSON.parse(localStorage.getItem("plave_v2_"+sid)||"{}");
@@ -2375,12 +2608,13 @@ function openSongModal(s){
   const overlay=document.createElement("div");
   overlay.className="song-modal-overlay";
   overlay.id="song-modal-overlay";
+  overlay.style.display="flex";
   overlay.onclick=e=>{if(e.target===overlay) closeSongModal();};
   overlay.innerHTML=`
   <div class="song-modal-box">
     <a class="song-modal-left" ${s.url?`href="${escH(s.url)}" target="_blank"`:""}  style="text-decoration:none;">
       <div class="song-thumb-blur" style="${bgStyle};"></div>
-      ${thumb?`<div class="song-thumb-img"><img src="${escH(thumb)}" onerror="this.style.display='none'" alt="" style="max-width:100%;max-height:100%;object-fit:contain;"></div>`:'<div class="song-thumb-ph" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:40px;">🎵</div>'}
+      ${thumb?`<div class="song-thumb-img"><img src="${escH(thumb)}" onerror="this.style.display='none'" alt="" style="width:100%;height:100%;object-fit:cover;"></div>`:'<div class="song-thumb-ph" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:40px;">🎵</div>'}
       ${s.url?'<div class="song-modal-hover">▶ 바로가기</div>':""}
     </a>
     <div class="song-modal-right">
@@ -2448,6 +2682,32 @@ render();
 loadSongsFromSheet();
 loadFromSupabase();
 setTimeout(updateStickyOffsets,200);
+setTimeout(updateEraRowSeps,300);
+
+// 시즌 필터 드래그 스크롤
+(function(){
+  const el=document.getElementById("era-filters");
+  if(!el) return;
+  let isDown=false,startX=0,scrollLeft=0;
+  el.addEventListener("mousedown",e=>{
+    if(e.target.tagName==="BUTTON") return;
+    isDown=true; el.classList.add("dragging");
+    startX=e.pageX-el.offsetLeft; scrollLeft=el.scrollLeft;
+  });
+  document.addEventListener("mouseup",()=>{isDown=false;el.classList.remove("dragging");});
+  el.addEventListener("mousemove",e=>{
+    if(!isDown) return;
+    e.preventDefault();
+    const x=e.pageX-el.offsetLeft;
+    el.scrollLeft=scrollLeft-(x-startX);
+  });
+  // 터치 지원
+  el.addEventListener("touchstart",e=>{startX=e.touches[0].pageX-el.offsetLeft;scrollLeft=el.scrollLeft;},{passive:true});
+  el.addEventListener("touchmove",e=>{
+    const x=e.touches[0].pageX-el.offsetLeft;
+    el.scrollLeft=scrollLeft-(x-startX);
+  },{passive:true});
+})();
 </script>
 </body>
 </html>
