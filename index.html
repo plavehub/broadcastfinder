@@ -162,7 +162,7 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 .card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;opacity:0;transition:opacity .2s;}
 .card:hover{border-color:rgba(255,255,255,.18);transform:translateY(-1px);box-shadow:0 6px 24px rgba(0,0,0,.35);}
 .card:hover::before{opacity:1;}
-.card:hover .card-edit-hint{opacity:1;}
+.card:hover .card-edit-hint{opacity:0;}
 .card.c-yejun::before{background:var(--yejun);}
 .card.c-noah::before{background:var(--noah);}
 .card.c-bambi::before{background:var(--bambi);}
@@ -170,7 +170,7 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 .card.c-hamin::before{background:var(--hamin);}
 .card.c-all::before{background:linear-gradient(90deg,var(--yejun),var(--noah),var(--bambi),var(--eunho),var(--hamin));}
 .card.c-mixed::before{background:linear-gradient(90deg,var(--yejun),var(--noah));}
-.card-top{display:flex;flex-direction:column;align-items:flex-end;gap:4px;margin-bottom:6px;min-width:0;flex-shrink:0;}
+.card-top{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;}
 .card-date{font-family:'Syne',sans-serif;font-size:10px;font-weight:600;letter-spacing:.08em;color:var(--muted);}
 .card-badges{display:flex;gap:3px;flex-wrap:wrap;justify-content:flex-end;align-items:center;}
 .badge{font-size:10px;border-radius:4px;padding:1px 6px;letter-spacing:.02em;}
@@ -180,7 +180,7 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 .badge-type-live{background:rgba(77,166,255,.07);color:#6a9fd8;border:1px solid rgba(77,166,255,.14);font-size:9px;}
 .badge-type-radio{background:rgba(82,204,122,.07);color:#4aaa66;border:1px solid rgba(82,204,122,.18);font-size:9px;}
 .badge-type-lassgo{background:rgba(255,183,77,.08);color:#ffb74d;border:1px solid rgba(255,183,77,.2);font-size:9px;}
-.card-title{font-size:12px;line-height:1.5;color:var(--text);margin-bottom:6px;
+.card-title{font-size:12px;line-height:1.5;color:var(--text);margin-bottom:8px;
   display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
 .card-ep{font-family:'Syne',sans-serif;font-size:11px;color:var(--muted);margin-bottom:7px;letter-spacing:.05em;}
 .card-row{display:flex;align-items:flex-start;gap:7px;margin-bottom:5px;}
@@ -223,7 +223,7 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
   background:rgba(77,166,255,.08);color:var(--yejun);border:1px solid rgba(77,166,255,.16);
   text-decoration:none;transition:background .15s;}
 .card-link:hover{background:rgba(77,166,255,.2);}
-.card-edit-hint{display:none;position:absolute;bottom:8px;right:10px;font-size:9px;color:var(--muted);
+.card-edit-hint{position:absolute;bottom:8px;right:10px;font-size:9px;color:var(--muted);
   opacity:0;transition:opacity .2s;pointer-events:none;letter-spacing:.05em;}
 
 /* sort toggle */
@@ -240,16 +240,18 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 
 /* thumbnail card layout */
 .card-with-thumb{display:flex;gap:12px;margin-bottom:8px;align-items:stretch;}
-.card-thumb-link{flex-shrink:0;width:120px;min-height:68px;border-radius:6px;overflow:hidden;
+.card-thumb-link{flex-shrink:0;width:120px;min-height:68px;height:auto;border-radius:6px;overflow:hidden;
   background:var(--bg3);display:block;position:relative;}
 .card-thumb-link img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity .2s;}
 .card-thumb-link:hover img{opacity:.85;}
 .card-thumb-empty{flex-shrink:0;width:120px;min-height:68px;border-radius:6px;
   background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;
   justify-content:center;font-size:20px;opacity:.3;}
+.card-body-wrap{flex:1;min-width:0;}
+.card-body-wrap .card-top{margin-bottom:0;}
 .card-body-wrap{display:flex;flex-direction:row;justify-content:space-between;align-items:flex-start;flex:1;min-width:0;gap:8px;}
-.card-body-wrap .card-top{margin-bottom:0;flex-shrink:0;}
-.card-body-wrap-left{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px;}
+.card-body-left{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px;}
+.card-body-wrap .card-title{margin-bottom:0;font-size:11px;-webkit-line-clamp:2;}
 .card-main-link{display:inline-flex;align-items:center;gap:5px;margin-top:6px;
   font-size:11px;color:var(--yejun);text-decoration:none;opacity:.85;transition:opacity .15s;}
 .card-main-link:hover{opacity:1;}
@@ -528,11 +530,8 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
           oninput="document.getElementById('search-clear').style.display=this.value?'flex':'none';"
           onkeydown="if(event.key==='Enter'){render();}">
         <button id="search-clear" onclick="document.getElementById('search').value='';curQ='';render();this.style.display='none';"
-          style="display:none;position:absolute;right:60px;background:none;border:none;cursor:pointer;
+          style="display:none;position:absolute;right:36px;background:none;border:none;cursor:pointer;
                  font-size:13px;padding:0 4px;line-height:1;color:var(--muted);align-items:center;justify-content:center;">✕</button>
-        <button id="bcast-tag-search-btn" onclick="toggleBcastTagSearch()"
-          style="position:absolute;right:34px;font-size:11px;font-weight:700;color:rgba(168,85,247,.45);font-family:'Noto Sans KR',sans-serif;border:1px solid rgba(168,85,247,.3);border-radius:4px;padding:1px 6px;background:none;cursor:pointer;transition:all .15s;line-height:1.4;"
-          title="태그만 검색">#</button>
         <button onclick="render()"
           style="position:absolute;right:8px;background:none;border:none;cursor:pointer;
                  font-size:16px;padding:0;line-height:1;color:var(--muted);">🔍</button>
@@ -650,21 +649,17 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 
 <div id="songs-filter" style="display:none;padding:10px 20px 6px;flex-direction:column;gap:6px;background:rgba(6,6,17,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:99;">
       <!-- 검색 행 -->
-      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+      <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
         <button id="song-search-mode-btn" onclick="toggleSongSearchMode()"
           style="background:transparent;border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:4px 11px;
                  font-family:'Noto Sans KR',sans-serif;font-size:11px;cursor:pointer;color:rgba(255,255,255,.3);
                  white-space:nowrap;transition:all .15s;flex-shrink:0;">검색</button>
-        <div style="width:1px;height:18px;background:rgba(255,255,255,.1);flex-shrink:0;"></div>
         <div class="search-row" style="flex:1;position:relative;display:flex;align-items:center;">
           <input class="search-input" id="song-search" type="text" placeholder="💿 발매곡 키워드 검색..."
             oninput="curSongQ=this.value;document.getElementById('song-search-clear').style.display=this.value?'flex':'none';renderSongs();"
             onkeydown="if(event.key==='Enter'){renderSongs();}if(event.key==='Escape'){this.value='';curSongQ='';document.getElementById('song-search-clear').style.display='none';renderSongs();}">
           <button id="song-search-clear" onclick="document.getElementById('song-search').value='';curSongQ='';renderSongs();this.style.display='none';"
-            style="display:none;position:absolute;right:60px;background:none;border:none;cursor:pointer;font-size:13px;padding:0 4px;color:var(--muted);align-items:center;justify-content:center;">✕</button>
-          <button id="song-tag-search-btn" onclick="toggleSongTagSearch()"
-            style="position:absolute;right:34px;font-size:11px;font-weight:700;color:rgba(168,85,247,.45);font-family:'Noto Sans KR',sans-serif;border:1px solid rgba(168,85,247,.3);border-radius:4px;padding:1px 6px;background:none;cursor:pointer;transition:all .15s;line-height:1.4;"
-            title="태그만 검색">#</button>
+            style="display:none;position:absolute;right:36px;background:none;border:none;cursor:pointer;font-size:13px;padding:0 4px;color:var(--muted);align-items:center;justify-content:center;">✕</button>
           <button onclick="renderSongs()"
             style="position:absolute;right:8px;background:none;border:none;cursor:pointer;font-size:16px;padding:0;line-height:1;color:var(--muted);">🔍</button>
         </div>
@@ -787,6 +782,7 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
               <span style="font-size:10px;color:var(--muted);">컨텐츠태그</span>
             </div>
             <div class="tags-display" id="m-tags-a" style="margin-bottom:0;min-height:24px;flex-wrap:wrap;flex:1;"></div>
+            
           </div>
 
           <!-- B -->
@@ -796,6 +792,7 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
               <span style="font-size:10px;color:var(--muted);">대사태그</span>
             </div>
             <div class="tags-display" id="m-tags-b" style="margin-bottom:0;min-height:24px;flex-wrap:wrap;flex:1;"></div>
+            
           </div>
 
           <!-- C -->
@@ -805,6 +802,7 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
               <span style="font-size:10px;color:var(--muted);">움찔태그</span>
             </div>
             <div class="tags-display" id="m-tags-c" style="margin-bottom:0;min-height:24px;flex-wrap:wrap;flex:1;"></div>
+            
           </div>
 
         </div>
@@ -841,7 +839,7 @@ const matchM=(arr)=>{
 };
 
 /* ── state ── */
-let curTab="broadcast",curYearSet=new Set(),curMemSet=new Set(),curQ="",curTagQ="",curTagMode="include",curEra="all",curSpecial="all",curTGFilter="all",curSort="desc",curBcastTagSearchMode=false;
+let curTab="broadcast",curYearSet=new Set(),curMemSet=new Set(),curQ="",curTagQ="",curTagMode="include",curEra="all",curSpecial="all",curTGFilter="all",curSort="desc";
 let curTGSet=new Set(["a","b","c"]); // 태그 복수선택
 let curSearchTitleOnly=false;
 let curBcastSet=new Set(["live"]); // 방송 타입 기본: 라이브만
@@ -850,7 +848,7 @@ let curBcastAllActive=false; // 방송 라벨 토글 상태
 // Birthday dates (MM.DD) and milestone title patterns
 const BDAY_DATES=new Set(["02.10","03.12","05.24","06.19","07.15","09.12","11.01"]);
 const MILESTONE_RE=/100일|1000일|100회|200회|300회|회 특집/;
-// 날짜 포맷: "11.10" → "11.1" (trailing zero 제거) 방지용 정규화
+// gviz CSV는 "11.10" → "11.1" (trailing zero 제거)로 내보냄
 // 일(day)이 1자리면 오른쪽에 0 붙여서 복원: "11.1" → "11.10"
 function normD(d){
   if(!d) return d;
@@ -1078,6 +1076,7 @@ function renderMainLink(){
 }
 
 
+/* ── 연동 로그 ── */
 function writeLog(){}
 
 function openModalLink(){
@@ -1399,7 +1398,7 @@ function savedExtras(id){
    3. 아래 URL에 복사·붙여넣기 (빈 문자열이면 내장 데이터 사용)
 ──────────────────────────────────────────────────────────────── */
 /* ── APPS SCRIPT 웹훅 ──────────────────────────────────────────
-   Supabase Worker URL
+   태그 백업용. Apps Script doPost에 saveTag 핸들러 추가 후 URL 입력
 ──────────────────────────────────────────────────────────────── */
 const WEBHOOK_URL = "";
 
@@ -1458,7 +1457,6 @@ async function loadFromSupabase(onStatus){
         if(!entry.thumb&&entry.url) entry.thumb=thumbFromUrl(entry.url);
         L.push(entry);
       });
-      const sl=document.getElementById("stat-live"); if(sl) sl.textContent=L.length;
     }
     if(data.radio&&data.radio.length){
       data.radio.forEach(r=>{
@@ -1469,7 +1467,6 @@ async function loadFromSupabase(onStatus){
         if(!entry.thumb&&entry.url) entry.thumb=thumbFromUrl(entry.url);
         R.push(entry);
       });
-      const sr=document.getElementById("stat-radio"); if(sr) sr.textContent=R.length;
     }
     if(data.lassgo&&data.lassgo.length){
       data.lassgo.forEach(r=>{
@@ -1478,13 +1475,11 @@ async function loadFromSupabase(onStatus){
         if(!entry.thumb&&entry.url) entry.thumb=thumbFromUrl(entry.url);
         P.push(entry);
       });
-      const sp=document.getElementById("stat-lassgo"); if(sp) sp.textContent=P.length;
     }
     render();
   }catch(e){console.warn("Supabase 로드 실패:",e);}
 }
 
-/* ── DATA ── */
 const L=[];
 
 const R=[];
@@ -1885,19 +1880,15 @@ document.getElementById("search").addEventListener("input",e=>{curQ=e.target.val
 function matchTitleOrTags(t, sid){
   if(!curQ)return true;
   const q2=curQ.toLowerCase();
-  const d=getData(sid);
-  const allTags=[...d.tagsA,...d.tagsB,...d.tagsC];
-  if(curBcastTagSearchMode){
-    // 태그만 검색
-    if(curTagMode==="exact") return allTags.some(tag=>tag.toLowerCase()===q2);
-    return allTags.some(tag=>tag.toLowerCase().includes(q2));
-  }
   const tl=t.toLowerCase();
   if(curTagMode==="exact"){
     if(tl===q2)return true;
   } else {
     if(tl.includes(q2))return true;
   }
+  // also search tags A/B/C
+  const d=getData(sid);
+  const allTags=[...d.tagsA,...d.tagsB,...d.tagsC];
   return allTags.some(tag=>tag.toLowerCase().includes(q2));
 }
 function matchYear(y){
@@ -1965,14 +1956,11 @@ function renderLive(){
           <div class="card-with-thumb">
             ${thumbHtml}
             <div class="card-body-wrap">
-              <div class="card-body-wrap-left">
+              <div class="card-body-left">
                 <div class="card-title">${b.t}</div>
                 <div class="card-members">${pills(b.m)}</div>
               </div>
-              <div class="card-top">
-                <span class="card-date">${yy}.${normD(b.d)}</span>
-                <div class="card-badges">${badges}</div>
-              </div>
+              <div class="card-top"><span class="card-date">${yy}.${normD(b.d)}</span><div class="card-badges">${badges}</div></div>
             </div>
           </div>
           ${extras}
@@ -2076,10 +2064,12 @@ function renderRadio(){
           <div class="card-with-thumb">
             ${rThumbHtml}
             <div class="card-body-wrap">
-              <div class="card-body-wrap-left">
+              <div class="card-body-left">
                 <div class="card-ep">Ep.${ep}</div>
-                <div class="card-row"><span class="card-row-label">DJ</span><div class="card-members">${pills(r.dj)}</div></div>
-                <div class="card-row"><span class="card-row-label">게스트</span><div class="card-members">${gHtml}</div></div>
+              <div class="card-row"><span class="card-row-label">DJ</span><div class="card-members">${pills(r.dj)}</div></div>
+              <div class="card-row"><span class="card-row-label">게스트</span><div class="card-members">${gHtml}</div></div>
+            </div>
+
               </div>
               <div class="card-top">
                 <span class="card-date">${yy}.${normD(r.d)}</span>
@@ -2088,6 +2078,7 @@ function renderRadio(){
             </div>
           </div>
           ${extras}
+          <span class="card-edit-hint">✏ 편집</span>
         </div>`;
       }).join("")}</div>
     </div>`;
@@ -2109,29 +2100,6 @@ function resetTGFilter(){
   curTGFilter="all";
   document.querySelectorAll("#tg-filter-a,#tg-filter-b,#tg-filter-c").forEach(b=>b.classList.add("active"));
   render();
-}
-
-let curSongTGSet=new Set(["a","b","c"]),curSongTGFilter="all";
-function setSongTGFilter(btn){
-  const g=btn.dataset.tg;
-  if(curSongTGSet.has(g)){
-    if(curSongTGSet.size===1){
-      curSongTGSet=new Set(["a","b","c"]);curSongTGFilter="all";
-      document.querySelectorAll("#song-tg-filter-a,#song-tg-filter-b,#song-tg-filter-c").forEach(b=>b.classList.add("active"));
-    } else {
-      curSongTGSet.delete(g);btn.classList.remove("active");
-      curSongTGFilter=curSongTGSet.size===3?"all":[...curSongTGSet].join(",");
-    }
-  } else {
-    curSongTGSet.add(g);btn.classList.add("active");
-    curSongTGFilter=curSongTGSet.size===3?"all":[...curSongTGSet].join(",");
-  }
-  renderSongs();
-}
-function resetSongTGFilter(){
-  curSongTGSet=new Set(["a","b","c"]);curSongTGFilter="all";
-  document.querySelectorAll("#song-tg-filter-a,#song-tg-filter-b,#song-tg-filter-c").forEach(b=>b.classList.add("active"));
-  renderSongs();
 }
 /* ── 방송 타입 복수선택 ── */
 function setBcast(btn){
@@ -2201,7 +2169,7 @@ function renderUnifiedCard(item,yy){
     <div class="card-with-thumb">
       ${thumbHtml}
       <div class="card-body-wrap">
-        <div class="card-body-wrap-left">
+        <div class="card-body-left">
           <div class="card-title">${escH(title)}</div>
           ${memberPills?`<div class="card-pills">${memberPills}</div>`:""}
         </div>
@@ -2209,6 +2177,7 @@ function renderUnifiedCard(item,yy){
           <span class="card-date">${yy}.${normD(item.d)}</span>
           <div class="card-badges">${badge}${vurl?'<span class="badge" style="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);color:var(--muted);">🔗</span>':''}</div>
         </div>
+        <span class="card-edit-hint">✏ 편집</span>
       </div>
     </div>
   </div>`;
@@ -2328,9 +2297,9 @@ function renderLassgo(){
           <div class="card-with-thumb">
             ${pThumbHtml}
             <div class="card-body-wrap">
-              <div class="card-body-wrap-left">
-                <div class="card-ep" style="color:rgba(255,183,77,.8);">Ep.${p.ep}</div>
-                <div class="card-title">${p.t.replace(/^EP\.\d+\s*\|\s*/,"")}</div>
+              <div class="card-body-left">
+              <div class="card-ep" style="color:rgba(255,183,77,.8);">Ep.${p.ep}</div>
+              <div class="card-title">${p.t.replace(/^EP\.\d+\s*\|\s*/,"")}</div>
               </div>
               <div class="card-top">
                 <span class="card-date">${p.y}.${normD(p.d)}</span>
@@ -2339,6 +2308,7 @@ function renderLassgo(){
             </div>
           </div>
           ${extras}
+          <span class="card-edit-hint">✏ 편집</span>
         </div>`;
       }).join("")}</div>
     </div>`;
@@ -2348,29 +2318,7 @@ function renderLassgo(){
    🎵 발매곡
 ══════════════════════════════════════════════ */
 let SONGS=[];
-let curSongAlbum="all", curSongYear="all", curSongType="all", curSongQ="", curSongSort="asc", curSongTagMode="include", curSongTitleOnly=false, curSongTagSearchMode=false;
-
-function toggleBcastTagSearch(){
-  curBcastTagSearchMode=!curBcastTagSearchMode;
-  const btn=document.getElementById("bcast-tag-search-btn");
-  if(btn){
-    btn.style.color=curBcastTagSearchMode?"#a855f7":"rgba(168,85,247,.45)";
-    btn.style.borderColor=curBcastTagSearchMode?"rgba(168,85,247,.7)":"rgba(168,85,247,.3)";
-    btn.style.background=curBcastTagSearchMode?"rgba(168,85,247,.12)":"none";
-  }
-  render();
-}
-
-function toggleSongTagSearch(){
-  curSongTagSearchMode=!curSongTagSearchMode;
-  const btn=document.getElementById("song-tag-search-btn");
-  if(btn){
-    btn.style.color=curSongTagSearchMode?"#a855f7":"rgba(168,85,247,.45)";
-    btn.style.borderColor=curSongTagSearchMode?"rgba(168,85,247,.7)":"rgba(168,85,247,.3)";
-    btn.style.background=curSongTagSearchMode?"rgba(168,85,247,.12)":"none";
-  }
-  renderSongs();
-}
+let curSongAlbum="all", curSongYear="all", curSongType="all", curSongQ="", curSongSort="asc", curSongTagMode="include", curSongTitleOnly=false;
 
 function toggleSongSearchMode(){
   curSongTitleOnly=!curSongTitleOnly;
@@ -2506,15 +2454,7 @@ function renderSongs(){
     }
     if(curSongQ){
       const q=curSongQ.toLowerCase();
-      if(curSongTagSearchMode){
-        // 태그만 검색
-        const tags=(JSON.parse(localStorage.getItem("plave_v2_song_"+s.title)||"{}").tags||[]).join(" ").toLowerCase();
-        if(curSongTagMode==="exact"){
-          if(!tags.split(" ").some(w=>w===q)) return false;
-        } else {
-          if(!tags.includes(q)) return false;
-        }
-      } else if(curSongTitleOnly){
+      if(curSongTitleOnly){
         if(!s.title.toLowerCase().includes(q)) return false;
       } else {
         const haystack=(s.title+" "+s.album+" "+(s.albumType||"")+" "+(s.type||"")).toLowerCase();
@@ -2684,6 +2624,10 @@ function openSongModal(s){
         <div class="song-tag-list" id="song-tag-list">
           ${tags.length?tags.map(t=>`<span class="song-tag" onclick="removeSongTag('${escH(sid)}','${escH(t)}')">${escH(t)} ✕</span>`).join(""):'<span class="song-tag-empty">없음</span>'}
         </div>
+        <div class="song-tag-input-wrap">
+          <input class="song-tag-input" id="song-tag-input" placeholder="입력 후 Enter"
+            onkeydown="if(event.key==='Enter'){addSongTag('${escH(sid)}');}" />
+        </div>
       </div>
     </div>
   </div>`;
@@ -2723,14 +2667,11 @@ function refreshSongTagList(sid,tags){
     :'<span class="song-tag-empty">없음</span>';
 }
 
-document.addEventListener("DOMContentLoaded", function(){
-  render();
-  loadSongsFromSheet();
-  loadFromSupabase().then(()=>{
-    setTimeout(updateStickyOffsets,200);
-    setTimeout(updateEraRowSeps,300);
-  });
-});
+render();
+loadSongsFromSheet();
+loadFromSupabase();
+setTimeout(updateStickyOffsets,200);
+setTimeout(updateEraRowSeps,300);
 
 // 시즌 필터 드래그 스크롤
 (function(){
