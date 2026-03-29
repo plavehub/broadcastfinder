@@ -38,7 +38,7 @@ header{position:sticky;top:0;z-index:101;background:rgba(6,6,17,1);text-align:ce
 .logo-title{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(22px,4.5vw,42px);letter-spacing:.12em;
   background:linear-gradient(90deg,var(--yejun) 0%,var(--yejun) 12%,var(--noah) 28%,var(--bambi) 50%,var(--eunho) 72%,var(--hamin) 88%,var(--hamin) 100%);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.logo-sub{font-size:11px;letter-spacing:.15em;color:var(--muted);margin-top:5px;font-family:'Syne',sans-serif;}.logo-sub .stat-num{color:rgba(255,255,255,.55);font-weight:600;}.logo-sub .stat-div{color:rgba(255,255,255,.2);margin:0 6px;}.logo-sub .stat-div2{color:rgba(255,255,255,.15);margin:0 10px;}
+.logo-sub{font-size:11px;letter-spacing:.15em;color:var(--muted);margin-top:5px;font-family:'Syne',sans-serif;}.logo-sub .stat-num{color:rgba(255,255,255,.55);font-weight:600;}.logo-sub .stat-div{color:rgba(255,255,255,.2);margin:0 6px;}.logo-sub .stat-div2{color:rgba(255,255,255,.15);margin:0 10px;}.logo-sub .stat-sub{color:rgba(255,255,255,.3);font-size:10px;}
 
 .tab-bar{position:sticky;top:0;z-index:100;background:rgba(6,6,17,1);border-bottom:1px solid var(--border);}
 .tab-row{max-width:1060px;margin:0 auto;display:flex;padding:0 16px;align-items:center;justify-content:space-between;}
@@ -53,12 +53,12 @@ header{position:sticky;top:0;z-index:101;background:rgba(6,6,17,1);text-align:ce
 .tab-btn:hover{color:var(--text);}
 .tab-btn.active{color:var(--text);border-bottom-color:var(--noah);}
 
-.controls{position:sticky;top:0;z-index:99;background:rgba(6,6,17,1);border-bottom:1px solid var(--border);padding:10px 20px;isolation:isolate;}
+.controls{position:sticky;top:0;z-index:99;background:rgba(6,6,17,1);border-bottom:1px solid var(--border);padding:10px 0;isolation:isolate;}
 #filters-collapsible{transition:max-height .18s cubic-bezier(0.4,0,0.2,1),opacity .15s ease;overflow:hidden;max-height:300px;opacity:1;position:relative;}
 #filters-collapsible.collapsed{max-height:0!important;opacity:0;}
 #filters-collapsible::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40%;background:linear-gradient(to bottom,transparent,rgba(6,6,17,1));opacity:0;pointer-events:none;transition:opacity .15s ease;z-index:1;}
 #filters-collapsible.collapsing::after{opacity:1;}
-.controls-inner{max-width:1060px;margin:0 auto;display:flex;flex-direction:column;gap:6px;}
+.controls-inner{max-width:1060px;margin:0 auto;padding:0 16px;display:flex;flex-direction:column;gap:6px;}
 .search-row{position:relative;}
 .search-input{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;
   padding:8px 72px 8px 12px;color:#ffffff;font-family:'Noto Sans KR',sans-serif;font-size:13px;outline:none;transition:border-color .2s;}
@@ -342,7 +342,7 @@ main{position:relative;z-index:1;max-width:1060px;margin:0 auto;padding:18px 16p
   .m-row{flex-direction:column;}
 }
 /* ── 발매곡 ── */
-.btn-song-album.active{filter:brightness(1.5);border-color:rgba(255,255,255,.4)!important;}
+
 .btn-song-year.active,.btn-song-type.active{background:rgba(45,212,191,.12);border-color:rgba(45,212,191,.35);color:#2dd4bf;}
 .songs-album-section{margin-bottom:22px;}
 .songs-album-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
@@ -402,7 +402,7 @@ main{position:relative;z-index:1;max-width:1060px;margin:0 auto;padding:18px 16p
 .controls::after{content:'';position:absolute;bottom:-12px;left:0;right:0;height:12px;background:linear-gradient(to bottom,rgba(6,6,17,1),transparent);pointer-events:none;z-index:1;}
 
 
-.btn-song-album:not(.active):hover{filter:brightness(1.3);}
+.btn-song-album:hover{filter:brightness(1.4);}
 .btn-song-year:not(.active):hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.7);}
 .btn-song-type:not(.active):hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.7);}
 
@@ -417,7 +417,7 @@ main{position:relative;z-index:1;max-width:1060px;margin:0 auto;padding:18px 16p
 
 <header>
   <div class="logo-title">PLAVE ARCHIVE</div>
-  <div class="logo-sub" id="header-stats">라이브 방송 · 라디오 아카이브</div>
+  <div class="logo-sub" id="header-stats">라이브 <span class="stat-num">0</span>회 <span class="stat-sub">(0개)</span><span class="stat-div">·</span>라디오 <span class="stat-num">0</span>회<span class="stat-div">·</span>라쓰고 <span class="stat-num">0</span>회 <span class="stat-sub">(0개)</span><span class="stat-div2">|</span>발매곡 <span class="stat-num">0</span>개 <span class="stat-sub">(앨범 0개)</span></div>
 </header>
 
 <div class="tab-bar">
@@ -588,24 +588,28 @@ main{position:relative;z-index:1;max-width:1060px;margin:0 auto;padding:18px 16p
   </div>
 </div>
 
-<div id="songs-filter" style="display:none;padding:10px 0 6px;flex-direction:column;gap:6px;background:rgba(6,6,17,1);position:sticky;top:0;z-index:99;"><div style="max-width:1144px;margin:0 auto;padding:0 16px;display:flex;flex-direction:column;gap:6px;width:100%;box-sizing:border-box;">
+<div id="songs-filter" style="display:none;padding:10px 0 6px;flex-direction:column;gap:6px;background:rgba(6,6,17,1);position:sticky;top:0;z-index:99;"><div style="max-width:1060px;margin:0 auto;padding:0 16px;display:flex;flex-direction:column;gap:6px;width:100%;box-sizing:border-box;">
       <!-- 검색 행 -->
-      <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+      <div class="filter-row-labeled" style="align-items:center;">
         <button id="song-search-mode-btn" onclick="toggleSongSearchMode()"
-          style="background:transparent;border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:4px 11px;
-                 font-family:'Noto Sans KR',sans-serif;font-size:11px;cursor:pointer;color:rgba(255,255,255,.3);
-                 white-space:nowrap;transition:all .15s;flex-shrink:0;">검색</button>
+          style="flex-shrink:0;background:transparent;border:1px solid rgba(255,255,255,.12);
+                 border-radius:8px;color:rgba(255,255,255,.3);
+                 font-size:11px;font-weight:600;padding:4px 11px;cursor:pointer;
+                 white-space:nowrap;transition:all .15s;font-family:'Noto Sans KR',sans-serif;">검색</button>
+        <div style="width:1px;height:18px;background:rgba(255,255,255,.1);flex-shrink:0;"></div>
         <div class="search-row" style="flex:1;position:relative;display:flex;align-items:center;">
           <input class="search-input" id="song-search" type="text" placeholder="💿 발매곡 키워드 검색..."
             oninput="curSongQ=this.value;document.getElementById('song-search-clear').style.display=this.value?'flex':'none';renderSongs();"
             onkeydown="if(event.key==='Enter'){renderSongs();}if(event.key==='Escape'){this.value='';curSongQ='';document.getElementById('song-search-clear').style.display='none';renderSongs();}">
           <button id="song-search-clear" onclick="document.getElementById('song-search').value='';curSongQ='';renderSongs();this.style.display='none';"
-            style="display:none;position:absolute;right:60px;background:none;border:none;cursor:pointer;font-size:13px;padding:0 4px;color:var(--muted);align-items:center;justify-content:center;">✕</button>
+            style="display:none;position:absolute;right:60px;background:none;border:none;cursor:pointer;
+                   font-size:13px;padding:0 4px;line-height:1;color:var(--muted);align-items:center;justify-content:center;">✕</button>
           <button id="song-tag-search-btn" onclick="toggleSongTagSearch()"
             style="position:absolute;right:34px;font-size:11px;font-weight:700;color:rgba(168,85,247,.45);font-family:'Noto Sans KR',sans-serif;border:1px solid rgba(168,85,247,.3);border-radius:4px;padding:1px 6px;background:none;cursor:pointer;transition:all .15s;line-height:1.4;"
             title="태그만 검색">#</button>
           <button onclick="renderSongs()"
-            style="position:absolute;right:8px;background:none;border:none;cursor:pointer;font-size:16px;padding:0;line-height:1;color:var(--muted);">🔍</button>
+            style="position:absolute;right:8px;background:none;border:none;cursor:pointer;
+                   font-size:16px;padding:0;line-height:1;color:var(--muted);">🔍</button>
         </div>
         <div style="display:flex;border-radius:8px;overflow:hidden;border:1px solid var(--border);flex-shrink:0;">
           <button id="song-tag-mode-include" class="tc-tab active" style="padding:5px 10px;font-size:10px;border-radius:0;" onclick="setSongTagMode('include')">포함</button>
@@ -2116,13 +2120,31 @@ function resetAllFilters(){
 function updateHeaderStats(){
   const el=document.getElementById("header-stats");
   if(!el) return;
+  // 라이브: 고유 날짜 수(회) / 전체 개수(개)
+  const liveUniq=new Set(L.map(b=>`${b.y}-${b.d}`)).size;
+  const liveTot=L.length;
+  // 라디오: 전체 개수(회)만
+  const radioTot=R.length;
+  // 라쓰고: | 뒤 #숫자 앞 부분 추출해서 고유 이름 수(회) / 전체(개)
+  const lassgoNames=new Set(P.map(p=>{
+    const t=p.t||"";
+    const barIdx=t.indexOf("|");
+    if(barIdx===-1) return t.trim();
+    let name=t.slice(barIdx+1).trim();
+    name=name.replace(/#\d+\s*$/,"").trim();
+    return name;
+  }));
+  const lassgoUniq=lassgoNames.size;
+  const lassgoTot=P.length;
+  // 발매곡: 총 곡 수(개) / 고유 앨범 수(개)
   const songCount=SONGS.length;
+  const albumCount=new Set(SONGS.map(s=>s.album).filter(Boolean)).size;
   el.innerHTML=
-    `라이브 <span class="stat-num">${L.length}</span> 회<span class="stat-div">·</span>`+
-    `라디오 <span class="stat-num">${R.length}</span> 회<span class="stat-div">·</span>`+
-    `라쓰고 <span class="stat-num">${P.length}</span> 회`+
+    `라이브 <span class="stat-num">${liveUniq}</span>회 <span class="stat-sub">(${liveTot}개)</span><span class="stat-div">·</span>`+
+    `라디오 <span class="stat-num">${radioTot}</span>회<span class="stat-div">·</span>`+
+    `라쓰고 <span class="stat-num">${lassgoUniq}</span>회 <span class="stat-sub">(${lassgoTot}개)</span>`+
     `<span class="stat-div2">|</span>`+
-    `발매곡 <span class="stat-num">${songCount}</span> 개`;
+    `발매곡 <span class="stat-num">${songCount}</span>개 <span class="stat-sub">(앨범 ${albumCount}개)</span>`;
 }
 function render(){
   renderUnified();
@@ -2651,7 +2673,7 @@ function refreshSongTagList(sid,tags){
 
 render();
 loadSongsFromSheet();
-syncAll();
+loadFromSupabase();
 setTimeout(updateStickyOffsets,200);
 setTimeout(updateEraRowSeps,300);
 
