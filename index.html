@@ -481,7 +481,7 @@ main{position:relative;z-index:1;max-width:1060px;margin:0 auto;padding:18px 16p
       <div class="search-row" style="flex:1;position:relative;display:flex;align-items:center;">
         <input class="search-input" id="search" type="text" placeholder="🛸 방송 키워드 검색..."
           oninput="document.getElementById('search-clear').style.display=this.value?'flex':'none';"
-          onkeydown="if(event.key==='Enter'){render();}">
+          onkeydown="if(event.key==='Enter'){render(true);}">
         <button id="search-clear" onclick="document.getElementById('search').value='';curQ='';render();this.style.display='none';"
           style="display:none;position:absolute;right:80px;background:none;border:none;cursor:pointer;
                  font-size:13px;padding:0 4px;line-height:1;color:var(--muted);align-items:center;justify-content:center;">✕</button>
@@ -495,7 +495,7 @@ main{position:relative;z-index:1;max-width:1060px;margin:0 auto;padding:18px 16p
           <button id="hl-search-btn" onclick="toggleHlSearch()"
             style="width:24px;height:20px;font-size:10px;font-weight:700;color:rgba(255,183,77,.3);font-family:'Noto Sans KR',sans-serif;border:1.5px solid rgba(255,183,77,.2);border-radius:4px;padding:0;background:none;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;"
             title="하이라이트 검색">★</button>
-          <button onclick="render()"
+          <button onclick="render(true)"
             style="background:none;border:none;cursor:pointer;font-size:16px;padding:0;line-height:1;color:var(--muted);display:flex;align-items:center;">🔍</button>
         </div>
       </div>
@@ -844,7 +844,7 @@ function toggleScriptSearch(){
     btn.style.borderColor=curScriptSearchOn?"rgba(45,212,191,.7)":"rgba(45,212,191,.2)";
     btn.style.background=curScriptSearchOn?"rgba(45,212,191,.12)":"none";
   }
-  render();
+  render(true);
 }
 
 function toggleHlSearch(){
@@ -855,7 +855,7 @@ function toggleHlSearch(){
     btn.style.borderColor=curHlSearchOn?"rgba(255,183,77,.7)":"rgba(255,183,77,.2)";
     btn.style.background=curHlSearchOn?"rgba(255,183,77,.12)":"none";
   }
-  render();
+  render(true);
 }
 let curTGSet=new Set(["a","b","c"]); // 태그 복수선택
 let curSearchTitleOnly=false;
@@ -1898,6 +1898,9 @@ function matchTitleOrTags(t, sid){
   const q2=curQ.toLowerCase();
   const d=getData(sid);
   const allTags=[...d.tagsA,...d.tagsB,...d.tagsC];
+  // If T or ★ is ON, also check if this sid has script/hl results
+  if(curScriptSearchOn && scriptSearchResults[sid]) return true;
+  if(curHlSearchOn && hlSearchResults[sid]) return true;
   if(curBcastTagSearchMode){
     if(curTagMode==="exact") return allTags.some(tag=>tag.toLowerCase()===q2);
     return allTags.some(tag=>tag.toLowerCase().includes(q2));
@@ -2204,19 +2207,21 @@ function updateHeaderStats(){
     `<span class="stat-div2">|</span>`+
     `발매곡 <span class="stat-num">${songCount}</span>개 <span class="stat-sub">(앨범 ${albumCount}개)</span>`;
 }
-function render(){
-  renderUnified();
-  // Async script/highlight search
+function render(doSearch){
   const q=document.getElementById("search")?.value||"";
-  if(q.length>=2 && (curScriptSearchOn||curHlSearchOn)){
-    doAsyncSearch(q);
+  if(doSearch && q.length>=2 && (curScriptSearchOn||curHlSearchOn)){
+    doAsyncSearchThenRender(q);
+  } else if(!doSearch && (curScriptSearchOn||curHlSearchOn)){
+    // Just re-render with existing results (typing)
+    renderUnified();
+    if(q.length>=2) injectSearchResults(q);
   } else {
     scriptSearchResults={}; hlSearchResults={};
-    document.querySelectorAll(".scr-expand,.hl-expand").forEach(e=>e.remove());
+    renderUnified();
   }
 }
 
-async function doAsyncSearch(q){
+async function doAsyncSearchThenRender(q){
   const promises=[];
   if(curScriptSearchOn){
     promises.push(
@@ -2247,6 +2252,7 @@ async function doAsyncSearch(q){
     );
   } else { hlSearchResults={}; }
   await Promise.all(promises);
+  renderUnified();
   injectSearchResults(q);
 }
 
@@ -2275,7 +2281,6 @@ function injectSearchResults(q){
     const sid=card.getAttribute("data-sid");
     const vurl=card.querySelector("a.card-thumb-link")?.href||"";
     let html="";
-    // Script results
     if(scriptSearchResults[sid]){
       const rows=scriptSearchResults[sid];
       html+=`<div class="scr-expand"><div class="scr-expand-h">📜 스크립트 매칭 ${rows.length}건</div>`;
@@ -2285,7 +2290,6 @@ function injectSearchResults(q){
       });
       html+=`</div>`;
     }
-    // Highlight results
     if(hlSearchResults[sid]){
       const rows=hlSearchResults[sid];
       html+=`<div class="hl-expand"><div class="hl-expand-h">⭐ 하이라이트 매칭 ${rows.length}건</div>`;
