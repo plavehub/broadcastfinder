@@ -657,7 +657,10 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
             oninput="curSongQ=this.value;document.getElementById('song-search-clear').style.display=this.value?'flex':'none';renderSongs();"
             onkeydown="if(event.key==='Enter'){renderSongs();}if(event.key==='Escape'){this.value='';curSongQ='';document.getElementById('song-search-clear').style.display='none';renderSongs();}">
           <button id="song-search-clear" onclick="document.getElementById('song-search').value='';curSongQ='';renderSongs();this.style.display='none';"
-            style="display:none;position:absolute;right:36px;background:none;border:none;cursor:pointer;font-size:13px;padding:0 4px;color:var(--muted);align-items:center;justify-content:center;">✕</button>
+            style="display:none;position:absolute;right:60px;background:none;border:none;cursor:pointer;font-size:13px;padding:0 4px;color:var(--muted);align-items:center;justify-content:center;">✕</button>
+          <button id="song-tag-search-btn" onclick="toggleSongTagSearch()"
+            style="position:absolute;right:34px;background:none;border:none;cursor:pointer;font-size:14px;font-weight:700;padding:0 4px;line-height:1;color:var(--muted);font-family:'Syne',sans-serif;transition:color .15s;"
+            title="태그만 검색">#</button>
           <button onclick="renderSongs()"
             style="position:absolute;right:8px;background:none;border:none;cursor:pointer;font-size:16px;padding:0;line-height:1;color:var(--muted);">🔍</button>
         </div>
@@ -687,16 +690,6 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 
       <!-- 접히는 필터 영역 -->
       <div id="songs-filters-collapsible" style="display:flex;flex-direction:column;gap:6px;overflow:hidden;transition:max-height .18s cubic-bezier(0.4,0,0.2,1),opacity .15s ease;max-height:300px;opacity:1;">
-      <!-- 태그 -->
-      <div class="filter-row-labeled" style="align-items:flex-start;margin-top:6px;">
-        <button class="filter-label filter-label-btn grad-border" onclick="resetSongTGFilter()" title="태그 초기화">태그</button>
-        <div class="filter-sep"></div>
-        <div style="display:flex;gap:5px;flex-wrap:wrap;flex:1;">
-          <button class="btn active" id="song-tg-filter-a" data-tg="a" onclick="setSongTGFilter(this)">#컨텐츠</button>
-          <button class="btn active" id="song-tg-filter-b" data-tg="b" onclick="setSongTGFilter(this)">#대사</button>
-          <button class="btn active" id="song-tg-filter-c" data-tg="c" onclick="setSongTGFilter(this)">#움찔</button>
-        </div>
-      </div>
       <!-- 앨범 -->
       <div class="filter-row-labeled" style="align-items:flex-start;margin-top:6px;">
         <button class="filter-label filter-label-btn grad-border" onclick="resetSongAlbum()" title="앨범 초기화">앨범</button>
@@ -2348,7 +2341,17 @@ function renderLassgo(){
    🎵 발매곡
 ══════════════════════════════════════════════ */
 let SONGS=[];
-let curSongAlbum="all", curSongYear="all", curSongType="all", curSongQ="", curSongSort="asc", curSongTagMode="include", curSongTitleOnly=false;
+let curSongAlbum="all", curSongYear="all", curSongType="all", curSongQ="", curSongSort="asc", curSongTagMode="include", curSongTitleOnly=false, curSongTagSearchMode=false;
+
+function toggleSongTagSearch(){
+  curSongTagSearchMode=!curSongTagSearchMode;
+  const btn=document.getElementById("song-tag-search-btn");
+  if(btn){
+    btn.style.color=curSongTagSearchMode?"#a855f7":"var(--muted)";
+    btn.style.textShadow=curSongTagSearchMode?"0 0 8px rgba(168,85,247,.6)":"none";
+  }
+  renderSongs();
+}
 
 function toggleSongSearchMode(){
   curSongTitleOnly=!curSongTitleOnly;
@@ -2484,7 +2487,15 @@ function renderSongs(){
     }
     if(curSongQ){
       const q=curSongQ.toLowerCase();
-      if(curSongTitleOnly){
+      if(curSongTagSearchMode){
+        // 태그만 검색
+        const tags=(JSON.parse(localStorage.getItem("plave_v2_song_"+s.title)||"{}").tags||[]).join(" ").toLowerCase();
+        if(curSongTagMode==="exact"){
+          if(!tags.split(" ").some(w=>w===q)) return false;
+        } else {
+          if(!tags.includes(q)) return false;
+        }
+      } else if(curSongTitleOnly){
         if(!s.title.toLowerCase().includes(q)) return false;
       } else {
         const haystack=(s.title+" "+s.album+" "+(s.albumType||"")+" "+(s.type||"")).toLowerCase();
