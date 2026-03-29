@@ -63,7 +63,7 @@ header{position:sticky;top:0;z-index:101;background:rgba(6,6,17,.97);backdrop-fi
 .controls-inner{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:6px;}
 .search-row{position:relative;}
 .search-input{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;
-  padding:8px 72px 8px 36px;color:#ffffff;font-family:'Noto Sans KR',sans-serif;font-size:13px;outline:none;transition:border-color .2s;}
+  padding:8px 72px 8px 12px;color:#ffffff;font-family:'Noto Sans KR',sans-serif;font-size:13px;outline:none;transition:border-color .2s;}
 .search-input:focus{border-color:rgba(168,85,247,.5);background:var(--bg3);}
 .search-input:-webkit-autofill,.search-input:-webkit-autofill:focus{-webkit-box-shadow:0 0 0 1000px var(--bg3) inset;-webkit-text-fill-color:#ffffff;}
 .search-input::placeholder{color:var(--muted);}
@@ -655,7 +655,6 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
                  font-family:'Noto Sans KR',sans-serif;font-size:11px;cursor:pointer;color:rgba(255,255,255,.3);
                  white-space:nowrap;transition:all .15s;flex-shrink:0;">검색</button>
         <div class="search-row" style="flex:1;position:relative;display:flex;align-items:center;">
-          <span class="search-icon">🔍</span>
           <input class="search-input" id="song-search" type="text" placeholder="곡명, 앨범명 검색..."
             oninput="curSongQ=this.value;document.getElementById('song-search-clear').style.display=this.value?'flex':'none';renderSongs();"
             onkeydown="if(event.key==='Enter'){renderSongs();}if(event.key==='Escape'){this.value='';curSongQ='';document.getElementById('song-search-clear').style.display='none';renderSongs();}">
