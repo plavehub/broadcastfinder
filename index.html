@@ -2150,7 +2150,7 @@ function tagRowHtml(sid){
   try{
     const d=getData(sid);
     const tags=[...d.tagsA,...d.tagsB,...d.tagsC].filter(Boolean);
-    if(!tags.length) return '';
+    if(!tags.length) return`<div class="card-tag-row"><span class="card-tag-label">#</span></div>`;
     const visible=tags.slice(0,4);
     const more=tags.length>4?'<span class="card-tag-more">...</span>':'';
     return`<div class="card-tag-row"><span class="card-tag-label">#태그</span><div class="card-tag-list">${visible.map(t=>`<span class="card-tag-btn">${escH(t)}</span>`).join('')}${more}</div></div>`;
