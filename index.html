@@ -157,7 +157,7 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(265px,1fr));gap:8px;}
 
 /* CARD */
-.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;
+.card{background:var(--card);border:2px solid var(--border);border-radius:16px;padding:16px;
   transition:border-color .2s,transform .15s,box-shadow .2s;position:relative;overflow:hidden;cursor:pointer;}
 .card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;opacity:0;transition:opacity .2s;}
 .card:hover{border-color:rgba(255,255,255,.18);transform:translateY(-1px);box-shadow:0 6px 24px rgba(0,0,0,.35);}
@@ -171,7 +171,7 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 .card.c-all::before{background:linear-gradient(90deg,var(--yejun),var(--noah),var(--bambi),var(--eunho),var(--hamin));}
 .card.c-mixed::before{background:linear-gradient(90deg,var(--yejun),var(--noah));}
 .card-top{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;}
-.card-date{font-family:'Syne',sans-serif;font-size:10px;font-weight:600;letter-spacing:.08em;color:var(--muted);}
+.card-date{font-family:'Syne',sans-serif;font-size:10px;font-weight:600;letter-spacing:.08em;color:var(--muted);text-align:right;}
 .card-badges{display:flex;gap:3px;flex-wrap:wrap;justify-content:flex-end;align-items:center;}
 .badge{font-size:10px;border-radius:4px;padding:1px 6px;letter-spacing:.02em;}
 .badge-bday{background:rgba(255,215,0,.1);color:#ffd700;border:1px solid rgba(255,215,0,.22);}
@@ -185,7 +185,7 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 .card-ep{font-family:'Syne',sans-serif;font-size:11px;color:var(--muted);margin-bottom:7px;letter-spacing:.05em;}
 .card-row{display:flex;align-items:flex-start;gap:7px;margin-bottom:5px;}
 .card-row-label{font-size:10px;color:var(--muted);white-space:nowrap;margin-top:3px;}
-.card-members{display:flex;gap:4px;flex-wrap:wrap;}
+.card-members{display:flex;gap:4px;flex-wrap:nowrap;overflow:hidden;}
 .member-pill{font-size:11px;border-radius:8px;padding:3px 9px;font-weight:500;border:1px solid transparent;display:inline-flex;align-items:center;gap:3px;}
 .pill-yejun{background:rgba(77,166,255,.1);color:var(--yejun);border-color:rgba(77,166,255,.35);}
 .pill-noah{background:rgba(168,85,247,.1);color:var(--noah);border-color:rgba(168,85,247,.35);}
@@ -240,18 +240,14 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 
 /* thumbnail card layout */
 .card-with-thumb{display:flex;gap:12px;margin-bottom:8px;align-items:stretch;}
-.card-thumb-link{flex-shrink:0;width:120px;min-height:68px;height:auto;border-radius:6px;overflow:hidden;
-  background:var(--bg3);display:block;position:relative;}
+.card-thumb-link{flex-shrink:0;width:186px;height:105px;border-radius:8px;overflow:hidden;background:var(--bg3);display:block;position:relative;}
 .card-thumb-link img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity .2s;}
 .card-thumb-link:hover img{opacity:.85;}
-.card-thumb-empty{flex-shrink:0;width:120px;min-height:68px;border-radius:6px;
+.card-thumb-empty{flex-shrink:0;width:186px;height:105px;border-radius:8px;
   background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;
   justify-content:center;font-size:20px;opacity:.3;}
-.card-body-wrap{flex:1;min-width:0;}
-.card-body-wrap .card-top{margin-bottom:0;}
-.card-body-wrap{display:flex;flex-direction:row;justify-content:space-between;align-items:flex-start;flex:1;min-width:0;gap:8px;}
-.card-body-left{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px;}
-.card-body-wrap .card-title{margin-bottom:0;font-size:11px;-webkit-line-clamp:2;}
+.card-body-wrap{display:flex;flex-direction:column;justify-content:space-between;width:200px;flex-shrink:0;height:105px;overflow:hidden;}
+.card-body-left{display:contents;}
 .card-main-link{display:inline-flex;align-items:center;gap:5px;margin-top:6px;
   font-size:11px;color:var(--yejun);text-decoration:none;opacity:.85;transition:opacity .15s;}
 .card-main-link:hover{opacity:1;}
@@ -824,7 +820,12 @@ const MC={예준:"yejun",노아:"noah",밤비:"bambi",은호:"eunho",하민:"ham
 const ME={예준:"💙",노아:"💜",밤비:"🩷",은호:"❤️",하민:"🖤",전원:"✨"};
 const TGK={a:"tagsA",b:"tagsB",c:"tagsC"};
 const pc=m=>"pill-"+(MC[m]||"all");
-const pills=arr=>arr.map(m=>`<span class="member-pill ${pc(m)}">${ME[m]||""} ${m}</span>`).join("");
+const pills=arr=>{
+  if(!arr||arr.length===0) return '';
+  if(arr.length===1&&arr[0]==='전원') return `<span class="member-pill pill-all">✦ 전원</span>`;
+  if(arr.includes('전원')||arr.length>=5) return `<span class="member-pill pill-all">✦ 전원</span>`;
+  return arr.map(m=>`<span class="member-pill ${pc(m)}">${ME[m]||""} ${m}</span>`).join("");
+};
 function cc(arr){
   if(!arr||!arr.length)return"c-mixed";
   if(arr.includes("전원"))return"c-all";
@@ -1958,11 +1959,9 @@ function renderLive(){
           <div class="card-with-thumb">
             ${thumbHtml}
             <div class="card-body-wrap">
-              <div class="card-body-left">
-                <div class="card-title">${b.t}</div>
-                <div class="card-members">${pills(b.m)}</div>
-              </div>
               <div class="card-top"><span class="card-date">${yy}.${normD(b.d)}</span><div class="card-badges">${badges}</div></div>
+              <div class="card-title">${b.t}</div>
+              <div class="card-members">${pills(b.m)}</div>
             </div>
           </div>
           ${extras}
@@ -2066,17 +2065,9 @@ function renderRadio(){
           <div class="card-with-thumb">
             ${rThumbHtml}
             <div class="card-body-wrap">
-              <div class="card-body-left">
-                <div class="card-ep">Ep.${ep}</div>
-              <div class="card-row"><span class="card-row-label">DJ</span><div class="card-members">${pills(r.dj)}</div></div>
-              <div class="card-row"><span class="card-row-label">게스트</span><div class="card-members">${gHtml}</div></div>
-            </div>
-
-              </div>
-              <div class="card-top">
-                <span class="card-date">${yy}.${normD(r.d)}</span>
-                <div class="card-badges"><span class="badge badge-type-radio">📻 라디오</span>${vurl?'<span class="badge" style="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);color:var(--muted);">🔗</span>':''}</div>
-              </div>
+              <div class="card-top"><span class="card-date">${yy}.${normD(r.d)}</span><div class="card-badges"><span class="badge badge-type-radio">📻 라디오</span>${vurl?'<span class="badge" style="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);color:var(--muted);">🔗</span>':''}</div></div>
+              <div class="card-ep">Ep.${ep}</div>
+              <div class="card-members">${pills(r.dj)}</div>
             </div>
           </div>
           ${extras}
@@ -2171,14 +2162,12 @@ function renderUnifiedCard(item,yy){
     <div class="card-with-thumb">
       ${thumbHtml}
       <div class="card-body-wrap">
-        <div class="card-body-left">
-          <div class="card-title">${escH(title)}</div>
-          ${memberPills?`<div class="card-pills">${memberPills}</div>`:""}
-        </div>
         <div class="card-top">
           <span class="card-date">${yy}.${normD(item.d)}</span>
           <div class="card-badges">${badge}${vurl?'<span class="badge" style="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);color:var(--muted);">🔗</span>':''}</div>
         </div>
+        <div class="card-title">${escH(title)}</div>
+        ${memberPills?`<div class="card-members">${memberPills}</div>`:""}
         <span class="card-edit-hint">✏ 편집</span>
       </div>
     </div>
@@ -2298,14 +2287,9 @@ function renderLassgo(){
           <div class="card-with-thumb">
             ${pThumbHtml}
             <div class="card-body-wrap">
-              <div class="card-body-left">
+              <div class="card-top"><span class="card-date">${p.y}.${normD(p.d)}</span><div class="card-badges"><span class="badge badge-type-lassgo">🚀 라쓰고</span>${pvurl?'<span class="badge" style="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);color:var(--muted);">🔗</span>':''}</div></div>
               <div class="card-ep" style="color:rgba(255,183,77,.8);">Ep.${p.ep}</div>
               <div class="card-title">${p.t.replace(/^EP\.\d+\s*\|\s*/,"")}</div>
-              </div>
-              <div class="card-top">
-                <span class="card-date">${p.y}.${normD(p.d)}</span>
-                <div class="card-badges"><span class="badge badge-type-lassgo">🚀 라쓰고</span>${pvurl?'<span class="badge" style="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);color:var(--muted);">🔗</span>':''}</div>
-              </div>
             </div>
           </div>
           ${extras}
