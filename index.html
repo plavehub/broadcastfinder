@@ -2092,8 +2092,8 @@ function renderRadio(){
               <div class="card-members">${pills(r.dj)}</div>
             </div>
           </div>
+          ${tagRowHtml(sid)}
           ${extras}
-          <span class="card-edit-hint">✏ 편집</span>
         </div>`;
       }).join("")}</div>
     </div>`;
@@ -2195,15 +2195,12 @@ function renderUnifiedCard(item,yy){
     <div class="card-with-thumb">
       ${thumbHtml}
       <div class="card-body-wrap">
-        <div class="card-top">
-          <span class="card-date">${yy}.${normD(item.d)}</span>
-          <div class="card-badges">${badge}${vurl?'<span class="badge" style="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);color:var(--muted);">🔗</span>':''}</div>
-        </div>
+        <div class="card-top"><span class="card-date">${yy}.${normD(item.d)}</span><div class="card-badges">${badge}${vurl?'<span class="badge" style="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);color:var(--muted);">🔗</span>':''}</div></div>
         <div class="card-title">${escH(title)}</div>
         ${memberPills?`<div class="card-members">${memberPills}</div>`:""}
-        <span class="card-edit-hint">✏ 편집</span>
       </div>
     </div>
+    ${tagRowHtml(sid)}
   </div>`;
 }
 
@@ -2325,8 +2322,8 @@ function renderLassgo(){
               <div class="card-title">${p.t.replace(/^EP\.\d+\s*\|\s*/,"")}</div>
             </div>
           </div>
+          ${tagRowHtml(sid)}
           ${extras}
-          <span class="card-edit-hint">✏ 편집</span>
         </div>`;
       }).join("")}</div>
     </div>`;
