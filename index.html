@@ -157,8 +157,7 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 .grid{display:flex;flex-wrap:wrap;gap:8px;}
 
 /* CARD */
-.card{background:var(--card);border:2px solid var(--border);border-radius:10px;padding:11px;display:inline-flex;flex-direction:column;gap:0;width:294px;flex-shrink:0;box-sizing:border-box;cursor:pointer;transition:border-color .15s;overflow:hidden;
-  transition:border-color .2s,transform .15s,box-shadow .2s;position:relative;overflow:hidden;cursor:pointer;}
+.card{background:var(--card);border:2px solid var(--border);border-radius:10px;padding:11px;display:inline-flex;flex-direction:column;gap:0;width:294px;flex-shrink:0;box-sizing:border-box;cursor:pointer;transition:border-color .15s;overflow:hidden;}
 .card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;opacity:0;transition:opacity .2s;}
 .card:hover{border-color:rgba(255,255,255,.18);transform:translateY(-1px);box-shadow:0 6px 24px rgba(0,0,0,.35);}
 .card:hover::before{opacity:1;}
@@ -170,18 +169,17 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 .card.c-hamin::before{background:var(--hamin);}
 .card.c-all::before{background:linear-gradient(90deg,var(--yejun),var(--noah),var(--bambi),var(--eunho),var(--hamin));}
 .card.c-mixed::before{background:linear-gradient(90deg,var(--yejun),var(--noah));}
-.card-top{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;}
+.card-top{display:flex;flex-direction:column;align-items:flex-end;gap:0;}
 .card-date{font-family:'Syne',sans-serif;font-size:8px;font-weight:600;letter-spacing:.05em;color:var(--muted);text-align:right;line-height:1;}
 .card-badges{display:flex;gap:3px;justify-content:flex-end;align-items:center;margin-top:4px;}
-.badge{font-size:10px;border-radius:4px;padding:1px 6px;letter-spacing:.02em;}
+.badge{font-size:8px;padding:1px 4px;border-radius:4px;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--muted);white-space:nowrap;}
 .badge-bday{background:rgba(255,215,0,.1);color:#ffd700;border:1px solid rgba(255,215,0,.22);}
 .badge-debut{background:rgba(168,85,247,.1);color:var(--noah);border:1px solid rgba(168,85,247,.22);}
 .badge-predebut{background:rgba(77,166,255,.08);color:var(--yejun);border:1px solid rgba(77,166,255,.16);}
 .badge-type-live{background:rgba(77,166,255,.07);color:#6a9fd8;border:1px solid rgba(77,166,255,.14);font-size:9px;}
 .badge-type-radio{background:rgba(82,204,122,.07);color:#4aaa66;border:1px solid rgba(82,204,122,.18);font-size:9px;}
 .badge-type-lassgo{background:rgba(255,183,77,.08);color:#ffb74d;border:1px solid rgba(255,183,77,.2);font-size:9px;}
-.card-title{font-size:12px;line-height:1.5;color:var(--text);margin-bottom:8px;
-  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+.card-title{font-size:9px;line-height:1.4;color:var(--text);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;word-break:break-all;flex:1;margin-top:5px;}
 .card-ep{font-family:'Syne',sans-serif;font-size:11px;color:var(--muted);margin-bottom:7px;letter-spacing:.05em;}
 .card-row{display:flex;align-items:flex-start;gap:7px;margin-bottom:5px;}
 .card-row-label{font-size:10px;color:var(--muted);white-space:nowrap;margin-top:3px;}
@@ -248,9 +246,7 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 .card-thumb-link{flex-shrink:0;width:133px;height:75px;border-radius:5px;overflow:hidden;background:var(--bg3);display:block;position:relative;}
 .card-thumb-link img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity .2s;}
 .card-thumb-link:hover img{opacity:.85;}
-.card-thumb-empty{flex-shrink:0;width:133px;height:75px;border-radius:5px;
-  background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;
-  justify-content:center;font-size:20px;opacity:.3;}
+.card-thumb-empty{flex-shrink:0;width:133px;height:75px;border-radius:5px;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;opacity:.3;}
 .card-body-wrap{display:flex;flex-direction:column;justify-content:space-between;width:129px;flex-shrink:0;height:75px;overflow:hidden;}
 .card-body-left{display:contents;}
 .card-main-link{display:inline-flex;align-items:center;gap:5px;margin-top:6px;
@@ -1970,7 +1966,7 @@ function renderLive(){
           vurl?'<span class="badge" style="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);color:var(--muted);">🔗</span>':'',
         ].filter(Boolean).join("");
         const thumbHtml=thumb
-          ?`<a class="card-thumb-link" href="${escH(vurl||'#')}" target="_blank" onclick="event.stopPropagation()"><img src="${escH(thumb)}" onerror="window.thumbErr&&window.thumbErr(this)" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></a>`
+          ?`<a class="card-thumb-link" href="${escH(vurl||'#')}" target="_blank" onclick="event.stopPropagation()"><img src="${escH(thumb)}" onerror="window.thumbErr&&window.thumbErr(this)" alt="" style="width:133px;height:75px;object-fit:cover;display:block;"></a>`
           :`<div class="card-thumb-empty">📺</div>`;
         const isDebut=SEASON_DATES.has(toNum(b.y,b.d));
         const eraLabel=isDebut?SEASON_LABEL[toNum(b.y,b.d)]:"";
@@ -2085,7 +2081,7 @@ function renderRadio(){
         let rthumb=r.thumb||"";
         if(!rthumb&&vurl){const _v=vurl.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|live\/|embed\/))([a-zA-Z0-9_-]{11})/);if(_v)rthumb=`https://i.ytimg.com/vi/${_v[1]}/mqdefault.jpg`;}
         const rThumbHtml=rthumb
-          ?`<a class="card-thumb-link" href="${escH(vurl||'#')}" target="_blank" onclick="event.stopPropagation()"><img src="${escH(rthumb)}" onerror="window.thumbErr&&window.thumbErr(this)" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></a>`
+          ?`<a class="card-thumb-link" href="${escH(vurl||'#')}" target="_blank" onclick="event.stopPropagation()"><img src="${escH(rthumb)}" onerror="window.thumbErr&&window.thumbErr(this)" alt="" style="width:133px;height:75px;object-fit:cover;display:block;"></a>`
           :`<div class="card-thumb-empty">📻</div>`;
         return`<div class="card ${cc(r.dj)}" data-sid="${escH(sid)}" data-title="${escH(cardTitle)}" data-date="${yy}.${r.d}" data-type="radio" onclick="if(!event.target.closest('a,button'))handleCardClick(this)">
           <div class="card-with-thumb">
@@ -2178,7 +2174,7 @@ function renderUnifiedCard(item,yy){
     if(v) thumb=`https://i.ytimg.com/vi/${v[1]}/mqdefault.jpg`;
   }
   const thumbHtml=thumb
-    ?`<a class="card-thumb-link" href="${escH(vurl||'#')}" target="_blank" onclick="event.stopPropagation()"><img src="${escH(thumb)}" onerror="window.thumbErr&&window.thumbErr(this)" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></a>`
+    ?`<a class="card-thumb-link" href="${escH(vurl||'#')}" target="_blank" onclick="event.stopPropagation()"><img src="${escH(thumb)}" onerror="window.thumbErr&&window.thumbErr(this)" alt="" style="width:133px;height:75px;object-fit:cover;display:block;"></a>`
     :`<div class="card-thumb-empty">${type==="radio"?"📻":type==="lassgo"?"🚀":"📺"}</div>`;
   let badge="",title="",memberPills="";
   if(type==="live"){
@@ -2318,7 +2314,7 @@ function renderLassgo(){
         let pthumb=p.thumb||"";
         if(!pthumb&&pvurl){const _v=pvurl.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|live\/|embed\/))([a-zA-Z0-9_-]{11})/);if(_v)pthumb=`https://i.ytimg.com/vi/${_v[1]}/mqdefault.jpg`;}
         const pThumbHtml=pthumb
-          ?`<a class="card-thumb-link" href="${escH(pvurl||'#')}" target="_blank" onclick="event.stopPropagation()"><img src="${escH(pthumb)}" onerror="window.thumbErr&&window.thumbErr(this)" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></a>`
+          ?`<a class="card-thumb-link" href="${escH(pvurl||'#')}" target="_blank" onclick="event.stopPropagation()"><img src="${escH(pthumb)}" onerror="window.thumbErr&&window.thumbErr(this)" alt="" style="width:133px;height:75px;object-fit:cover;display:block;"></a>`
           :`<div class="card-thumb-empty">🚀</div>`;
         return`<div class="card c-all" data-sid="${escH(sid)}" data-title="${escH(p.t)}" data-date="${p.y}.${p.d}" data-type="lassgo" onclick="if(!event.target.closest('a,button'))handleCardClick(this)">
           <div class="card-with-thumb">
