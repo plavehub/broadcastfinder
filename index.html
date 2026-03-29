@@ -1438,6 +1438,10 @@ function thumbFromUrl(url){
   const vid=url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|live\/|embed\/))([a-zA-Z0-9_-]{11})/);
   return vid?`https://i.ytimg.com/vi/${vid[1]}/mqdefault.jpg`:"";
 }
+const L=[];
+const R=[];
+const P=[];
+
 async function loadFromSupabase(onStatus){
   const st=onStatus||((t)=>{});
   try{
@@ -1480,9 +1484,7 @@ async function loadFromSupabase(onStatus){
   }catch(e){console.warn("Supabase 로드 실패:",e);}
 }
 
-const L=[];
-
-const R=[];
+/* ── DATA declared above ── */
 
 
 /* helpers for built-in URL/thumb */
@@ -2261,8 +2263,7 @@ function renderUnified(){
   });
 })();
 
-/* ── LASSGO DATA ── */
-const P=[];
+/* ── LASSGO DATA declared above ── */
 
 function renderLassgo(){
   const f=P.filter(p=>{
