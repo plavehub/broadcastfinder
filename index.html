@@ -61,7 +61,7 @@ header{position:sticky;top:0;z-index:101;background:rgba(6,6,17,1);text-align:ce
 .controls-inner{max-width:1060px;margin:0 auto;padding:0 16px;display:flex;flex-direction:column;gap:6px;}
 .search-row{position:relative;}
 .search-input{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;
-  padding:8px 118px 8px 12px;color:#ffffff;font-family:'Noto Sans KR',sans-serif;font-size:13px;outline:none;transition:border-color .2s;}
+  padding:8px 138px 8px 12px;color:#ffffff;font-family:'Noto Sans KR',sans-serif;font-size:13px;outline:none;transition:border-color .2s;}
 .search-input:focus{border-color:rgba(168,85,247,.5);background:var(--bg3);}
 .search-input:-webkit-autofill,.search-input:-webkit-autofill:focus{-webkit-box-shadow:0 0 0 1000px var(--bg3) inset;-webkit-text-fill-color:#ffffff;}
 .search-input::placeholder{color:var(--muted);}
@@ -81,6 +81,8 @@ header{position:sticky;top:0;z-index:101;background:rgba(6,6,17,1);text-align:ce
 .hl-lb{color:rgba(255,255,255,.55);flex:1;line-height:1.5}
 .m-hl{background:rgba(168,85,247,.2);color:#c084fc;padding:0 2px;border-radius:2px}
 .m-hl-y{background:rgba(255,183,77,.15);color:#ffb74d;padding:0 2px;border-radius:2px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.search-spinner{width:16px;height:16px;border:2px solid rgba(168,85,247,.15);border-top-color:#a855f7;border-radius:50%;animation:spin .6s linear infinite;flex-shrink:0;display:none;}
 .filter-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
 .filter-divider{width:1px;height:18px;background:var(--border);align-self:center;}
 .btn{border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:4px 11px;font-family:'Noto Sans KR',sans-serif;
@@ -478,26 +480,26 @@ main{position:relative;z-index:1;max-width:1060px;margin:0 auto;padding:18px 16p
                font-size:11px;font-weight:600;padding:4px 11px;cursor:pointer;
                white-space:nowrap;transition:all .15s;font-family:'Noto Sans KR',sans-serif;">검색</button>
       <div style="width:1px;height:18px;background:rgba(255,255,255,.1);flex-shrink:0;"></div>
-      <div class="search-row" style="flex:1;position:relative;display:flex;align-items:center;">
-        <input class="search-input" id="search" type="text" placeholder="🛸 방송 키워드 검색..."
-          oninput="document.getElementById('search-clear').style.display=this.value?'flex':'none';"
-          onkeydown="if(event.key==='Enter'){render(true);}">
-        <button id="search-clear" onclick="document.getElementById('search').value='';curQ='';render();this.style.display='none';"
-          style="display:none;position:absolute;right:80px;background:none;border:none;cursor:pointer;
-                 font-size:13px;padding:0 4px;line-height:1;color:var(--muted);align-items:center;justify-content:center;">✕</button>
-        <div style="position:absolute;right:6px;display:flex;align-items:center;gap:3px;">
-          <button id="bcast-tag-search-btn" onclick="toggleBcastTagSearch()"
-            style="width:24px;height:20px;font-size:11px;font-weight:700;color:rgba(168,85,247,.45);font-family:'Noto Sans KR',sans-serif;border:1.5px solid rgba(168,85,247,.3);border-radius:4px;padding:0;background:none;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;"
-            title="태그만 검색">#</button>
-          <button id="script-search-btn" onclick="toggleScriptSearch()"
-            style="width:24px;height:20px;font-size:11px;font-weight:700;color:rgba(45,212,191,.3);font-family:'Noto Sans KR',sans-serif;border:1.5px solid rgba(45,212,191,.2);border-radius:4px;padding:0;background:none;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;"
-            title="스크립트 검색">T</button>
-          <button id="hl-search-btn" onclick="toggleHlSearch()"
-            style="width:24px;height:20px;font-size:10px;font-weight:700;color:rgba(255,183,77,.3);font-family:'Noto Sans KR',sans-serif;border:1.5px solid rgba(255,183,77,.2);border-radius:4px;padding:0;background:none;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;"
-            title="하이라이트 검색">★</button>
-          <button onclick="render(true)"
-            style="background:none;border:none;cursor:pointer;font-size:16px;padding:0;line-height:1;color:var(--muted);display:flex;align-items:center;">🔍</button>
-        </div>
+      <div class="search-row" style="flex:1;display:flex;align-items:center;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:0 8px;gap:4px;transition:border-color .2s;" onfocus="this.style.borderColor='rgba(168,85,247,.5)'" onblur="this.style.borderColor='var(--border)'">
+        <button id="bcast-tag-search-btn" onclick="toggleBcastTagSearch()"
+          style="width:24px;height:20px;font-size:11px;font-weight:700;color:rgba(168,85,247,.45);font-family:'Noto Sans KR',sans-serif;border:1.5px solid rgba(168,85,247,.3);border-radius:4px;padding:0;background:none;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;flex-shrink:0;"
+          title="태그만 검색">#</button>
+        <button id="script-search-btn" onclick="toggleScriptSearch()"
+          style="width:24px;height:20px;font-size:11px;font-weight:700;color:rgba(45,212,191,.3);font-family:'Noto Sans KR',sans-serif;border:1.5px solid rgba(45,212,191,.2);border-radius:4px;padding:0;background:none;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;flex-shrink:0;"
+          title="스크립트 검색">T</button>
+        <button id="hl-search-btn" onclick="toggleHlSearch()"
+          style="width:24px;height:20px;font-size:10px;font-weight:700;color:rgba(255,183,77,.3);font-family:'Noto Sans KR',sans-serif;border:1.5px solid rgba(255,183,77,.2);border-radius:4px;padding:0;background:none;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;flex-shrink:0;"
+          title="하이라이트 검색">★</button>
+        <input id="search" type="text" placeholder="방송 키워드 검색..."
+          style="flex:1;background:transparent;border:none;color:#fff;font-family:'Noto Sans KR',sans-serif;font-size:13px;outline:none;padding:8px 4px;"
+          oninput="curQ=this.value;"
+          onkeydown="if(event.key==='Enter'){render(true);}if(event.key==='Escape'){this.value='';curQ='';scriptSearchResults={};hlSearchResults={};render();}">
+        <div id="search-spinner" class="search-spinner"></div>
+        <button onclick="document.getElementById('search').value='';curQ='';scriptSearchResults={};hlSearchResults={};render();document.getElementById('search').focus();"
+          style="background:none;border:none;cursor:pointer;font-size:12px;color:var(--muted);display:flex;align-items:center;flex-shrink:0;padding:2px;"
+          title="검색어 지우기">✕</button>
+        <button onclick="render(true)"
+          style="background:none;border:none;cursor:pointer;font-size:16px;padding:0;line-height:1;color:var(--muted);display:flex;align-items:center;flex-shrink:0;">🔍</button>
       </div>
       <div style="display:flex;border-radius:8px;overflow:hidden;border:1px solid var(--border);flex-shrink:0;">
         <button id="tag-mode-include" class="tc-tab active" style="padding:5px 10px;font-size:10px;border-radius:0;" onclick="setTagMode('include')">포함</button>
@@ -566,6 +568,10 @@ main{position:relative;z-index:1;max-width:1060px;margin:0 auto;padding:18px 16p
         <button class="btn btn-bambi" data-member="밤비" onclick="setMember(this)">🩷 밤비</button>
         <button class="btn btn-eunho" data-member="은호" onclick="setMember(this)">❤️ 은호</button>
         <button class="btn btn-hamin" data-member="하민" onclick="setMember(this)">🖤 하민</button>
+      </div>
+      <div style="display:flex;border-radius:8px;overflow:hidden;border:1px solid var(--border);flex-shrink:0;margin-left:4px;">
+        <button id="mem-mode-include" class="tc-tab" style="padding:4px 8px;font-size:9px;border-radius:0;" onclick="setMemMode('include')">포함</button>
+        <button id="mem-mode-exact" class="tc-tab active" style="padding:4px 8px;font-size:9px;border-left:1px solid var(--border);border-radius:0;" onclick="setMemMode('exact')">일치</button>
       </div>
     </div>
     <!-- 연도 -->
@@ -815,12 +821,19 @@ function cc(arr){
 }
 const matchM=(arr)=>{
   if(curMemSet.has("all")||curMemSet.size===0)return true;
+  if(curMemMode==="include"){
+    // 포함: 선택한 멤버가 모두 포함되어 있으면 OK (전원도 OK)
+    if(arr.includes("전원")) return true;
+    return [...curMemSet].every(m=>arr.includes(m));
+  }
+  // 일치: 정확히 같은 멤버 조합
   if(arr.includes("전원")) return false;
   if(arr.length!==curMemSet.size)return false;
   return arr.every(m=>curMemSet.has(m));
 };
 
 /* ── state ── */
+let curMemMode="exact";
 let curTab="broadcast",curYearSet=new Set(),curMemSet=new Set(),curQ="",curTagQ="",curTagMode="include",curEra="all",curSpecial="all",curTGFilter="all",curSort="desc",curBcastTagSearchMode=false;
 let curScriptSearchOn=false, curHlSearchOn=false;
 let scriptSearchResults={}, hlSearchResults={};
@@ -1787,8 +1800,17 @@ function resetYear(){
   document.querySelectorAll(".btn-special").forEach(b=>b.classList.remove("active"));
   render();
 }
+function setMemMode(mode){
+  curMemMode=mode;
+  document.getElementById("mem-mode-include").classList.toggle("active",mode==="include");
+  document.getElementById("mem-mode-exact").classList.toggle("active",mode==="exact");
+  render();
+}
 function resetMember(){
   curMemSet=new Set();
+  curMemMode="exact";
+  document.getElementById("mem-mode-include").classList.remove("active");
+  document.getElementById("mem-mode-exact").classList.add("active");
   document.querySelectorAll("#member-filters .btn").forEach(b=>b.classList.remove("active"));
   render();
 }
@@ -2157,18 +2179,27 @@ function resetAllFilters(){
   // 방송 필터 리셋
   curYearSet=new Set(); curMemSet=new Set(); curQ=""; curTagQ="";
   curEra="all"; curSpecial="all"; curTGFilter="all"; curBcastTagSearchMode=false;
+  curScriptSearchOn=false; curHlSearchOn=false;
+  curMemMode="exact";
+  scriptSearchResults={}; hlSearchResults={};
   document.getElementById("search").value="";
-  document.getElementById("search-clear").style.display="none";
   const tagBtn=document.getElementById("bcast-tag-search-btn");
   if(tagBtn){tagBtn.style.color="rgba(168,85,247,.45)";tagBtn.style.borderColor="rgba(168,85,247,.3)";tagBtn.style.background="none";}
-  document.querySelectorAll("#year-filters .btn").forEach(b=>b.classList.remove("active"));
+  const scrBtn=document.getElementById("script-search-btn");
+  if(scrBtn){scrBtn.style.color="rgba(45,212,191,.3)";scrBtn.style.borderColor="rgba(45,212,191,.2)";scrBtn.style.background="none";}
+  const hlBtn=document.getElementById("hl-search-btn");
+  if(hlBtn){hlBtn.style.color="rgba(255,183,77,.3)";hlBtn.style.borderColor="rgba(255,183,77,.2)";hlBtn.style.background="none";}
+  document.getElementById("mem-mode-include").classList.remove("active");
+  document.getElementById("mem-mode-exact").classList.add("active");  document.querySelectorAll("#year-filters .btn").forEach(b=>b.classList.remove("active"));
   document.querySelectorAll("#member-filters .btn").forEach(b=>b.classList.remove("active"));
   document.querySelectorAll("#era-filters .btn").forEach(b=>b.classList.remove("active"));
   document.querySelectorAll(".btn-special").forEach(b=>b.classList.remove("active"));
+  // 방송타입 리셋
+  curBcastSet=new Set(["live"]); curBcastAllActive=false;
+  document.querySelectorAll(".btn-bcast-type").forEach(b=>{b.classList.remove("active");if(b.dataset.type==="live")b.classList.add("active");});
   // 발매곡 필터 리셋
   curSongAlbum="all"; curSongYear="all"; curSongType="all"; curSongQ=""; curSongTagSearchMode=false;
   document.getElementById("song-search").value="";
-  document.getElementById("song-search-clear").style.display="none";
   const songTagBtn=document.getElementById("song-tag-search-btn");
   if(songTagBtn){songTagBtn.style.color="rgba(168,85,247,.45)";songTagBtn.style.borderColor="rgba(168,85,247,.3)";songTagBtn.style.background="none";}
   document.querySelectorAll(".btn-song-album").forEach(b=>b.classList.remove("active"));
@@ -2209,19 +2240,23 @@ function updateHeaderStats(){
 }
 function render(doSearch){
   const q=document.getElementById("search")?.value||"";
+  curQ=q;
   if(doSearch && q.length>=2 && (curScriptSearchOn||curHlSearchOn)){
     doAsyncSearchThenRender(q);
-  } else if(!doSearch && (curScriptSearchOn||curHlSearchOn)){
-    // Just re-render with existing results (typing)
-    renderUnified();
-    if(q.length>=2) injectSearchResults(q);
   } else {
-    scriptSearchResults={}; hlSearchResults={};
+    if(!(curScriptSearchOn||curHlSearchOn)){
+      scriptSearchResults={}; hlSearchResults={};
+    }
     renderUnified();
+    if(q.length>=2 && (curScriptSearchOn||curHlSearchOn)){
+      injectSearchResults(q);
+    }
   }
 }
 
 async function doAsyncSearchThenRender(q){
+  const spinner=document.getElementById("search-spinner");
+  if(spinner) spinner.style.display="block";
   const promises=[];
   if(curScriptSearchOn){
     promises.push(
@@ -2252,6 +2287,7 @@ async function doAsyncSearchThenRender(q){
     );
   } else { hlSearchResults={}; }
   await Promise.all(promises);
+  if(spinner) spinner.style.display="none";
   renderUnified();
   injectSearchResults(q);
 }
