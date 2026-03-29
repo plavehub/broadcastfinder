@@ -13,7 +13,7 @@
   --border:rgba(255,255,255,0.07);--text:#e8e8f0;--muted:#8888aa;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-top:0;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-top:0;min-width:312px;}
 body::before{content:'';position:fixed;inset:0;
   background-image:
     radial-gradient(1px 1px at 15% 20%,rgba(255,255,255,.4) 0%,transparent 100%),
@@ -33,15 +33,15 @@ body::before{content:'';position:fixed;inset:0;
     radial-gradient(1px 1px at 5% 50%,rgba(255,255,255,.15) 0%,transparent 100%);
   pointer-events:none;z-index:0;}
 
-header{position:sticky;top:0;z-index:101;background:rgba(6,6,17,.97);backdrop-filter:blur(12px);text-align:center;padding:18px 20px 14px;border-bottom:1px solid var(--border);}
+header{position:sticky;top:0;z-index:101;background:rgba(6,6,17,1);text-align:center;padding:18px 20px 14px;border-bottom:1px solid var(--border);}
 
 .logo-title{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(22px,4.5vw,42px);letter-spacing:.12em;
   background:linear-gradient(90deg,var(--yejun) 0%,var(--yejun) 12%,var(--noah) 28%,var(--bambi) 50%,var(--eunho) 72%,var(--hamin) 88%,var(--hamin) 100%);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.logo-sub{font-size:11px;letter-spacing:.3em;color:var(--muted);text-transform:uppercase;margin-top:5px;}
+.logo-sub{font-size:11px;letter-spacing:.15em;color:var(--muted);margin-top:5px;font-family:'Syne',sans-serif;}.logo-sub .stat-num{color:rgba(255,255,255,.55);font-weight:600;}.logo-sub .stat-div{color:rgba(255,255,255,.2);margin:0 6px;}.logo-sub .stat-div2{color:rgba(255,255,255,.15);margin:0 10px;}.logo-sub .stat-sub{color:rgba(255,255,255,.3);font-size:10px;}
 
-.tab-bar{position:sticky;top:0;z-index:100;background:rgba(6,6,17,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
-.tab-row{max-width:1200px;margin:0 auto;display:flex;padding:0 16px;align-items:center;justify-content:space-between;}
+.tab-bar{position:sticky;top:0;z-index:100;background:rgba(6,6,17,1);border-bottom:1px solid var(--border);}
+.tab-row{max-width:1060px;margin:0 auto;display:flex;padding:0 16px;align-items:center;justify-content:space-between;}
 .btn-add-live{background:rgba(168,85,247,.12);border:1px solid rgba(168,85,247,.3);border-radius:7px;
   color:var(--noah);font-family:'Noto Sans KR',sans-serif;font-size:11px;font-weight:500;
   padding:6px 12px;cursor:pointer;display:flex;align-items:center;gap:5px;
@@ -53,17 +53,15 @@ header{position:sticky;top:0;z-index:101;background:rgba(6,6,17,.97);backdrop-fi
 .tab-btn:hover{color:var(--text);}
 .tab-btn.active{color:var(--text);border-bottom-color:var(--noah);}
 
-.controls{position:sticky;top:0;z-index:99;background:rgba(6,6,17,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:10px 20px;isolation:isolate;}
+.controls{position:sticky;top:0;z-index:99;background:rgba(6,6,17,1);border-bottom:1px solid var(--border);padding:10px 0;isolation:isolate;}
 #filters-collapsible{transition:max-height .18s cubic-bezier(0.4,0,0.2,1),opacity .15s ease;overflow:hidden;max-height:300px;opacity:1;position:relative;}
 #filters-collapsible.collapsed{max-height:0!important;opacity:0;}
-#filters-collapsible::after{content:'';position:absolute;bottom:0;left:0;right:0;height:50%;background:linear-gradient(to bottom,transparent,var(--bg));opacity:0;pointer-events:none;transition:opacity .1s ease;z-index:1;}
-#filters-collapsible::before{content:'';position:absolute;top:0;left:0;right:0;height:50%;background:linear-gradient(to top,transparent,var(--bg));opacity:0;pointer-events:none;transition:opacity .1s ease;z-index:1;}
+#filters-collapsible::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40%;background:linear-gradient(to bottom,transparent,rgba(6,6,17,1));opacity:0;pointer-events:none;transition:opacity .15s ease;z-index:1;}
 #filters-collapsible.collapsing::after{opacity:1;}
-#filters-collapsible.expanding::before{opacity:1;}
-.controls-inner{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:6px;}
+.controls-inner{max-width:1060px;margin:0 auto;padding:0 16px;display:flex;flex-direction:column;gap:6px;}
 .search-row{position:relative;}
 .search-input{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;
-  padding:8px 72px 8px 36px;color:#ffffff;font-family:'Noto Sans KR',sans-serif;font-size:13px;outline:none;transition:border-color .2s;}
+  padding:8px 72px 8px 12px;color:#ffffff;font-family:'Noto Sans KR',sans-serif;font-size:13px;outline:none;transition:border-color .2s;}
 .search-input:focus{border-color:rgba(168,85,247,.5);background:var(--bg3);}
 .search-input:-webkit-autofill,.search-input:-webkit-autofill:focus{-webkit-box-shadow:0 0 0 1000px var(--bg3) inset;-webkit-text-fill-color:#ffffff;}
 .search-input::placeholder{color:var(--muted);}
@@ -126,6 +124,8 @@ header{position:sticky;top:0;z-index:101;background:rgba(6,6,17,.97);backdrop-fi
 .era-숨꼭{background:rgba(249,168,212,.2);}
 .era-뿌우{background:rgba(30,58,138,.2);}
 .era-뿌우크리{background:rgba(248,113,113,.2);}
+.era-이밤빌{background:rgba(100,60,200,.2);}
+.era-대쉬{background:rgba(80,80,80,.2);}
 .era-칼파투{background:rgba(220,38,38,.2);}
 .era-기다릴게.active,.era-기다릴게:hover{background:rgba(30,58,138,.35);}
 .era-삼왜.active,.era-삼왜:hover{background:rgba(244,114,182,.35);}
@@ -138,9 +138,11 @@ header{position:sticky;top:0;z-index:101;background:rgba(6,6,17,.97);backdrop-fi
 .era-숨꼭.active,.era-숨꼭:hover{background:rgba(249,168,212,.35);}
 .era-뿌우.active,.era-뿌우:hover{background:rgba(30,58,138,.35);}
 .era-뿌우크리.active,.era-뿌우크리:hover{background:rgba(248,113,113,.35);}
+.era-이밤빌.active,.era-이밤빌:hover{background:rgba(100,60,200,.35);}
+.era-대쉬.active,.era-대쉬:hover{background:rgba(80,80,80,.35);}
 .era-칼파투.active,.era-칼파투:hover{background:rgba(220,38,38,.35);}
 
-main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16px 60px;}
+main{position:relative;z-index:1;max-width:1060px;margin:0 auto;padding:18px 16px 60px;}
 .result-count{font-size:11px;color:var(--muted);margin-bottom:12px;padding:0 2px;}
 .section-view{display:none;}
 .section-view.active{display:block;}
@@ -154,15 +156,14 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 .month-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;color:var(--muted);min-width:28px;}
 .month-line{flex:1;height:1px;background:var(--border);opacity:.45;}
 .month-count{font-size:10px;color:var(--muted);opacity:.7;}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(265px,1fr));gap:8px;}
+.grid{display:flex;flex-wrap:wrap;gap:8px;}
 
 /* CARD */
-.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;
-  transition:border-color .2s,transform .15s,box-shadow .2s;position:relative;overflow:hidden;cursor:pointer;}
+.card{background:var(--card);border:2px solid var(--border);border-radius:10px;padding:11px;display:flex;flex-direction:column;gap:0;width:335px;flex-shrink:0;box-sizing:border-box;cursor:pointer;transition:border-color .15s;position:relative;}
 .card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;opacity:0;transition:opacity .2s;}
 .card:hover{border-color:rgba(255,255,255,.18);transform:translateY(-1px);box-shadow:0 6px 24px rgba(0,0,0,.35);}
 .card:hover::before{opacity:1;}
-.card:hover .card-edit-hint{opacity:1;}
+.card:hover .card-edit-hint{opacity:0;}
 .card.c-yejun::before{background:var(--yejun);}
 .card.c-noah::before{background:var(--noah);}
 .card.c-bambi::before{background:var(--bambi);}
@@ -170,23 +171,27 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 .card.c-hamin::before{background:var(--hamin);}
 .card.c-all::before{background:linear-gradient(90deg,var(--yejun),var(--noah),var(--bambi),var(--eunho),var(--hamin));}
 .card.c-mixed::before{background:linear-gradient(90deg,var(--yejun),var(--noah));}
-.card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;}
-.card-date{font-family:'Syne',sans-serif;font-size:10px;font-weight:600;letter-spacing:.08em;color:var(--muted);}
-.card-badges{display:flex;gap:3px;flex-wrap:wrap;justify-content:flex-end;align-items:center;}
-.badge{font-size:10px;border-radius:4px;padding:1px 6px;letter-spacing:.02em;}
+.card-top{display:flex;flex-direction:column;align-items:flex-end;gap:0;}
+.card-date{font-family:'Syne',sans-serif;font-size:8px;font-weight:600;letter-spacing:.05em;color:var(--muted);text-align:right;line-height:1;}
+.card-badges{display:flex;gap:3px;justify-content:flex-end;align-items:center;margin-top:4px;}
+.badge{font-size:8px;padding:1px 4px;border-radius:4px;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--muted);white-space:nowrap;}
 .badge-bday{background:rgba(255,215,0,.1);color:#ffd700;border:1px solid rgba(255,215,0,.22);}
 .badge-debut{background:rgba(168,85,247,.1);color:var(--noah);border:1px solid rgba(168,85,247,.22);}
 .badge-predebut{background:rgba(77,166,255,.08);color:var(--yejun);border:1px solid rgba(77,166,255,.16);}
 .badge-type-live{background:rgba(77,166,255,.07);color:#6a9fd8;border:1px solid rgba(77,166,255,.14);font-size:9px;}
 .badge-type-radio{background:rgba(82,204,122,.07);color:#4aaa66;border:1px solid rgba(82,204,122,.18);font-size:9px;}
 .badge-type-lassgo{background:rgba(255,183,77,.08);color:#ffb74d;border:1px solid rgba(255,183,77,.2);font-size:9px;}
-.card-title{font-size:12px;line-height:1.5;color:var(--text);margin-bottom:8px;
-  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+.card-title{font-size:9px;line-height:1.4;color:var(--text);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;word-break:break-all;flex:1;margin-top:5px;}
 .card-ep{font-family:'Syne',sans-serif;font-size:11px;color:var(--muted);margin-bottom:7px;letter-spacing:.05em;}
 .card-row{display:flex;align-items:flex-start;gap:7px;margin-bottom:5px;}
 .card-row-label{font-size:10px;color:var(--muted);white-space:nowrap;margin-top:3px;}
-.card-members{display:flex;gap:4px;flex-wrap:wrap;}
-.member-pill{font-size:11px;border-radius:8px;padding:3px 9px;font-weight:500;border:1px solid transparent;display:inline-flex;align-items:center;gap:3px;}
+.card-members{display:flex;gap:2px;flex-wrap:nowrap;overflow:hidden;margin-top:5px;}
+.card-tag-row{display:flex;align-items:center;gap:5px;flex-wrap:nowrap;overflow:hidden;padding:8px 0 0 0;min-height:20px;border-top:1px solid rgba(168,85,247,.2);margin-top:8px;}
+.card-tag-label{font-size:10px;font-weight:700;color:#a855f7;font-family:'Syne',sans-serif;white-space:nowrap;flex-shrink:0;}
+.card-tag-list{display:flex;gap:3px;flex-wrap:nowrap;overflow:hidden;align-items:center;flex:1;}
+.card-tag-btn{font-size:8px;padding:1px 5px;border-radius:4px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:rgba(255,255,255,.45);white-space:nowrap;flex-shrink:0;}
+.card-tag-more{font-size:8px;color:rgba(255,255,255,.25);white-space:nowrap;flex-shrink:0;}
+.member-pill{font-size:8px;border-radius:4px;padding:1px 0;font-weight:500;border:1px solid transparent;display:inline-flex;align-items:center;justify-content:center;gap:1px;width:34px;box-sizing:border-box;flex-shrink:0;}
 .pill-yejun{background:rgba(77,166,255,.1);color:var(--yejun);border-color:rgba(77,166,255,.35);}
 .pill-noah{background:rgba(168,85,247,.1);color:var(--noah);border-color:rgba(168,85,247,.35);}
 .pill-bambi{background:rgba(255,107,157,.1);color:var(--bambi);border-color:rgba(255,107,157,.35);}
@@ -239,17 +244,13 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 .card.season-debut::before{opacity:1!important;background:linear-gradient(90deg,#e8c97a,#f5e0a0,#e8c97a)!important;}
 
 /* thumbnail card layout */
-.card-with-thumb{display:flex;gap:10px;margin-bottom:7px;}
-.card-thumb-link{flex-shrink:0;width:110px;height:62px;border-radius:6px;overflow:hidden;
-  background:var(--bg3);display:block;position:relative;}
-.card-thumb-link img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity .2s;}
+.card-with-thumb{display:flex;gap:11px;align-items:flex-start;overflow:hidden;}
+.card-thumb-link{flex-shrink:0;width:160px;min-width:160px;max-width:160px;height:90px;border-radius:6px;overflow:hidden;background:var(--bg3);display:block;position:relative;}
+.card-thumb-link img{width:100%;height:100%;object-fit:cover;display:block;}
 .card-thumb-link:hover img{opacity:.85;}
-.card-thumb-empty{flex-shrink:0;width:110px;height:62px;border-radius:6px;
-  background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;
-  justify-content:center;font-size:20px;opacity:.3;}
-.card-body-wrap{flex:1;min-width:0;}
-.card-body-wrap .card-top{margin-bottom:4px;}
-.card-body-wrap .card-title{margin-bottom:0;font-size:11px;-webkit-line-clamp:2;}
+.card-thumb-empty{flex-shrink:0;width:160px;min-width:160px;height:90px;border-radius:6px;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:20px;opacity:.3;}
+.card-body-wrap{display:flex;flex-direction:column;justify-content:space-between;width:142px;min-width:142px;max-width:142px;flex-shrink:0;overflow:hidden;}
+.card-body-left{display:contents;}
 .card-main-link{display:inline-flex;align-items:center;gap:5px;margin-top:6px;
   font-size:11px;color:var(--yejun);text-decoration:none;opacity:.85;transition:opacity .15s;}
 .card-main-link:hover{opacity:1;}
@@ -334,21 +335,21 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 ::-webkit-scrollbar-thumb{background:var(--bg3);border-radius:3px;}
 
 @media(max-width:600px){
-  .grid{grid-template-columns:1fr;}
+
   .filter-divider{display:none;}
   .tab-btn{padding:11px 12px;font-size:10px;}
   .modal-box{max-height:92vh;}
   .m-row{flex-direction:column;}
 }
 /* ── 발매곡 ── */
-.btn-song-album.active{background:var(--ac,rgba(168,85,247,.18));border-color:var(--bc,rgba(168,85,247,.5));color:var(--tc,#c084fc);}
+
 .btn-song-year.active,.btn-song-type.active{background:rgba(45,212,191,.12);border-color:rgba(45,212,191,.35);color:#2dd4bf;}
 .songs-album-section{margin-bottom:22px;}
 .songs-album-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
 .songs-album-label{font-size:12px;font-weight:700;letter-spacing:.06em;padding:3px 10px;border-radius:5px;border-left:3px solid;}
 .songs-album-date{font-size:10px;color:var(--muted);}
-.songs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;}
-.song-card{background:#0f0f1e;border:1px solid rgba(255,255,255,.08);border-radius:10px;overflow:hidden;cursor:pointer;transition:border-color .15s;}
+.songs-grid{display:flex;flex-wrap:wrap;gap:10px;}
+.song-card{background:#0f0f1e;border:1px solid rgba(255,255,255,.08);border-radius:10px;overflow:hidden;cursor:pointer;transition:border-color .15s;flex-shrink:0;width:150px;}
 .song-card:hover{border-color:rgba(255,255,255,.2);}
 .song-thumb-wrap{width:100%;aspect-ratio:1;position:relative;overflow:hidden;background:#111;}
 .song-thumb-blur{position:absolute;inset:0;background-size:cover;background-position:center;filter:blur(16px);opacity:.6;transform:scale(1.15);}
@@ -383,11 +384,8 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 .song-tag{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#888;padding:2px 7px;border-radius:20px;font-size:9px;cursor:pointer;}
 .song-tag:hover{border-color:rgba(255,82,82,.4);color:#ff5252;}
 .song-tag-empty{color:#333;font-size:9px;}
-.song-tag-input-wrap{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:5px;padding:4px 8px;}
-.song-tag-input{background:transparent;border:none;color:#888;font-size:10px;outline:none;width:100%;}
-.song-tag-input::placeholder{color:#333;}
 @media(max-width:600px){
-  .songs-grid{grid-template-columns:repeat(2,1fr);}
+
   .song-modal-box{flex-direction:column;}
   .song-modal-left{width:100%;height:160px;}
 }
@@ -400,12 +398,26 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 #search-mode-btn.title-only{border-color:rgba(255,255,255,.8) !important;color:#ffffff !important;background:transparent !important;}
 .empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px;color:var(--muted);font-size:13px;gap:8px;}
 .empty-icon{display:none;}
+
+.controls::after{content:'';position:absolute;bottom:-12px;left:0;right:0;height:12px;background:linear-gradient(to bottom,rgba(6,6,17,1),transparent);pointer-events:none;z-index:1;}
+
+
+.btn-song-album:hover{filter:brightness(1.4);}
+.btn-song-year:not(.active):hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.7);}
+.btn-song-type:not(.active):hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.7);}
+
+.btn-song-year.active{color:#fff;background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.35);}
+.btn-song-type.active{color:#fff;background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.35);}
+.btn-song-type[data-type="타이틀"].active{color:var(--yejun);background:rgba(77,166,255,.1);border-color:rgba(77,166,255,.35);}
+.btn-song-type[data-type="수록곡"].active{color:var(--noah);background:rgba(168,85,247,.1);border-color:rgba(168,85,247,.35);}
+.btn-song-type[data-type="ost"].active{color:var(--hamin);background:rgba(82,204,122,.1);border-color:rgba(82,204,122,.35);}
+.btn-song-type[data-type="inst"].active{color:var(--muted);background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.2);}
 </style>
 <body>
 
 <header>
   <div class="logo-title">PLAVE ARCHIVE</div>
-  <div class="logo-sub">라이브 방송 · 라디오 아카이브</div>
+  <div class="logo-sub" id="header-stats">라이브 <span class="stat-num">0</span>회 <span class="stat-sub">(0개)</span><span class="stat-div">·</span>라디오 <span class="stat-num">0</span>회<span class="stat-div">·</span>라쓰고 <span class="stat-num">0</span>회 <span class="stat-sub">(0개)</span><span class="stat-div2">|</span>발매곡 <span class="stat-num">0</span>개 <span class="stat-sub">(앨범 0개)</span></div>
 </header>
 
 <div class="tab-bar">
@@ -415,28 +427,22 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
       <button class="tab-btn" onclick="switchTab('songs',this)">💿 발매곡</button>
     </div>
     <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-      <!-- 백업하기 (태그 + 수기 추가 통합) -->
-      <div style="position:relative;display:inline-flex;flex-direction:column;gap:2px;">
-        <button class="btn-add-live" id="tag-backup-btn" onclick="backupAll()" title="태그 및 수기 추가 방송 백업">💾 백업하기</button>
-        <div id="tag-backup-bar" style="display:none;height:3px;border-radius:2px;background:rgba(45,212,191,.2);overflow:hidden;">
-          <div id="tag-backup-fill" style="height:100%;background:#2dd4bf;width:0%;transition:width .3s;"></div>
-        </div>
       </div>
-      <button class="btn-add-live" onclick="openAddLive()" title="새 방송 추가" style="padding:5px 10px;font-size:16px;">＋</button>
+      <button class="btn-add-live" onclick="resetAllFilters()" title="전체 필터 초기화" style="padding:5px 12px;font-size:11px;font-family:'Syne',sans-serif;letter-spacing:.05em;">RESET</button>
     </div>
   </div>
 </div>
 
 <!-- 연동하기 고정 바 (최상단 단독) -->
-<div id="sync-fixed-bar" style="position:fixed;top:0;right:0;left:0;z-index:999;display:flex;justify-content:flex-end;align-items:center;gap:12px;padding:6px 16px;background:rgba(11,11,30,.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.06);">
+<div id="sync-fixed-bar" style="position:fixed;top:0;right:0;left:0;z-index:999;display:flex;justify-content:flex-end;align-items:center;gap:12px;padding:6px 16px;background:rgba(11,11,30,1);border-bottom:1px solid rgba(255,255,255,.06);">
   <span id="sync-status" style="font-size:10px;font-weight:400;color:rgba(255,255,255,.35);font-family:'Noto Sans KR',sans-serif;"></span>
-  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px;min-width:100px;">
+  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px;">
     <button id="sync-btn" onclick="syncAll()"
       style="background:rgba(232,201,122,.15);border:1px solid rgba(232,201,122,.4);border-radius:7px;
              color:#e8c97a;font-size:11px;font-weight:600;padding:5px 14px;cursor:pointer;
              font-family:'Syne',sans-serif;letter-spacing:.06em;white-space:nowrap;transition:background .15s;"
       onmouseover="this.style.background='rgba(232,201,122,.28)'"
-      onmouseout="this.style.background='rgba(232,201,122,.15)'">🔄 연동하기</button>
+      onmouseout="this.style.background='rgba(232,201,122,.15)'">UPDATE</button>
     <div id="sync-bar" style="display:none;width:100%;height:3px;border-radius:2px;background:rgba(232,201,122,.2);overflow:hidden;">
       <div id="sync-fill" style="height:100%;background:#e8c97a;width:0%;transition:width .3s;"></div>
     </div>
@@ -445,78 +451,6 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 
 
 <!-- ── ADD LIVE MODAL ── -->
-<div class="modal-overlay" id="add-live-modal" onclick="closeAddLive()" style="display:none;">
-  <div class="modal-box" onclick="event.stopPropagation()" style="max-width:500px;">
-    <div class="modal-header" style="padding:16px 20px 12px;">
-      <div class="modal-header-info">
-        <div class="modal-main-title" style="font-size:15px;">＋ 새 라이브 방송 추가</div>
-      </div>
-      <button class="modal-close" onclick="closeAddLive()">✕</button>
-    </div>
-    <div class="modal-body" style="display:flex;flex-direction:column;gap:12px;">
-
-      <!-- URL 먼저 -->
-      <div>
-        <div style="font-size:10px;color:var(--muted);margin-bottom:5px;">YouTube URL 붙여넣기 → 제목·썸네일 자동 추출</div>
-        <div style="display:flex;gap:7px;">
-          <input class="m-input" id="al-url" placeholder="https://www.youtube.com/live/..." style="flex:1;"
-            oninput="onAlUrlInput()">
-          <button class="m-btn" id="al-fetch-btn" onclick="fetchAlMeta()" style="flex-shrink:0;min-width:60px;">불러오기</button>
-        </div>
-      </div>
-
-      <!-- 썸네일 미리보기 + 제목 -->
-      <div id="al-preview" style="display:none;background:var(--bg3);border:1px solid var(--border);border-radius:9px;padding:10px;display:none;gap:10px;align-items:flex-start;flex-direction:row;">
-        <img id="al-thumb-preview" src="" style="width:100px;height:56px;object-fit:cover;border-radius:6px;flex-shrink:0;" alt="">
-        <div style="flex:1;min-width:0;">
-          <div style="font-size:10px;color:var(--muted);margin-bottom:4px;">제목 (수정 가능)</div>
-          <input class="m-input" id="al-title" placeholder="제목" style="width:100%;font-size:12px;">
-        </div>
-      </div>
-
-      <!-- 제목만 (미리보기 없을 때) -->
-      <div id="al-title-only" style="">
-        <div style="font-size:10px;color:var(--muted);margin-bottom:4px;">제목 *</div>
-        <input class="m-input" id="al-title-2" placeholder="방송 제목 입력..." style="width:100%;" oninput="updateAlPreview()">
-      </div>
-
-      <!-- 날짜 -->
-      <div>
-        <div style="font-size:10px;color:var(--muted);margin-bottom:4px;">날짜 *</div>
-        <input type="date" class="m-input" id="al-date" style="width:160px;color-scheme:dark;" oninput="updateAlPreview()">
-      </div>
-
-      <!-- 멤버 -->
-      <div>
-        <div style="font-size:10px;color:var(--muted);margin-bottom:6px;">멤버 * (복수 선택)</div>
-        <div id="al-members" style="display:flex;gap:5px;flex-wrap:wrap;">
-          <button class="btn btn-all active" data-m="전원" onclick="toggleAlMem(this)">전원</button>
-          <button class="btn btn-yejun" data-m="예준" onclick="toggleAlMem(this)">💙 예준</button>
-          <button class="btn btn-noah" data-m="노아" onclick="toggleAlMem(this)">💜 노아</button>
-          <button class="btn btn-bambi" data-m="밤비" onclick="toggleAlMem(this)">🩷 밤비</button>
-          <button class="btn btn-eunho" data-m="은호" onclick="toggleAlMem(this)">❤️ 은호</button>
-          <button class="btn btn-hamin" data-m="하민" onclick="toggleAlMem(this)">🖤 하민</button>
-        </div>
-      </div>
-
-      <!-- 자동 분류 미리보기 -->
-      <div id="al-preview" style="display:none;background:rgba(45,212,191,.05);border:1px solid rgba(45,212,191,.2);
-           border-radius:8px;padding:8px 12px;font-size:11px;color:var(--muted);">
-        <span style="color:#2dd4bf;font-weight:600;margin-right:6px;">자동 분류</span>
-        <span id="al-preview-text"></span>
-      </div>
-
-      <button onclick="submitAddLive()"
-        style="background:rgba(168,85,247,.15);border:1px solid rgba(168,85,247,.35);border-radius:8px;
-               color:var(--noah);font-family:'Noto Sans KR',sans-serif;font-size:13px;font-weight:500;
-               padding:10px;cursor:pointer;transition:background .15s;"
-        onmouseover="this.style.background='rgba(168,85,247,.28)'"
-        onmouseout="this.style.background='rgba(168,85,247,.15)'">
-        추가하기
-      </button>
-    </div>
-  </div>
-</div>
 
 <div class="controls">
   <div class="controls-inner" id="main-filters-wrap">
@@ -530,12 +464,15 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
                white-space:nowrap;transition:all .15s;font-family:'Noto Sans KR',sans-serif;">검색</button>
       <div style="width:1px;height:18px;background:rgba(255,255,255,.1);flex-shrink:0;"></div>
       <div class="search-row" style="flex:1;position:relative;display:flex;align-items:center;">
-        <input class="search-input" id="search" type="text" placeholder="검색어 입력 후 Enter"
+        <input class="search-input" id="search" type="text" placeholder="🛸 방송 키워드 검색..."
           oninput="document.getElementById('search-clear').style.display=this.value?'flex':'none';"
           onkeydown="if(event.key==='Enter'){render();}">
         <button id="search-clear" onclick="document.getElementById('search').value='';curQ='';render();this.style.display='none';"
-          style="display:none;position:absolute;right:36px;background:none;border:none;cursor:pointer;
+          style="display:none;position:absolute;right:60px;background:none;border:none;cursor:pointer;
                  font-size:13px;padding:0 4px;line-height:1;color:var(--muted);align-items:center;justify-content:center;">✕</button>
+        <button id="bcast-tag-search-btn" onclick="toggleBcastTagSearch()"
+          style="position:absolute;right:34px;font-size:11px;font-weight:700;color:rgba(168,85,247,.45);font-family:'Noto Sans KR',sans-serif;border:1px solid rgba(168,85,247,.3);border-radius:4px;padding:1px 6px;background:none;cursor:pointer;transition:all .15s;line-height:1.4;"
+          title="태그만 검색">#</button>
         <button onclick="render()"
           style="position:absolute;right:8px;background:none;border:none;cursor:pointer;
                  font-size:16px;padding:0;line-height:1;color:var(--muted);">🔍</button>
@@ -561,7 +498,7 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
         onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">
         필터 <span id="filter-toggle-arrow">▼</span>
       </button>
-      <div style="flex:1;height:1px;background:rgba(255,255,255,.08);"></div>
+      <div style="flex:1;height:1px;background:rgba(255,255,255,.08);cursor:pointer;position:relative;" ></div>
       <button onclick="scrollToTop()"
         style="background:transparent;border:none;color:var(--muted);font-size:10px;
                cursor:pointer;padding:2px 4px;display:flex;align-items:center;gap:3px;
@@ -651,22 +588,28 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
   </div>
 </div>
 
-<div id="songs-filter" style="display:none;padding:10px 20px 6px;flex-direction:column;gap:6px;background:rgba(6,6,17,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:99;">
+<div id="songs-filter" style="display:none;padding:10px 0 6px;flex-direction:column;gap:6px;background:rgba(6,6,17,1);position:sticky;top:0;z-index:99;"><div style="max-width:1060px;margin:0 auto;padding:0 16px;display:flex;flex-direction:column;gap:6px;width:100%;box-sizing:border-box;">
       <!-- 검색 행 -->
-      <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+      <div class="filter-row-labeled" style="align-items:center;">
         <button id="song-search-mode-btn" onclick="toggleSongSearchMode()"
-          style="background:transparent;border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:4px 11px;
-                 font-family:'Noto Sans KR',sans-serif;font-size:11px;cursor:pointer;color:rgba(255,255,255,.3);
-                 white-space:nowrap;transition:all .15s;flex-shrink:0;">검색</button>
+          style="flex-shrink:0;background:transparent;border:1px solid rgba(255,255,255,.12);
+                 border-radius:8px;color:rgba(255,255,255,.3);
+                 font-size:11px;font-weight:600;padding:4px 11px;cursor:pointer;
+                 white-space:nowrap;transition:all .15s;font-family:'Noto Sans KR',sans-serif;">검색</button>
+        <div style="width:1px;height:18px;background:rgba(255,255,255,.1);flex-shrink:0;"></div>
         <div class="search-row" style="flex:1;position:relative;display:flex;align-items:center;">
-          <span class="search-icon">🔍</span>
-          <input class="search-input" id="song-search" type="text" placeholder="곡명, 앨범명 검색..."
+          <input class="search-input" id="song-search" type="text" placeholder="💿 발매곡 키워드 검색..."
             oninput="curSongQ=this.value;document.getElementById('song-search-clear').style.display=this.value?'flex':'none';renderSongs();"
             onkeydown="if(event.key==='Enter'){renderSongs();}if(event.key==='Escape'){this.value='';curSongQ='';document.getElementById('song-search-clear').style.display='none';renderSongs();}">
           <button id="song-search-clear" onclick="document.getElementById('song-search').value='';curSongQ='';renderSongs();this.style.display='none';"
-            style="display:none;position:absolute;right:36px;background:none;border:none;cursor:pointer;font-size:13px;padding:0 4px;color:var(--muted);align-items:center;justify-content:center;">✕</button>
+            style="display:none;position:absolute;right:60px;background:none;border:none;cursor:pointer;
+                   font-size:13px;padding:0 4px;line-height:1;color:var(--muted);align-items:center;justify-content:center;">✕</button>
+          <button id="song-tag-search-btn" onclick="toggleSongTagSearch()"
+            style="position:absolute;right:34px;font-size:11px;font-weight:700;color:rgba(168,85,247,.45);font-family:'Noto Sans KR',sans-serif;border:1px solid rgba(168,85,247,.3);border-radius:4px;padding:1px 6px;background:none;cursor:pointer;transition:all .15s;line-height:1.4;"
+            title="태그만 검색">#</button>
           <button onclick="renderSongs()"
-            style="position:absolute;right:8px;background:none;border:none;cursor:pointer;font-size:16px;padding:0;line-height:1;color:var(--muted);">🔍</button>
+            style="position:absolute;right:8px;background:none;border:none;cursor:pointer;
+                   font-size:16px;padding:0;line-height:1;color:var(--muted);">🔍</button>
         </div>
         <div style="display:flex;border-radius:8px;overflow:hidden;border:1px solid var(--border);flex-shrink:0;">
           <button id="song-tag-mode-include" class="tc-tab active" style="padding:5px 10px;font-size:10px;border-radius:0;" onclick="setSongTagMode('include')">포함</button>
@@ -680,7 +623,7 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
         </div>
       </div>
 
-      <!-- 구분선 + 필터 토글 -->
+      <!-- 구분선 + 필터 토글 + TOP -->
       <div style="display:flex;align-items:center;gap:8px;margin-top:6px;">
         <button onclick="toggleSongFilters()"
           style="background:transparent;border:none;color:var(--muted);font-size:10px;
@@ -690,6 +633,13 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
           필터 <span id="song-filter-arrow">▼</span>
         </button>
         <div style="flex:1;height:1px;background:rgba(255,255,255,.08);"></div>
+        <button onclick="scrollToTop()"
+          style="background:transparent;border:none;color:var(--muted);font-size:10px;
+                 cursor:pointer;padding:2px 4px;display:flex;align-items:center;gap:3px;
+                 font-family:'Noto Sans KR',sans-serif;white-space:nowrap;flex-shrink:0;transition:color .15s;"
+          onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">
+          TOP ▲
+        </button>
       </div>
 
       <!-- 접히는 필터 영역 -->
@@ -700,18 +650,18 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
         <div class="filter-sep"></div>
         <div style="display:flex;gap:5px;flex-wrap:wrap;flex:1;">
           <button class="btn btn-song-album active" data-album="all">전체</button>
-          <button class="btn btn-song-album" data-album="기다릴게" style="--ac:#1E3A8A;--bc:#3b5bc8;--tc:#bfdbfe;">기다릴게</button>
-          <button class="btn btn-song-album" data-album="삼왜" style="--ac:rgba(244,114,182,.22);--bc:#f472b6;--tc:#fce7f3;">삼왜</button>
-          <button class="btn btn-song-album" data-album="여여름" style="--ac:rgba(132,204,22,.15);--bc:#84cc16;--tc:#d9f99d;">여여름</button>
-          <button class="btn btn-song-album" data-album="메리플리" style="--ac:rgba(100,116,139,.25);--bc:#64748b;--tc:#cbd5e1;">메리플리</button>
-          <button class="btn btn-song-album" data-album="웨사럽" style="--ac:rgba(148,163,184,.15);--bc:#94a3b8;--tc:#e2e8f0;">W4L</button>
-          <button class="btn btn-song-album" data-album="펌펍볼" style="--ac:rgba(249,115,22,.2);--bc:#f97316;--tc:#fed7aa;">펌펍볼</button>
-          <button class="btn btn-song-album" data-album="멈추지않아" style="--ac:rgba(55,65,81,.4);--bc:#6b7280;--tc:#d1d5db;">멈추지</button>
-          <button class="btn btn-song-album" data-album="대쉬" style="--ac:rgba(30,30,30,.6);--bc:#444;--tc:#aaa;">대쉬</button>
-          <button class="btn btn-song-album" data-album="카쿠렌보" style="--ac:rgba(56,189,248,.15);--bc:#38bdf8;--tc:#bae6fd;">카쿠</button>
-          <button class="btn btn-song-album" data-album="숨꼭" style="--ac:rgba(249,168,212,.15);--bc:#f9a8d4;--tc:#fce7f3;">숨꼭</button>
-          <button class="btn btn-song-album" data-album="뿌우통합" style="--ac:rgba(30,58,138,.4);--bc:#3b5bc8;--tc:#bfdbfe;">뿌우</button>
-          <button class="btn btn-song-album" data-album="이밤빌" style="--ac:rgba(100,60,200,.25);--bc:#8b5cf6;--tc:#ede9fe;">이밤빌</button>
+          <button data-album="기다릴게" class="btn btn-song-album era-기다릴게">기다릴게</button>
+          <button data-album="삼왜" class="btn btn-song-album era-삼왜">삼왜</button>
+          <button data-album="여여름" class="btn btn-song-album era-여여름">여여름</button>
+          <button data-album="메리플리" class="btn btn-song-album era-메리플리">메리플리</button>
+          <button data-album="웨사럽" class="btn btn-song-album era-웨사럽">W4L</button>
+          <button data-album="펌펍볼" class="btn btn-song-album era-펌펍볼">펌펍볼</button>
+          <button data-album="멈추지않아" class="btn btn-song-album era-메리플리">멈추지</button>
+          <button data-album="대쉬" class="btn btn-song-album era-대쉬">대쉬</button>
+          <button data-album="카쿠렌보" class="btn btn-song-album era-카쿠렌보">카쿠</button>
+          <button data-album="숨꼭" class="btn btn-song-album era-숨꼭">숨꼭</button>
+          <button data-album="뿌우통합" class="btn btn-song-album era-뿌우">뿌우</button>
+          <button data-album="이밤빌" class="btn btn-song-album era-이밤빌">이밤빌</button>
         </div>
       </div>
       <!-- 연도 -->
@@ -740,12 +690,12 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
       </div>
       </div><!-- /songs-filters-collapsible -->
 
-</div>
+</div></div>
 
 <main>
   <div class="result-count" id="result-count"></div>
   <div class="section-view active" id="view-broadcast">
-    <div id="live-content"><div class="empty">시트에서 불러오는 중...</div></div>
+    <div id="live-content"><div class="empty">데이터 불러오는 중...</div></div>
     <div id="radio-content"></div>
     <div id="lassgo-content"></div>
   </div>
@@ -787,8 +737,7 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
               <span style="font-size:10px;color:var(--muted);">컨텐츠태그</span>
             </div>
             <div class="tags-display" id="m-tags-a" style="margin-bottom:0;min-height:24px;flex-wrap:wrap;flex:1;"></div>
-            <input class="m-input" id="m-tag-in-a" placeholder="입력 후 Enter" style="font-size:10px;padding:1px 6px;font-size:9px;border-radius:4px;"
-              onkeydown="if(event.key==='Enter'&&!event.isComposing){addTagG('a');event.preventDefault();}">
+            
           </div>
 
           <!-- B -->
@@ -798,8 +747,7 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
               <span style="font-size:10px;color:var(--muted);">대사태그</span>
             </div>
             <div class="tags-display" id="m-tags-b" style="margin-bottom:0;min-height:24px;flex-wrap:wrap;flex:1;"></div>
-            <input class="m-input" id="m-tag-in-b" placeholder="입력 후 Enter" style="font-size:10px;padding:1px 6px;font-size:9px;border-radius:4px;"
-              onkeydown="if(event.key==='Enter'&&!event.isComposing){addTagG('b');event.preventDefault();}">
+            
           </div>
 
           <!-- C -->
@@ -809,8 +757,7 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
               <span style="font-size:10px;color:var(--muted);">움찔태그</span>
             </div>
             <div class="tags-display" id="m-tags-c" style="margin-bottom:0;min-height:24px;flex-wrap:wrap;flex:1;"></div>
-            <input class="m-input" id="m-tag-in-c" placeholder="입력 후 Enter" style="font-size:10px;padding:1px 6px;font-size:9px;border-radius:4px;"
-              onkeydown="if(event.key==='Enter'&&!event.isComposing){addTagG('c');event.preventDefault();}">
+            
           </div>
 
         </div>
@@ -832,7 +779,12 @@ const MC={예준:"yejun",노아:"noah",밤비:"bambi",은호:"eunho",하민:"ham
 const ME={예준:"💙",노아:"💜",밤비:"🩷",은호:"❤️",하민:"🖤",전원:"✨"};
 const TGK={a:"tagsA",b:"tagsB",c:"tagsC"};
 const pc=m=>"pill-"+(MC[m]||"all");
-const pills=arr=>arr.map(m=>`<span class="member-pill ${pc(m)}">${ME[m]||""} ${m}</span>`).join("");
+const pills=arr=>{
+  if(!arr||arr.length===0) return '';
+  if(arr.length===1&&arr[0]==='전원') return `<span class="member-pill pill-all">✦ 전원</span>`;
+  if(arr.includes('전원')||arr.length>=5) return `<span class="member-pill pill-all">✦ 전원</span>`;
+  return arr.map(m=>`<span class="member-pill ${pc(m)}">${ME[m]||""} ${m}</span>`).join("");
+};
 function cc(arr){
   if(!arr||!arr.length)return"c-mixed";
   if(arr.includes("전원"))return"c-all";
@@ -847,7 +799,18 @@ const matchM=(arr)=>{
 };
 
 /* ── state ── */
-let curTab="broadcast",curYearSet=new Set(),curMemSet=new Set(),curQ="",curTagQ="",curTagMode="include",curEra="all",curSpecial="all",curTGFilter="all",curSort="desc";
+let curTab="broadcast",curYearSet=new Set(),curMemSet=new Set(),curQ="",curTagQ="",curTagMode="include",curEra="all",curSpecial="all",curTGFilter="all",curSort="desc",curBcastTagSearchMode=false;
+
+function toggleBcastTagSearch(){
+  curBcastTagSearchMode=!curBcastTagSearchMode;
+  const btn=document.getElementById("bcast-tag-search-btn");
+  if(btn){
+    btn.style.color=curBcastTagSearchMode?"#a855f7":"rgba(168,85,247,.45)";
+    btn.style.borderColor=curBcastTagSearchMode?"rgba(168,85,247,.7)":"rgba(168,85,247,.3)";
+    btn.style.background=curBcastTagSearchMode?"rgba(168,85,247,.12)":"none";
+  }
+  render();
+}
 let curTGSet=new Set(["a","b","c"]); // 태그 복수선택
 let curSearchTitleOnly=false;
 let curBcastSet=new Set(["live"]); // 방송 타입 기본: 라이브만
@@ -1085,14 +1048,7 @@ function renderMainLink(){
 
 
 /* ── 연동 로그 ── */
-const LOG_GID = "2100926687";
-async function writeLog(action,detail){
-  if(!WEBHOOK_URL) return;
-  try{
-    await fetch(WEBHOOK_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({action:"addLog",log:{time:new Date().toISOString(),action,detail}})});
-  }catch{}
-}
+function writeLog(){}
 
 function openModalLink(){
   const d=getData(mId);
@@ -1114,11 +1070,6 @@ function openModalLink(){
     if(thumbLink) thumbLink.href=d.videoUrl;
   }
   // 구글 시트에 업데이트
-  if(WEBHOOK_URL&&d.videoUrl){
-    fetch(WEBHOOK_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({action:"updateUrl",sid:mId,url:d.videoUrl})});
-    writeLog("영상링크 수정",`${mId} → ${d.videoUrl}`);
-  }
 }
 
 function saveMainLink(){
@@ -1420,7 +1371,7 @@ function savedExtras(id){
 /* ── APPS SCRIPT 웹훅 ──────────────────────────────────────────
    태그 백업용. Apps Script doPost에 saveTag 핸들러 추가 후 URL 입력
 ──────────────────────────────────────────────────────────────── */
-const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwZUxDqYh5M83QwVFWtWwPDaR8IAaVxjGm4ML5CjHlX75VvOveCKjb9o6zPRc7yWjrO2g/exec";
+const WEBHOOK_URL = "";
 
 /* localStorage에서 태그 전체 수집 → 웹훅으로 일괄 전송 */
 /* ── 진행바 헬퍼 ── */
@@ -1439,7 +1390,7 @@ async function syncAll(){
   showBar("sync-bar","sync-fill");setBar("sync-fill",5);
 
   setStatus("라이브 불러오는 중");
-  try{ await loadFromSheets(setStatus); }catch(e){console.warn("시트 동기화 실패",e);}
+  try{ await loadFromSupabase(setStatus); }catch(e){console.warn("Supabase 동기화 실패",e);}
 
   setStatus("발매곡 불러오는 중");
   try{ await loadSongsFromSheet(); }catch(e){console.warn("발매곡 동기화 실패",e);}
@@ -1448,211 +1399,75 @@ async function syncAll(){
   setStatus("");
   btn.style.opacity="";btn.disabled=false;hideBar("sync-bar");
 }
-const SHEET_ID = "1oiCW4x77Nt9ELOlhPwPh4PyHxyy7hmhKzhoSYnCKYd8";
-const SHEETS_CONFIG = {
-  live:   `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gid=1363997352`,
-  radio:  `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gid=78885417`,
-  lassgo: `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gid=829694958`,
-  tags:   `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gid=2079925808`,
-};
-
-/* CSV 파싱 (따옴표·쉼표 처리) */
-function parseCSV(text){
-  const lines = text.trim().split(/\r?\n/);
-  return lines.slice(1).map(line => {
-    const cols = [];
-    let cur = "", inQ = false;
-    for(let i=0;i<line.length;i++){
-      const c=line[i];
-      if(c==='"'){ inQ=!inQ; continue; }
-      if(c===','&&!inQ){ cols.push(cur.trim()); cur=""; continue; }
-      cur+=c;
-    }
-    cols.push(cur.trim());
-    return cols;
-  }).filter(r=>r.length>1&&r.some(c=>c));
-}
-
-/* CSV → L[] 형식 변환
-   컬럼: 연도, 날짜(MM.DD), 제목, 멤버, YouTube_URL, 썸네일_URL */
-function csvToLive(rows){
-  return rows.map(r=>{
-    // 시트 컬럼: sid(0) 연도(1) 날짜(2) 제목(3) 멤버(4) YouTube_URL(5) 썸네일_URL(6)
-    const [sid,y,d,t,m,url,thumb] = r;
-    if(!y||!d||!t) return null;
-    const members = m ? m.split(/[,，、]/).map(s=>s.trim()).filter(Boolean) : ["전원"];
-    const entry = {sid:sid||"", y:+y, d, t, m:members, url:url||"", thumb:thumb||""};
-    if(url&&!thumb){
-      const vid = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|live\/|embed\/))([a-zA-Z0-9_-]{11})/);
-      if(vid) entry.thumb = `https://i.ytimg.com/vi/${vid[1]}/mqdefault.jpg`;
-    }
-    return entry;
-  }).filter(Boolean);
-}
-
-/* CSV → R[] 형식 변환
-   컬럼: sid(0) 연도(1) 날짜(2) DJ(3) 게스트(4) YouTube_URL(5) 썸네일_URL(6) */
-function csvToRadio(rows){
-  return rows.map(r=>{
-    const [sid,y,d,dj,g,url,thumb] = r;
-    if(!y||!d) return null;
-    const djArr = dj ? dj.split(/[,，、]/).map(s=>s.trim()).filter(Boolean) : [];
-    const gArr  = g  ? g.split(/[,，、]/).map(s=>s.trim()).filter(Boolean) : [];
-    const entry = {sid:sid||"", y:+y, d, dj:djArr, g:gArr, url:url||"", thumb:thumb||""};
-    if(url&&!thumb){
-      const vid=url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|live\/|embed\/))([a-zA-Z0-9_-]{11})/);
-      if(vid) entry.thumb=`https://i.ytimg.com/vi/${vid[1]}/mqdefault.jpg`;
-    }
-    return entry;
-  }).filter(Boolean);
-}
-
-/* CSV → P[] 형식 변환
-   컬럼: sid(0) 연도(1) 날짜(2) EP(3) 제목(4) YouTube_URL(5) 썸네일_URL(6) */
-function csvToLassgo(rows){
-  return rows.map(r=>{
-    const [sid,y,d,ep,t,url,thumb] = r;
-    if(!y||!d||!t) return null;
-    const entry = {sid:sid||"", y:+y, d, ep:+ep||0, t, url:url||"", thumb:thumb||""};
-    if(url&&!thumb){
-      const vid=url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|live\/|embed\/))([a-zA-Z0-9_-]{11})/);
-      if(vid) entry.thumb=`https://i.ytimg.com/vi/${vid[1]}/mqdefault.jpg`;
-    }
-    return entry;
-  }).filter(Boolean);
-}
-
-/* Sheets에서 데이터 로드 후 렌더링 */
-
-async function loadFromSheets(onStatus){
-  const st=onStatus||((t)=>{});
-  const cfg = SHEETS_CONFIG;
-  let loaded = false;
-  // 중복 방지: 시트 데이터 초기화 (custom 수기 방송은 보존)
-  const customBackup=L.filter(b=>b._custom);
-  L.length=0; R.length=0; P.length=0;
-  customBackup.forEach(b=>L.push(b));
-  try {
-    if(cfg.live){
-      st("라이브 불러오는 중");
-      const res = await fetch(cfg.live);
-      if(res.ok){
-        const rows = parseCSV(await res.text());
-        if(rows.length){
-          rows.forEach(r=>{
-            const [sid,y,d,t,m,url,thumb] = r;
-            if(!sid||!y||!d) return;
-            // sid 기준으로 기존 항목 찾아서 url/thumb 병합
-            const existing = L.find(b=>makeSid("live",b.y,b.d,b.t)===sid||
-              `live_${b.y}${b.d.replace(".","")}_0`===sid);
-            if(existing){
-              if(url) existing.url=url;
-              if(thumb) existing.thumb=thumb;
-            } else {
-              // 시트에만 있는 신규 방송 추가
-              const members=m?m.split(/[,，]/).map(s=>s.trim()).filter(Boolean):["전원"];
-              const entry={y:+y,d:normD(d),t:t||"",m:members,url:url||"",thumb:thumb||""};
-              if(url&&!thumb){
-                const vid=url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|live\/|embed\/))([a-zA-Z0-9_-]{11})/);
-                if(vid) entry.thumb=`https://i.ytimg.com/vi/${vid[1]}/mqdefault.jpg`;
-              }
-              L.push(entry);
-            }
-          });
-          // url 없는 항목도 기존 url에서 thumb 자동 생성
-          L.forEach(b=>{
-            if(!b.thumb&&b.url){
-              const vid=b.url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|live\/|embed\/))([a-zA-Z0-9_-]{11})/);
-              if(vid) b.thumb=`https://i.ytimg.com/vi/${vid[1]}/mqdefault.jpg`;
-            }
-          });
-          loaded=true;
-        }
-      }
-    }
-    if(cfg.radio){
-      st("라디오 불러오는 중");
-      const res = await fetch(cfg.radio);
-      if(res.ok){
-        const rows = parseCSV(await res.text());
-        if(rows.length){
-          rows.forEach(r=>{
-            const [sid,y,d,dj,g,url,thumb]=r;
-            if(!sid||!y||!d) return;
-            const existing=R.find((_r,i)=>`radio_${_r.y}${_r.d.replace(".","")}_${R.filter(x=>x.y===_r.y&&x.d===_r.d).indexOf(_r)}`===sid);
-            if(existing){
-              if(url) existing.url=url;
-              if(thumb) existing.thumb=thumb;
-            } else if(dj){
-              const djArr=dj.split(/[,，]/).map(s=>s.trim()).filter(Boolean);
-              const gArr=g?g.split(/[,，]/).map(s=>s.trim()).filter(Boolean):[];
-              R.push({y:+y,d,dj:djArr,g:gArr,url:url||"",thumb:thumb||""});
-            }
-          });
-          loaded=true;
-        }
-      }
-    }
-    if(cfg.lassgo){
-      st("라쓰고 불러오는 중");
-      const res = await fetch(cfg.lassgo);
-      if(res.ok){
-        const rows = parseCSV(await res.text());
-        if(rows.length){
-          rows.forEach(r=>{
-            const [sid,y,d,ep,t,url,thumb]=r;
-            if(!sid||!y||!d) return;
-            const existing=P.find(p=>makeSid("lassgo",p.y,p.d,p.t)===sid);
-            if(existing){
-              if(url) existing.url=url;
-              if(thumb) existing.thumb=thumb;
-            } else if(t){
-              P.push({y:+y,d,ep:+ep||0,t,url:url||"",thumb:thumb||""});
-            }
-          });
-          loaded=true;
-        }
-      }
-    }
-    // 태그 시트 불러와서 localStorage 복원
-    if(cfg.tags){
-      st("태그 불러오는 중");
-      const res = await fetch(cfg.tags);
-      if(res.ok){
-        const rows = parseCSV(await res.text());
-        rows.forEach(r=>{
-          const [sid,tagsA,tagsB,tagsC,links,videoUrl] = r;
-          if(!sid) return;
-          const key="plave_v2_"+sid;
-          // 기존 localStorage 데이터와 병합 (로컬이 더 최신이면 유지)
-          try{
-            const existing=JSON.parse(localStorage.getItem(key)||"{}");
-            const merged={
-              tagsA: (existing.tagsA&&existing.tagsA.length)?existing.tagsA:safeParseArr(tagsA),
-              tagsB: (existing.tagsB&&existing.tagsB.length)?existing.tagsB:safeParseArr(tagsB),
-              tagsC: (existing.tagsC&&existing.tagsC.length)?existing.tagsC:safeParseArr(tagsC),
-              links: (existing.links&&existing.links.length)?existing.links:safeParseArr(links),
-              videoUrl: existing.videoUrl||videoUrl||""
-            };
-            const hasData=merged.tagsA.length||merged.tagsB.length||merged.tagsC.length||merged.links.length||merged.videoUrl;
-            if(hasData) localStorage.setItem(key,JSON.stringify(merged));
-          }catch{}
-        });
-        if(rows.length) loaded=true;
-      }
-    }
-  } catch(e){ console.warn("Sheets 로드 실패, 내장 데이터 사용:", e); }
-  if(loaded) render();
-}
-
+const WORKER_URL = "https://plave-worker.kgb2020sr-be5.workers.dev";
+/* ── Supabase 데이터 로드 ── */
 function safeParseArr(str){
   try{const v=JSON.parse(str||"[]");return Array.isArray(v)?v:[];}catch{return[];}
 }
-
-/* ── DATA (시트에서 로드) ── */
+function thumbFromUrl(url){
+  if(!url) return "";
+  const vid=url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|live\/|embed\/))([a-zA-Z0-9_-]{11})/);
+  return vid?`https://i.ytimg.com/vi/${vid[1]}/mqdefault.jpg`:"";
+}
 const L=[];
-
 const R=[];
+const P=[];
+
+async function loadFromSupabase(onStatus){
+  const st=onStatus||((t)=>{});
+  try{
+    st("데이터 불러오는 중");
+    const res=await fetch(WORKER_URL+"?action=getArchive&_t="+Date.now());
+    if(!res.ok) throw new Error("Worker 오류");
+    const data=await res.json();
+    if(!data.ok) throw new Error("데이터 오류");
+    const customBackup=L.filter(b=>b._custom);
+    L.length=0; R.length=0; P.length=0;
+    customBackup.forEach(b=>L.push(b));
+    if(data.live&&data.live.length){
+      const liveDC={};
+      data.live.forEach(r=>{
+        const members=r.members?r.members.split(/[,，]/).map(s=>s.trim()).filter(Boolean):["전원"];
+        const d=r.live_date?r.live_date.slice(5).replace("-","."):"";
+        const dk=r.live_date?r.live_date.replace(/-/g,""):"";
+        if(!liveDC[dk]) liveDC[dk]=0;
+        const sid=`live_${dk}_${liveDC[dk]++}`;
+        const entry={sid,y:r.year,d,t:r.title||"",m:members,url:r.youtube_url||"",thumb:r.thumbnail_url||""};
+        if(!entry.thumb&&entry.url) entry.thumb=thumbFromUrl(entry.url);
+        L.push(entry);
+      });
+    }
+    if(data.radio&&data.radio.length){
+      const radioDC={};
+      data.radio.forEach(r=>{
+        const djArr=r.dj?r.dj.split(/[,，]/).map(s=>s.trim()).filter(Boolean):[];
+        const gArr=r.guests?r.guests.split(/[,，]/).map(s=>s.trim()).filter(Boolean):[];
+        const d=r.live_date?r.live_date.slice(5).replace("-","."):"";
+        const dk=r.live_date?r.live_date.replace(/-/g,""):"";
+        if(!radioDC[dk]) radioDC[dk]=0;
+        const sid=`radio_${dk}_${radioDC[dk]++}`;
+        const entry={sid,y:r.year,d,dj:djArr,g:gArr,url:r.youtube_url||"",thumb:r.thumbnail_url||""};
+        if(!entry.thumb&&entry.url) entry.thumb=thumbFromUrl(entry.url);
+        R.push(entry);
+      });
+    }
+    if(data.lassgo&&data.lassgo.length){
+      const lassgoDC={};
+      data.lassgo.forEach(r=>{
+        const d=r.live_date?r.live_date.slice(5).replace("-","."):"";
+        const dk=r.live_date?r.live_date.replace(/-/g,""):"";
+        if(!lassgoDC[dk]) lassgoDC[dk]=0;
+        const sid=`lassgo_${dk}_${lassgoDC[dk]++}`;
+        const entry={sid,y:r.year,d,ep:r.ep||0,t:r.title||"",url:r.youtube_url||"",thumb:r.thumbnail_url||""};
+        if(!entry.thumb&&entry.url) entry.thumb=thumbFromUrl(entry.url);
+        P.push(entry);
+      });
+    }
+    render();updateHeaderStats();
+  }catch(e){console.warn("Supabase 로드 실패:",e);}
+}
+
+/* ── DATA declared above ── */
 
 
 /* helpers for built-in URL/thumb */
@@ -1743,21 +1558,6 @@ function updateAlPreview(){
 }
 
 /* ── ADD LIVE MODAL ── */
-function openAddLive(){
-  document.getElementById("add-live-modal").style.display="flex";
-  // reset
-  document.getElementById("al-date").value="";
-  document.getElementById("al-title").value="";
-  document.getElementById("al-url").value="";
-  document.getElementById("al-predebut")&&(document.getElementById("al-predebut").checked=false);
-  document.getElementById("al-bday")&&(document.getElementById("al-bday").checked=false);
-  document.getElementById("al-debut")&&(document.getElementById("al-debut").checked=false);
-  document.querySelectorAll("#al-members .btn").forEach(b=>b.classList.remove("active"));
-  document.querySelector("#al-members .btn[data-m='전원']").classList.add("active");
-}
-function closeAddLive(){
-  document.getElementById("add-live-modal").style.display="none";
-}
 function toggleAlMem(btn){
   const m=btn.dataset.m;
   if(m==="전원"){
@@ -1846,14 +1646,14 @@ function toggleFilters(forceClose){
       el.classList.add("collapsed");
       setTimeout(()=>el.classList.remove("collapsing"),180);
     });
-    arrow.textContent="▼";
+    arrow.textContent="▲";
     filtersOpen=false;
   } else {
     el.classList.add("expanding");
     el.classList.remove("collapsed");
     el.classList.remove("collapsing");
     setTimeout(()=>{el.classList.remove("expanding");updateEraRowSeps();},180);
-    arrow.textContent="▲";
+    arrow.textContent="▼";
     filtersOpen=true;
   }
   setTimeout(updateStickyOffsets,220);
@@ -2050,15 +1850,18 @@ document.getElementById("search").addEventListener("input",e=>{curQ=e.target.val
 function matchTitleOrTags(t, sid){
   if(!curQ)return true;
   const q2=curQ.toLowerCase();
+  const d=getData(sid);
+  const allTags=[...d.tagsA,...d.tagsB,...d.tagsC];
+  if(curBcastTagSearchMode){
+    if(curTagMode==="exact") return allTags.some(tag=>tag.toLowerCase()===q2);
+    return allTags.some(tag=>tag.toLowerCase().includes(q2));
+  }
   const tl=t.toLowerCase();
   if(curTagMode==="exact"){
     if(tl===q2)return true;
   } else {
     if(tl.includes(q2))return true;
   }
-  // also search tags A/B/C
-  const d=getData(sid);
-  const allTags=[...d.tagsA,...d.tagsB,...d.tagsC];
   return allTags.some(tag=>tag.toLowerCase().includes(q2));
 }
 function matchYear(y){
@@ -2112,7 +1915,7 @@ function renderLive(){
           vurl?'<span class="badge" style="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);color:var(--muted);">🔗</span>':'',
         ].filter(Boolean).join("");
         const thumbHtml=thumb
-          ?`<a class="card-thumb-link" href="${escH(vurl||'#')}" target="_blank" onclick="event.stopPropagation()"><img src="${escH(thumb)}" onerror="window.thumbErr&&window.thumbErr(this)" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></a>`
+          ?`<a class="card-thumb-link" href="${escH(vurl||'#')}" target="_blank" onclick="event.stopPropagation()"><img src="${escH(thumb)}" onerror="window.thumbErr&&window.thumbErr(this)" alt="" style="width:160px;height:90px;object-fit:cover;display:block;"></a>`
           :`<div class="card-thumb-empty">📺</div>`;
         const isDebut=SEASON_DATES.has(toNum(b.y,b.d));
         const eraLabel=isDebut?SEASON_LABEL[toNum(b.y,b.d)]:"";
@@ -2128,11 +1931,11 @@ function renderLive(){
             <div class="card-body-wrap">
               <div class="card-top"><span class="card-date">${yy}.${normD(b.d)}</span><div class="card-badges">${badges}</div></div>
               <div class="card-title">${b.t}</div>
+              <div class="card-members">${pills(b.m)}</div>
             </div>
           </div>
-          <div class="card-members">${pills(b.m)}</div>
+          ${tagRowHtml(sid)}
           ${extras}
-          <span class="card-edit-hint">✏ 편집</span>
         </div>`;
       }).join("");
       return`<div class="month-section">
@@ -2227,23 +2030,19 @@ function renderRadio(){
         let rthumb=r.thumb||"";
         if(!rthumb&&vurl){const _v=vurl.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|live\/|embed\/))([a-zA-Z0-9_-]{11})/);if(_v)rthumb=`https://i.ytimg.com/vi/${_v[1]}/mqdefault.jpg`;}
         const rThumbHtml=rthumb
-          ?`<a class="card-thumb-link" href="${escH(vurl||'#')}" target="_blank" onclick="event.stopPropagation()"><img src="${escH(rthumb)}" onerror="window.thumbErr&&window.thumbErr(this)" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></a>`
+          ?`<a class="card-thumb-link" href="${escH(vurl||'#')}" target="_blank" onclick="event.stopPropagation()"><img src="${escH(rthumb)}" onerror="window.thumbErr&&window.thumbErr(this)" alt="" style="width:160px;height:90px;object-fit:cover;display:block;"></a>`
           :`<div class="card-thumb-empty">📻</div>`;
         return`<div class="card ${cc(r.dj)}" data-sid="${escH(sid)}" data-title="${escH(cardTitle)}" data-date="${yy}.${r.d}" data-type="radio" onclick="if(!event.target.closest('a,button'))handleCardClick(this)">
           <div class="card-with-thumb">
             ${rThumbHtml}
             <div class="card-body-wrap">
-              <div class="card-top">
-                <span class="card-date">${yy}.${normD(r.d)}</span>
-                <div class="card-badges"><span class="badge badge-type-radio">📻 라디오</span>${vurl?'<span class="badge" style="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);color:var(--muted);">🔗</span>':''}</div>
-              </div>
+              <div class="card-top"><span class="card-date">${yy}.${normD(r.d)}</span><div class="card-badges"><span class="badge badge-type-radio">📻 라디오</span>${vurl?'<span class="badge" style="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);color:var(--muted);">🔗</span>':''}</div></div>
               <div class="card-ep">Ep.${ep}</div>
-              <div class="card-row"><span class="card-row-label">DJ</span><div class="card-members">${pills(r.dj)}</div></div>
-              <div class="card-row"><span class="card-row-label">게스트</span><div class="card-members">${gHtml}</div></div>
+              <div class="card-members">${pills(r.dj)}</div>
             </div>
           </div>
+          ${tagRowHtml(sid)}
           ${extras}
-          <span class="card-edit-hint">✏ 편집</span>
         </div>`;
       }).join("")}</div>
     </div>`;
@@ -2293,6 +2092,72 @@ function toggleSearchMode(){
   render();
 }
 
+
+function tagRowHtml(sid){
+  try{
+    const d=getData(sid);
+    const tags=[...d.tagsA,...d.tagsB,...d.tagsC].filter(Boolean);
+    if(!tags.length) return`<div class="card-tag-row"><span class="card-tag-label">#</span></div>`;
+    const visible=tags.slice(0,4);
+    const more=tags.length>4?'<span class="card-tag-more">...</span>':'';
+    return`<div class="card-tag-row"><span class="card-tag-label">#태그</span><div class="card-tag-list">${visible.map(t=>`<span class="card-tag-btn">${escH(t)}</span>`).join('')}${more}</div></div>`;
+  }catch(e){return'';}
+}
+
+function resetAllFilters(){
+  // 방송 필터 리셋
+  curYearSet=new Set(); curMemSet=new Set(); curQ=""; curTagQ="";
+  curEra="all"; curSpecial="all"; curTGFilter="all"; curBcastTagSearchMode=false;
+  document.getElementById("search").value="";
+  document.getElementById("search-clear").style.display="none";
+  const tagBtn=document.getElementById("bcast-tag-search-btn");
+  if(tagBtn){tagBtn.style.color="rgba(168,85,247,.45)";tagBtn.style.borderColor="rgba(168,85,247,.3)";tagBtn.style.background="none";}
+  document.querySelectorAll("#year-filters .btn").forEach(b=>b.classList.remove("active"));
+  document.querySelectorAll("#member-filters .btn").forEach(b=>b.classList.remove("active"));
+  document.querySelectorAll("#era-filters .btn").forEach(b=>b.classList.remove("active"));
+  document.querySelectorAll(".btn-special").forEach(b=>b.classList.remove("active"));
+  // 발매곡 필터 리셋
+  curSongAlbum="all"; curSongYear="all"; curSongType="all"; curSongQ=""; curSongTagSearchMode=false;
+  document.getElementById("song-search").value="";
+  document.getElementById("song-search-clear").style.display="none";
+  const songTagBtn=document.getElementById("song-tag-search-btn");
+  if(songTagBtn){songTagBtn.style.color="rgba(168,85,247,.45)";songTagBtn.style.borderColor="rgba(168,85,247,.3)";songTagBtn.style.background="none";}
+  document.querySelectorAll(".btn-song-album").forEach(b=>b.classList.remove("active"));
+  document.querySelector(".btn-song-album[data-album='all']")?.classList.add("active");
+  document.querySelectorAll(".btn-song-year").forEach(b=>b.classList.remove("active"));
+  document.querySelectorAll(".btn-song-type").forEach(b=>b.classList.remove("active"));
+  render(); renderSongs();
+}
+
+function updateHeaderStats(){
+  const el=document.getElementById("header-stats");
+  if(!el) return;
+  // 라이브: 고유 날짜 수(회) / 전체 개수(개)
+  const liveUniq=new Set(L.map(b=>`${b.y}-${b.d}`)).size;
+  const liveTot=L.length;
+  // 라디오: 전체 개수(회)만
+  const radioTot=R.length;
+  // 라쓰고: | 뒤 #숫자 앞 부분 추출해서 고유 이름 수(회) / 전체(개)
+  const lassgoNames=new Set(P.map(p=>{
+    const t=p.t||"";
+    const barIdx=t.indexOf("|");
+    if(barIdx===-1) return t.trim();
+    let name=t.slice(barIdx+1).trim();
+    name=name.replace(/#\d+\s*$/,"").trim();
+    return name;
+  }));
+  const lassgoUniq=lassgoNames.size;
+  const lassgoTot=P.length;
+  // 발매곡: 총 곡 수(개) / 고유 앨범 수(개)
+  const songCount=SONGS.length;
+  const albumCount=new Set(SONGS.map(s=>s.album).filter(Boolean)).size;
+  el.innerHTML=
+    `라이브 <span class="stat-num">${liveUniq}</span>회 <span class="stat-sub">(${liveTot}개)</span><span class="stat-div">·</span>`+
+    `라디오 <span class="stat-num">${radioTot}</span>회<span class="stat-div">·</span>`+
+    `라쓰고 <span class="stat-num">${lassgoUniq}</span>회 <span class="stat-sub">(${lassgoTot}개)</span>`+
+    `<span class="stat-div2">|</span>`+
+    `발매곡 <span class="stat-num">${songCount}</span>개 <span class="stat-sub">(앨범 ${albumCount}개)</span>`;
+}
 function render(){
   renderUnified();
 }
@@ -2313,7 +2178,7 @@ function renderUnifiedCard(item,yy){
     if(v) thumb=`https://i.ytimg.com/vi/${v[1]}/mqdefault.jpg`;
   }
   const thumbHtml=thumb
-    ?`<a class="card-thumb-link" href="${escH(vurl||'#')}" target="_blank" onclick="event.stopPropagation()"><img src="${escH(thumb)}" onerror="window.thumbErr&&window.thumbErr(this)" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></a>`
+    ?`<a class="card-thumb-link" href="${escH(vurl||'#')}" target="_blank" onclick="event.stopPropagation()"><img src="${escH(thumb)}" onerror="window.thumbErr&&window.thumbErr(this)" alt="" style="width:160px;height:90px;object-fit:cover;display:block;"></a>`
     :`<div class="card-thumb-empty">${type==="radio"?"📻":type==="lassgo"?"🚀":"📺"}</div>`;
   let badge="",title="",memberPills="";
   if(type==="live"){
@@ -2334,15 +2199,12 @@ function renderUnifiedCard(item,yy){
     <div class="card-with-thumb">
       ${thumbHtml}
       <div class="card-body-wrap">
-        <div class="card-top">
-          <span class="card-date">${yy}.${normD(item.d)}</span>
-          <div class="card-badges">${badge}${vurl?'<span class="badge" style="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);color:var(--muted);">🔗</span>':''}</div>
-        </div>
+        <div class="card-top"><span class="card-date">${yy}.${normD(item.d)}</span><div class="card-badges">${badge}${vurl?'<span class="badge" style="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);color:var(--muted);">🔗</span>':''}</div></div>
         <div class="card-title">${escH(title)}</div>
-        ${memberPills?`<div class="card-pills">${memberPills}</div>`:""}
-        <span class="card-edit-hint">✏ 편집</span>
+        ${memberPills?`<div class="card-members">${memberPills}</div>`:""}
       </div>
     </div>
+    ${tagRowHtml(sid)}
   </div>`;
 }
 
@@ -2424,8 +2286,7 @@ function renderUnified(){
   });
 })();
 
-/* ── LASSGO DATA ── */
-const P=[];
+/* ── LASSGO DATA declared above ── */
 
 function renderLassgo(){
   const f=P.filter(p=>{
@@ -2454,22 +2315,19 @@ function renderLassgo(){
         let pthumb=p.thumb||"";
         if(!pthumb&&pvurl){const _v=pvurl.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|live\/|embed\/))([a-zA-Z0-9_-]{11})/);if(_v)pthumb=`https://i.ytimg.com/vi/${_v[1]}/mqdefault.jpg`;}
         const pThumbHtml=pthumb
-          ?`<a class="card-thumb-link" href="${escH(pvurl||'#')}" target="_blank" onclick="event.stopPropagation()"><img src="${escH(pthumb)}" onerror="window.thumbErr&&window.thumbErr(this)" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></a>`
+          ?`<a class="card-thumb-link" href="${escH(pvurl||'#')}" target="_blank" onclick="event.stopPropagation()"><img src="${escH(pthumb)}" onerror="window.thumbErr&&window.thumbErr(this)" alt="" style="width:160px;height:90px;object-fit:cover;display:block;"></a>`
           :`<div class="card-thumb-empty">🚀</div>`;
         return`<div class="card c-all" data-sid="${escH(sid)}" data-title="${escH(p.t)}" data-date="${p.y}.${p.d}" data-type="lassgo" onclick="if(!event.target.closest('a,button'))handleCardClick(this)">
           <div class="card-with-thumb">
             ${pThumbHtml}
             <div class="card-body-wrap">
-              <div class="card-top">
-                <span class="card-date">${p.y}.${normD(p.d)}</span>
-                <div class="card-badges"><span class="badge badge-type-lassgo">🚀 라쓰고</span>${pvurl?'<span class="badge" style="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);color:var(--muted);">🔗</span>':''}</div>
-              </div>
+              <div class="card-top"><span class="card-date">${p.y}.${normD(p.d)}</span><div class="card-badges"><span class="badge badge-type-lassgo">🚀 라쓰고</span>${pvurl?'<span class="badge" style="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);color:var(--muted);">🔗</span>':''}</div></div>
               <div class="card-ep" style="color:rgba(255,183,77,.8);">Ep.${p.ep}</div>
               <div class="card-title">${p.t.replace(/^EP\.\d+\s*\|\s*/,"")}</div>
             </div>
           </div>
+          ${tagRowHtml(sid)}
           ${extras}
-          <span class="card-edit-hint">✏ 편집</span>
         </div>`;
       }).join("")}</div>
     </div>`;
@@ -2479,7 +2337,18 @@ function renderLassgo(){
    🎵 발매곡
 ══════════════════════════════════════════════ */
 let SONGS=[];
-let curSongAlbum="all", curSongYear="all", curSongType="all", curSongQ="", curSongSort="asc", curSongTagMode="include", curSongTitleOnly=false;
+let curSongAlbum="all", curSongYear="all", curSongType="all", curSongQ="", curSongSort="asc", curSongTagMode="include", curSongTitleOnly=false, curSongTagSearchMode=false;
+
+function toggleSongTagSearch(){
+  curSongTagSearchMode=!curSongTagSearchMode;
+  const btn=document.getElementById("song-tag-search-btn");
+  if(btn){
+    btn.style.color=curSongTagSearchMode?"#a855f7":"rgba(168,85,247,.45)";
+    btn.style.borderColor=curSongTagSearchMode?"rgba(168,85,247,.7)":"rgba(168,85,247,.3)";
+    btn.style.background=curSongTagSearchMode?"rgba(168,85,247,.12)":"none";
+  }
+  renderSongs();
+}
 
 function toggleSongSearchMode(){
   curSongTitleOnly=!curSongTitleOnly;
@@ -2581,14 +2450,16 @@ function csvToSongs(rows){
 }
 
 async function loadSongsFromSheet(){
-  const SONG_GID="778156744";
-  const url=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gid=${SONG_GID}`;
   try{
-    const res=await fetch(url);
+    const res=await fetch(WORKER_URL+"?action=getSongs&_t="+Date.now());
     if(!res.ok) return;
-    const rows=parseCSV(await res.text());
-    SONGS=csvToSongs(rows);
-    if(curTab==="songs") renderSongs();
+    const data=await res.json();
+    if(!data.ok||!data.songs) return;
+    SONGS=data.songs.map(r=>({
+      date:r.release_date||"",albumType:r.album_type||"",album:r.album_name||"",
+      track:r.track_no||"",title:r.title||"",type:r.song_type||"",url:r.youtube_url||""
+    }));
+    if(curTab==="songs") renderSongs();updateHeaderStats();
   }catch(e){console.warn("발매곡 로드 실패",e);}
 }
 
@@ -2636,10 +2507,14 @@ function renderSongs(){
     byAlbum[k].songs.push(s);
   });
 
+  // 앨범: 항상 오래된 순, 앨범 내: 트랙 번호 순
   const sortedAlbums=Object.keys(byAlbum).sort((a,b)=>{
     const da=byAlbum[a].date||"";
     const db=byAlbum[b].date||"";
-    return curSongSort==="desc"?db.localeCompare(da):da.localeCompare(db);
+    return da.localeCompare(db);
+  });
+  sortedAlbums.forEach(album=>{
+    byAlbum[album].songs.sort((a,b)=>(parseInt(a.track)||0)-(parseInt(b.track)||0));
   });
 
   el.innerHTML=sortedAlbums.map(album=>{
@@ -2715,25 +2590,28 @@ function resetSongType(){
 // 발매곡 필터 버튼
 document.querySelectorAll(".btn-song-album").forEach(btn=>{
   btn.addEventListener("click",()=>{
+    const isActive=btn.classList.contains("active");
     document.querySelectorAll(".btn-song-album").forEach(b=>b.classList.remove("active"));
-    btn.classList.add("active");
-    curSongAlbum=btn.dataset.album;
+    if(isActive||btn.dataset.album==="all"){curSongAlbum="all";}
+    else{btn.classList.add("active");curSongAlbum=btn.dataset.album;}
     renderSongs();
   });
 });
 document.querySelectorAll(".btn-song-year").forEach(btn=>{
   btn.addEventListener("click",()=>{
+    const isActive=btn.classList.contains("active");
     document.querySelectorAll(".btn-song-year").forEach(b=>b.classList.remove("active"));
-    btn.classList.add("active");
-    curSongYear=btn.dataset.year;
+    if(isActive||btn.dataset.year==="all"){curSongYear="all";}
+    else{btn.classList.add("active");curSongYear=btn.dataset.year;}
     renderSongs();
   });
 });
 document.querySelectorAll(".btn-song-type").forEach(btn=>{
   btn.addEventListener("click",()=>{
+    const isActive=btn.classList.contains("active");
     document.querySelectorAll(".btn-song-type").forEach(b=>b.classList.remove("active"));
-    btn.classList.add("active");
-    curSongType=btn.dataset.type;
+    if(isActive||btn.dataset.type==="all"){curSongType="all";}
+    else{btn.classList.add("active");curSongType=btn.dataset.type;}
     renderSongs();
   });
 });
@@ -2777,17 +2655,7 @@ function openSongModal(s){
       <div style="display:flex;flex-direction:column;gap:4px;">
         ${s.track?`<div style="display:flex;align-items:center;gap:6px;"><span class="song-modal-mk">트랙</span><span class="song-modal-mv">Track ${escH(s.track)}</span></div>`:""}
       </div>
-      <hr class="song-modal-divider">
-      <div style="display:flex;flex-direction:column;gap:5px;">
-        <div class="song-tag-label">🏷️ 태그</div>
-        <div class="song-tag-list" id="song-tag-list">
-          ${tags.length?tags.map(t=>`<span class="song-tag" onclick="removeSongTag('${escH(sid)}','${escH(t)}')">${escH(t)} ✕</span>`).join(""):'<span class="song-tag-empty">없음</span>'}
-        </div>
-        <div class="song-tag-input-wrap">
-          <input class="song-tag-input" id="song-tag-input" placeholder="입력 후 Enter"
-            onkeydown="if(event.key==='Enter'){addSongTag('${escH(sid)}');}" />
-        </div>
-      </div>
+
     </div>
   </div>`;
   document.body.appendChild(overlay);
@@ -2798,17 +2666,6 @@ function closeSongModal(){
   if(el) el.remove();
 }
 
-function addSongTag(sid){
-  const input=document.getElementById("song-tag-input");
-  const val=(input.value||"").trim();
-  if(!val) return;
-  const key="plave_v2_"+sid;
-  const d=JSON.parse(localStorage.getItem(key)||"{}");
-  if(!d.tags) d.tags=[];
-  if(!d.tags.includes(val)){d.tags.push(val);localStorage.setItem(key,JSON.stringify(d));}
-  input.value="";
-  refreshSongTagList(sid,d.tags);
-}
 
 function removeSongTag(sid,tag){
   const key="plave_v2_"+sid;
@@ -2828,9 +2685,7 @@ function refreshSongTagList(sid,tags){
 
 render();
 loadSongsFromSheet();
-loadFromSheets().then(()=>{
-  if(WEBHOOK_URL) syncAll();
-});
+loadFromSupabase();
 setTimeout(updateStickyOffsets,200);
 setTimeout(updateEraRowSeps,300);
 
