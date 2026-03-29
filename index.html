@@ -157,7 +157,7 @@ main{position:relative;z-index:1;max-width:1144px;margin:0 auto;padding:18px 16p
 .grid{display:flex;flex-wrap:wrap;gap:8px;}
 
 /* CARD */
-.card{background:var(--card);border:2px solid var(--border);border-radius:10px;padding:11px;display:inline-flex;flex-direction:column;gap:0;width:280px;flex-shrink:0;box-sizing:border-box;cursor:pointer;transition:border-color .15s;overflow:hidden;}
+.card{background:var(--card);border:2px solid var(--border);border-radius:10px;padding:11px;display:flex;flex-direction:column;gap:0;width:280px;flex-shrink:0;box-sizing:border-box;cursor:pointer;transition:border-color .15s;overflow:hidden;position:relative;}
 .card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;opacity:0;transition:opacity .2s;}
 .card:hover{border-color:rgba(255,255,255,.18);transform:translateY(-1px);box-shadow:0 6px 24px rgba(0,0,0,.35);}
 .card:hover::before{opacity:1;}
@@ -346,7 +346,7 @@ main{position:relative;z-index:1;max-width:1144px;margin:0 auto;padding:18px 16p
 .songs-album-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
 .songs-album-label{font-size:12px;font-weight:700;letter-spacing:.06em;padding:3px 10px;border-radius:5px;border-left:3px solid;}
 .songs-album-date{font-size:10px;color:var(--muted);}
-.songs-grid{display:flex;flex-wrap:wrap;gap:10px;min-width:470px;}
+.songs-grid{display:flex;flex-wrap:wrap;gap:10px;}
 .song-card{background:#0f0f1e;border:1px solid rgba(255,255,255,.08);border-radius:10px;overflow:hidden;cursor:pointer;transition:border-color .15s;flex-shrink:0;width:150px;}
 .song-card:hover{border-color:rgba(255,255,255,.2);}
 .song-thumb-wrap{width:100%;aspect-ratio:1;position:relative;overflow:hidden;background:#111;}
