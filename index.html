@@ -247,7 +247,6 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 .card-thumb-empty{flex-shrink:0;width:128px;height:72px;border-radius:6px;
   background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;
   justify-content:center;font-size:20px;opacity:.3;}
-.card-body-wrap{flex:1;min-width:0;}
 .card-body-wrap{display:flex;flex-direction:row;justify-content:space-between;align-items:flex-start;flex:1;min-width:0;gap:8px;}.card-body-wrap .card-top{margin-bottom:0;}
 .card-body-wrap .card-title{margin-bottom:0;font-size:11px;-webkit-line-clamp:2;}
 .card-main-link{display:inline-flex;align-items:center;gap:5px;margin-top:6px;
@@ -846,7 +845,7 @@ let curBcastAllActive=false; // 방송 라벨 토글 상태
 // Birthday dates (MM.DD) and milestone title patterns
 const BDAY_DATES=new Set(["02.10","03.12","05.24","06.19","07.15","09.12","11.01"]);
 const MILESTONE_RE=/100일|1000일|100회|200회|300회|회 특집/;
-// gviz CSV는 "11.10" → "11.1" (trailing zero 제거)로 내보냄
+// 날짜 포맷: "11.10" → "11.1" (trailing zero 제거) 방지용 정규화
 // 일(day)이 1자리면 오른쪽에 0 붙여서 복원: "11.1" → "11.10"
 function normD(d){
   if(!d) return d;
@@ -1395,7 +1394,7 @@ function savedExtras(id){
    3. 아래 URL에 복사·붙여넣기 (빈 문자열이면 내장 데이터 사용)
 ──────────────────────────────────────────────────────────────── */
 /* ── APPS SCRIPT 웹훅 ──────────────────────────────────────────
-   태그 백업용. Apps Script doPost에 saveTag 핸들러 추가 후 URL 입력
+   Supabase Worker URL
 ──────────────────────────────────────────────────────────────── */
 const WEBHOOK_URL = "";
 
@@ -1968,7 +1967,6 @@ function renderLive(){
             </div>
           </div>
           ${extras}
-          <span class="card-edit-hint">✏ 편집</span>
         </div>`;
       }).join("");
       return`<div class="month-section">
@@ -2081,7 +2079,6 @@ function renderRadio(){
             </div>
           </div>
           ${extras}
-          <span class="card-edit-hint">✏ 편집</span>
         </div>`;
       }).join("")}</div>
     </div>`;
@@ -2331,7 +2328,6 @@ function renderLassgo(){
             </div>
           </div>
           ${extras}
-          <span class="card-edit-hint">✏ 편집</span>
         </div>`;
       }).join("")}</div>
     </div>`;
