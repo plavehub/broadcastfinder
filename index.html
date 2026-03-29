@@ -527,8 +527,11 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
           oninput="document.getElementById('search-clear').style.display=this.value?'flex':'none';"
           onkeydown="if(event.key==='Enter'){render();}">
         <button id="search-clear" onclick="document.getElementById('search').value='';curQ='';render();this.style.display='none';"
-          style="display:none;position:absolute;right:36px;background:none;border:none;cursor:pointer;
+          style="display:none;position:absolute;right:60px;background:none;border:none;cursor:pointer;
                  font-size:13px;padding:0 4px;line-height:1;color:var(--muted);align-items:center;justify-content:center;">✕</button>
+        <button id="bcast-tag-search-btn" onclick="toggleBcastTagSearch()"
+          style="position:absolute;right:34px;font-size:11px;font-weight:700;color:rgba(168,85,247,.45);font-family:'Noto Sans KR',sans-serif;border:1px solid rgba(168,85,247,.3);border-radius:4px;padding:1px 6px;background:none;cursor:pointer;transition:all .15s;line-height:1.4;"
+          title="태그만 검색">#</button>
         <button onclick="render()"
           style="position:absolute;right:8px;background:none;border:none;cursor:pointer;
                  font-size:16px;padding:0;line-height:1;color:var(--muted);">🔍</button>
@@ -646,11 +649,12 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 
 <div id="songs-filter" style="display:none;padding:10px 20px 6px;flex-direction:column;gap:6px;background:rgba(6,6,17,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:99;">
       <!-- 검색 행 -->
-      <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
         <button id="song-search-mode-btn" onclick="toggleSongSearchMode()"
           style="background:transparent;border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:4px 11px;
                  font-family:'Noto Sans KR',sans-serif;font-size:11px;cursor:pointer;color:rgba(255,255,255,.3);
                  white-space:nowrap;transition:all .15s;flex-shrink:0;">검색</button>
+        <div style="width:1px;height:18px;background:rgba(255,255,255,.1);flex-shrink:0;"></div>
         <div class="search-row" style="flex:1;position:relative;display:flex;align-items:center;">
           <input class="search-input" id="song-search" type="text" placeholder="💿 발매곡 키워드 검색..."
             oninput="curSongQ=this.value;document.getElementById('song-search-clear').style.display=this.value?'flex':'none';renderSongs();"
@@ -836,7 +840,7 @@ const matchM=(arr)=>{
 };
 
 /* ── state ── */
-let curTab="broadcast",curYearSet=new Set(),curMemSet=new Set(),curQ="",curTagQ="",curTagMode="include",curEra="all",curSpecial="all",curTGFilter="all",curSort="desc";
+let curTab="broadcast",curYearSet=new Set(),curMemSet=new Set(),curQ="",curTagQ="",curTagMode="include",curEra="all",curSpecial="all",curTGFilter="all",curSort="desc",curBcastTagSearchMode=false;
 let curTGSet=new Set(["a","b","c"]); // 태그 복수선택
 let curSearchTitleOnly=false;
 let curBcastSet=new Set(["live"]); // 방송 타입 기본: 라이브만
@@ -1880,15 +1884,19 @@ document.getElementById("search").addEventListener("input",e=>{curQ=e.target.val
 function matchTitleOrTags(t, sid){
   if(!curQ)return true;
   const q2=curQ.toLowerCase();
+  const d=getData(sid);
+  const allTags=[...d.tagsA,...d.tagsB,...d.tagsC];
+  if(curBcastTagSearchMode){
+    // 태그만 검색
+    if(curTagMode==="exact") return allTags.some(tag=>tag.toLowerCase()===q2);
+    return allTags.some(tag=>tag.toLowerCase().includes(q2));
+  }
   const tl=t.toLowerCase();
   if(curTagMode==="exact"){
     if(tl===q2)return true;
   } else {
     if(tl.includes(q2))return true;
   }
-  // also search tags A/B/C
-  const d=getData(sid);
-  const allTags=[...d.tagsA,...d.tagsB,...d.tagsC];
   return allTags.some(tag=>tag.toLowerCase().includes(q2));
 }
 function matchYear(y){
@@ -2338,6 +2346,17 @@ function renderLassgo(){
 ══════════════════════════════════════════════ */
 let SONGS=[];
 let curSongAlbum="all", curSongYear="all", curSongType="all", curSongQ="", curSongSort="asc", curSongTagMode="include", curSongTitleOnly=false, curSongTagSearchMode=false;
+
+function toggleBcastTagSearch(){
+  curBcastTagSearchMode=!curBcastTagSearchMode;
+  const btn=document.getElementById("bcast-tag-search-btn");
+  if(btn){
+    btn.style.color=curBcastTagSearchMode?"#a855f7":"rgba(168,85,247,.45)";
+    btn.style.borderColor=curBcastTagSearchMode?"rgba(168,85,247,.7)":"rgba(168,85,247,.3)";
+    btn.style.background=curBcastTagSearchMode?"rgba(168,85,247,.12)":"none";
+  }
+  render();
+}
 
 function toggleSongTagSearch(){
   curSongTagSearchMode=!curSongTagSearchMode;
