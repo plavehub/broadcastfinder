@@ -154,7 +154,7 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 .month-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;color:var(--muted);min-width:28px;}
 .month-line{flex:1;height:1px;background:var(--border);opacity:.45;}
 .month-count{font-size:10px;color:var(--muted);opacity:.7;}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(265px,1fr));gap:8px;}
+.grid{display:flex;flex-wrap:wrap;gap:8px;}
 
 /* CARD */
 .card{background:var(--card);border:2px solid var(--border);border-radius:16px;padding:16px;
@@ -239,7 +239,7 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 .card.season-debut::before{opacity:1!important;background:linear-gradient(90deg,#e8c97a,#f5e0a0,#e8c97a)!important;}
 
 /* thumbnail card layout */
-.card-with-thumb{display:flex;gap:12px;margin-bottom:8px;align-items:stretch;}
+.card-with-thumb{display:flex;gap:16px;margin-bottom:0;align-items:stretch;width:418px;flex-shrink:0;box-sizing:border-box;}
 .card-thumb-link{flex-shrink:0;width:186px;height:105px;border-radius:8px;overflow:hidden;background:var(--bg3);display:block;position:relative;}
 .card-thumb-link img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity .2s;}
 .card-thumb-link:hover img{opacity:.85;}
@@ -332,7 +332,7 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 ::-webkit-scrollbar-thumb{background:var(--bg3);border-radius:3px;}
 
 @media(max-width:600px){
-  .grid{grid-template-columns:1fr;}
+
   .filter-divider{display:none;}
   .tab-btn{padding:11px 12px;font-size:10px;}
   .modal-box{max-height:92vh;}
@@ -345,8 +345,8 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 .songs-album-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
 .songs-album-label{font-size:12px;font-weight:700;letter-spacing:.06em;padding:3px 10px;border-radius:5px;border-left:3px solid;}
 .songs-album-date{font-size:10px;color:var(--muted);}
-.songs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;}
-.song-card{background:#0f0f1e;border:1px solid rgba(255,255,255,.08);border-radius:10px;overflow:hidden;cursor:pointer;transition:border-color .15s;}
+.songs-grid{display:flex;flex-wrap:wrap;gap:10px;}
+.song-card{background:#0f0f1e;border:1px solid rgba(255,255,255,.08);border-radius:10px;overflow:hidden;cursor:pointer;transition:border-color .15s;flex-shrink:0;width:150px;}
 .song-card:hover{border-color:rgba(255,255,255,.2);}
 .song-thumb-wrap{width:100%;aspect-ratio:1;position:relative;overflow:hidden;background:#111;}
 .song-thumb-blur{position:absolute;inset:0;background-size:cover;background-position:center;filter:blur(16px);opacity:.6;transform:scale(1.15);}
@@ -385,7 +385,7 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 .song-tag-input{background:transparent;border:none;color:#888;font-size:10px;outline:none;width:100%;}
 .song-tag-input::placeholder{color:#333;}
 @media(max-width:600px){
-  .songs-grid{grid-template-columns:repeat(2,1fr);}
+
   .song-modal-box{flex-direction:column;}
   .song-modal-left{width:100%;height:160px;}
 }
@@ -422,13 +422,13 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 <!-- 연동하기 고정 바 (최상단 단독) -->
 <div id="sync-fixed-bar" style="position:fixed;top:0;right:0;left:0;z-index:999;display:flex;justify-content:flex-end;align-items:center;gap:12px;padding:6px 16px;background:rgba(11,11,30,.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.06);">
   <span id="sync-status" style="font-size:10px;font-weight:400;color:rgba(255,255,255,.35);font-family:'Noto Sans KR',sans-serif;"></span>
-  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px;min-width:100px;">
+  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px;">
     <button id="sync-btn" onclick="syncAll()"
       style="background:rgba(232,201,122,.15);border:1px solid rgba(232,201,122,.4);border-radius:7px;
              color:#e8c97a;font-size:11px;font-weight:600;padding:5px 14px;cursor:pointer;
              font-family:'Syne',sans-serif;letter-spacing:.06em;white-space:nowrap;transition:background .15s;"
       onmouseover="this.style.background='rgba(232,201,122,.28)'"
-      onmouseout="this.style.background='rgba(232,201,122,.15)'">🔄 연동하기</button>
+      onmouseout="this.style.background='rgba(232,201,122,.15)'">UPDATE</button>
     <div id="sync-bar" style="display:none;width:100%;height:3px;border-radius:2px;background:rgba(232,201,122,.2);overflow:hidden;">
       <div id="sync-fill" style="height:100%;background:#e8c97a;width:0%;transition:width .3s;"></div>
     </div>
@@ -526,8 +526,11 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
           oninput="document.getElementById('search-clear').style.display=this.value?'flex':'none';"
           onkeydown="if(event.key==='Enter'){render();}">
         <button id="search-clear" onclick="document.getElementById('search').value='';curQ='';render();this.style.display='none';"
-          style="display:none;position:absolute;right:36px;background:none;border:none;cursor:pointer;
+          style="display:none;position:absolute;right:60px;background:none;border:none;cursor:pointer;
                  font-size:13px;padding:0 4px;line-height:1;color:var(--muted);align-items:center;justify-content:center;">✕</button>
+        <button id="bcast-tag-search-btn" onclick="toggleBcastTagSearch()"
+          style="position:absolute;right:34px;font-size:11px;font-weight:700;color:rgba(168,85,247,.45);font-family:'Noto Sans KR',sans-serif;border:1px solid rgba(168,85,247,.3);border-radius:4px;padding:1px 6px;background:none;cursor:pointer;transition:all .15s;line-height:1.4;"
+          title="태그만 검색">#</button>
         <button onclick="render()"
           style="position:absolute;right:8px;background:none;border:none;cursor:pointer;
                  font-size:16px;padding:0;line-height:1;color:var(--muted);">🔍</button>
@@ -655,7 +658,10 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
             oninput="curSongQ=this.value;document.getElementById('song-search-clear').style.display=this.value?'flex':'none';renderSongs();"
             onkeydown="if(event.key==='Enter'){renderSongs();}if(event.key==='Escape'){this.value='';curSongQ='';document.getElementById('song-search-clear').style.display='none';renderSongs();}">
           <button id="song-search-clear" onclick="document.getElementById('song-search').value='';curSongQ='';renderSongs();this.style.display='none';"
-            style="display:none;position:absolute;right:36px;background:none;border:none;cursor:pointer;font-size:13px;padding:0 4px;color:var(--muted);align-items:center;justify-content:center;">✕</button>
+            style="display:none;position:absolute;right:60px;background:none;border:none;cursor:pointer;font-size:13px;padding:0 4px;color:var(--muted);align-items:center;justify-content:center;">✕</button>
+          <button id="song-tag-search-btn" onclick="toggleSongTagSearch()"
+            style="position:absolute;right:34px;font-size:11px;font-weight:700;color:rgba(168,85,247,.45);font-family:'Noto Sans KR',sans-serif;border:1px solid rgba(168,85,247,.3);border-radius:4px;padding:1px 6px;background:none;cursor:pointer;transition:all .15s;line-height:1.4;"
+            title="태그만 검색">#</button>
           <button onclick="renderSongs()"
             style="position:absolute;right:8px;background:none;border:none;cursor:pointer;font-size:16px;padding:0;line-height:1;color:var(--muted);">🔍</button>
         </div>
@@ -840,7 +846,18 @@ const matchM=(arr)=>{
 };
 
 /* ── state ── */
-let curTab="broadcast",curYearSet=new Set(),curMemSet=new Set(),curQ="",curTagQ="",curTagMode="include",curEra="all",curSpecial="all",curTGFilter="all",curSort="desc";
+let curTab="broadcast",curYearSet=new Set(),curMemSet=new Set(),curQ="",curTagQ="",curTagMode="include",curEra="all",curSpecial="all",curTGFilter="all",curSort="desc",curBcastTagSearchMode=false;
+
+function toggleBcastTagSearch(){
+  curBcastTagSearchMode=!curBcastTagSearchMode;
+  const btn=document.getElementById("bcast-tag-search-btn");
+  if(btn){
+    btn.style.color=curBcastTagSearchMode?"#a855f7":"rgba(168,85,247,.45)";
+    btn.style.borderColor=curBcastTagSearchMode?"rgba(168,85,247,.7)":"rgba(168,85,247,.3)";
+    btn.style.background=curBcastTagSearchMode?"rgba(168,85,247,.12)":"none";
+  }
+  render();
+}
 let curTGSet=new Set(["a","b","c"]); // 태그 복수선택
 let curSearchTitleOnly=false;
 let curBcastSet=new Set(["live"]); // 방송 타입 기본: 라이브만
@@ -1883,15 +1900,18 @@ document.getElementById("search").addEventListener("input",e=>{curQ=e.target.val
 function matchTitleOrTags(t, sid){
   if(!curQ)return true;
   const q2=curQ.toLowerCase();
+  const d=getData(sid);
+  const allTags=[...d.tagsA,...d.tagsB,...d.tagsC];
+  if(curBcastTagSearchMode){
+    if(curTagMode==="exact") return allTags.some(tag=>tag.toLowerCase()===q2);
+    return allTags.some(tag=>tag.toLowerCase().includes(q2));
+  }
   const tl=t.toLowerCase();
   if(curTagMode==="exact"){
     if(tl===q2)return true;
   } else {
     if(tl.includes(q2))return true;
   }
-  // also search tags A/B/C
-  const d=getData(sid);
-  const allTags=[...d.tagsA,...d.tagsB,...d.tagsC];
   return allTags.some(tag=>tag.toLowerCase().includes(q2));
 }
 function matchYear(y){
@@ -2303,7 +2323,18 @@ function renderLassgo(){
    🎵 발매곡
 ══════════════════════════════════════════════ */
 let SONGS=[];
-let curSongAlbum="all", curSongYear="all", curSongType="all", curSongQ="", curSongSort="asc", curSongTagMode="include", curSongTitleOnly=false;
+let curSongAlbum="all", curSongYear="all", curSongType="all", curSongQ="", curSongSort="asc", curSongTagMode="include", curSongTitleOnly=false, curSongTagSearchMode=false;
+
+function toggleSongTagSearch(){
+  curSongTagSearchMode=!curSongTagSearchMode;
+  const btn=document.getElementById("song-tag-search-btn");
+  if(btn){
+    btn.style.color=curSongTagSearchMode?"#a855f7":"rgba(168,85,247,.45)";
+    btn.style.borderColor=curSongTagSearchMode?"rgba(168,85,247,.7)":"rgba(168,85,247,.3)";
+    btn.style.background=curSongTagSearchMode?"rgba(168,85,247,.12)":"none";
+  }
+  renderSongs();
+}
 
 function toggleSongSearchMode(){
   curSongTitleOnly=!curSongTitleOnly;
@@ -2462,10 +2493,14 @@ function renderSongs(){
     byAlbum[k].songs.push(s);
   });
 
+  // 앨범: 항상 오래된 순, 앨범 내: 트랙 번호 순
   const sortedAlbums=Object.keys(byAlbum).sort((a,b)=>{
     const da=byAlbum[a].date||"";
     const db=byAlbum[b].date||"";
-    return curSongSort==="desc"?db.localeCompare(da):da.localeCompare(db);
+    return da.localeCompare(db);
+  });
+  sortedAlbums.forEach(album=>{
+    byAlbum[album].songs.sort((a,b)=>(parseInt(a.track)||0)-(parseInt(b.track)||0));
   });
 
   el.innerHTML=sortedAlbums.map(album=>{
