@@ -157,7 +157,7 @@ main{position:relative;z-index:1;max-width:1060px;margin:0 auto;padding:18px 16p
 .grid{display:flex;flex-wrap:wrap;gap:8px;}
 
 /* CARD */
-.card{background:var(--card);border:2px solid var(--border);border-radius:10px;padding:11px;display:flex;flex-direction:column;gap:0;width:250px;flex-shrink:0;box-sizing:border-box;cursor:pointer;transition:border-color .15s;overflow:hidden;position:relative;}
+.card{background:var(--card);border:2px solid var(--border);border-radius:10px;padding:11px;display:flex;flex-direction:column;gap:0;width:335px;flex-shrink:0;box-sizing:border-box;cursor:pointer;transition:border-color .15s;overflow:hidden;position:relative;}
 .card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;opacity:0;transition:opacity .2s;}
 .card:hover{border-color:rgba(255,255,255,.18);transform:translateY(-1px);box-shadow:0 6px 24px rgba(0,0,0,.35);}
 .card:hover::before{opacity:1;}
@@ -189,7 +189,7 @@ main{position:relative;z-index:1;max-width:1060px;margin:0 auto;padding:18px 16p
 .card-tag-list{display:flex;gap:3px;flex-wrap:nowrap;overflow:hidden;align-items:center;flex:1;}
 .card-tag-btn{font-size:8px;padding:1px 5px;border-radius:4px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:rgba(255,255,255,.45);white-space:nowrap;flex-shrink:0;}
 .card-tag-more{font-size:8px;color:rgba(255,255,255,.25);white-space:nowrap;flex-shrink:0;}
-.member-pill{font-size:8px;border-radius:4px;padding:1px 0;font-weight:500;border:1px solid transparent;display:inline-flex;align-items:center;justify-content:center;gap:1px;width:30px;box-sizing:border-box;flex-shrink:0;}
+.member-pill{font-size:8px;border-radius:4px;padding:1px 0;font-weight:500;border:1px solid transparent;display:inline-flex;align-items:center;justify-content:center;gap:1px;width:34px;box-sizing:border-box;flex-shrink:0;}
 .pill-yejun{background:rgba(77,166,255,.1);color:var(--yejun);border-color:rgba(77,166,255,.35);}
 .pill-noah{background:rgba(168,85,247,.1);color:var(--noah);border-color:rgba(168,85,247,.35);}
 .pill-bambi{background:rgba(255,107,157,.1);color:var(--bambi);border-color:rgba(255,107,157,.35);}
@@ -243,11 +243,11 @@ main{position:relative;z-index:1;max-width:1060px;margin:0 auto;padding:18px 16p
 
 /* thumbnail card layout */
 .card-with-thumb{display:flex;gap:11px;align-items:flex-start;}
-.card-thumb-link{flex-shrink:0;width:110px;min-width:110px;max-width:110px;height:62px;border-radius:5px;overflow:hidden;background:var(--bg3);display:block;position:relative;}
+.card-thumb-link{flex-shrink:0;width:160px;min-width:160px;max-width:160px;height:90px;border-radius:6px;overflow:hidden;background:var(--bg3);display:block;position:relative;}
 .card-thumb-link img{width:100%;height:100%;object-fit:cover;display:block;}
 .card-thumb-link:hover img{opacity:.85;}
-.card-thumb-empty{flex-shrink:0;width:110px;height:62px;border-radius:5px;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;opacity:.3;}
-.card-body-wrap{display:flex;flex-direction:column;justify-content:space-between;width:107px;min-width:107px;max-width:107px;flex-shrink:0;overflow:hidden;}
+.card-thumb-empty{flex-shrink:0;width:160px;min-width:160px;height:90px;border-radius:6px;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:20px;opacity:.3;}
+.card-body-wrap{display:flex;flex-direction:column;justify-content:space-between;width:142px;min-width:142px;max-width:142px;flex-shrink:0;overflow:hidden;}
 .card-body-left{display:contents;}
 .card-main-link{display:inline-flex;align-items:center;gap:5px;margin-top:6px;
   font-size:11px;color:var(--yejun);text-decoration:none;opacity:.85;transition:opacity .15s;}
@@ -1968,7 +1968,7 @@ function renderLive(){
           vurl?'<span class="badge" style="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);color:var(--muted);">🔗</span>':'',
         ].filter(Boolean).join("");
         const thumbHtml=thumb
-          ?`<a class="card-thumb-link" href="${escH(vurl||'#')}" target="_blank" onclick="event.stopPropagation()"><img src="${escH(thumb)}" onerror="window.thumbErr&&window.thumbErr(this)" alt="" style="width:110px;height:62px;object-fit:cover;display:block;"></a>`
+          ?`<a class="card-thumb-link" href="${escH(vurl||'#')}" target="_blank" onclick="event.stopPropagation()"><img src="${escH(thumb)}" onerror="window.thumbErr&&window.thumbErr(this)" alt="" style="width:160px;height:90px;object-fit:cover;display:block;"></a>`
           :`<div class="card-thumb-empty">📺</div>`;
         const isDebut=SEASON_DATES.has(toNum(b.y,b.d));
         const eraLabel=isDebut?SEASON_LABEL[toNum(b.y,b.d)]:"";
@@ -2083,7 +2083,7 @@ function renderRadio(){
         let rthumb=r.thumb||"";
         if(!rthumb&&vurl){const _v=vurl.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|live\/|embed\/))([a-zA-Z0-9_-]{11})/);if(_v)rthumb=`https://i.ytimg.com/vi/${_v[1]}/mqdefault.jpg`;}
         const rThumbHtml=rthumb
-          ?`<a class="card-thumb-link" href="${escH(vurl||'#')}" target="_blank" onclick="event.stopPropagation()"><img src="${escH(rthumb)}" onerror="window.thumbErr&&window.thumbErr(this)" alt="" style="width:110px;height:62px;object-fit:cover;display:block;"></a>`
+          ?`<a class="card-thumb-link" href="${escH(vurl||'#')}" target="_blank" onclick="event.stopPropagation()"><img src="${escH(rthumb)}" onerror="window.thumbErr&&window.thumbErr(this)" alt="" style="width:160px;height:90px;object-fit:cover;display:block;"></a>`
           :`<div class="card-thumb-empty">📻</div>`;
         return`<div class="card ${cc(r.dj)}" data-sid="${escH(sid)}" data-title="${escH(cardTitle)}" data-date="${yy}.${r.d}" data-type="radio" onclick="if(!event.target.closest('a,button'))handleCardClick(this)">
           <div class="card-with-thumb">
@@ -2176,7 +2176,7 @@ function renderUnifiedCard(item,yy){
     if(v) thumb=`https://i.ytimg.com/vi/${v[1]}/mqdefault.jpg`;
   }
   const thumbHtml=thumb
-    ?`<a class="card-thumb-link" href="${escH(vurl||'#')}" target="_blank" onclick="event.stopPropagation()"><img src="${escH(thumb)}" onerror="window.thumbErr&&window.thumbErr(this)" alt="" style="width:110px;height:62px;object-fit:cover;display:block;"></a>`
+    ?`<a class="card-thumb-link" href="${escH(vurl||'#')}" target="_blank" onclick="event.stopPropagation()"><img src="${escH(thumb)}" onerror="window.thumbErr&&window.thumbErr(this)" alt="" style="width:160px;height:90px;object-fit:cover;display:block;"></a>`
     :`<div class="card-thumb-empty">${type==="radio"?"📻":type==="lassgo"?"🚀":"📺"}</div>`;
   let badge="",title="",memberPills="";
   if(type==="live"){
@@ -2313,7 +2313,7 @@ function renderLassgo(){
         let pthumb=p.thumb||"";
         if(!pthumb&&pvurl){const _v=pvurl.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|live\/|embed\/))([a-zA-Z0-9_-]{11})/);if(_v)pthumb=`https://i.ytimg.com/vi/${_v[1]}/mqdefault.jpg`;}
         const pThumbHtml=pthumb
-          ?`<a class="card-thumb-link" href="${escH(pvurl||'#')}" target="_blank" onclick="event.stopPropagation()"><img src="${escH(pthumb)}" onerror="window.thumbErr&&window.thumbErr(this)" alt="" style="width:110px;height:62px;object-fit:cover;display:block;"></a>`
+          ?`<a class="card-thumb-link" href="${escH(pvurl||'#')}" target="_blank" onclick="event.stopPropagation()"><img src="${escH(pthumb)}" onerror="window.thumbErr&&window.thumbErr(this)" alt="" style="width:160px;height:90px;object-fit:cover;display:block;"></a>`
           :`<div class="card-thumb-empty">🚀</div>`;
         return`<div class="card c-all" data-sid="${escH(sid)}" data-title="${escH(p.t)}" data-date="${p.y}.${p.d}" data-type="lassgo" onclick="if(!event.target.closest('a,button'))handleCardClick(this)">
           <div class="card-with-thumb">
