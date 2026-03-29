@@ -61,11 +61,26 @@ header{position:sticky;top:0;z-index:101;background:rgba(6,6,17,1);text-align:ce
 .controls-inner{max-width:1060px;margin:0 auto;padding:0 16px;display:flex;flex-direction:column;gap:6px;}
 .search-row{position:relative;}
 .search-input{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;
-  padding:8px 72px 8px 12px;color:#ffffff;font-family:'Noto Sans KR',sans-serif;font-size:13px;outline:none;transition:border-color .2s;}
+  padding:8px 108px 8px 12px;color:#ffffff;font-family:'Noto Sans KR',sans-serif;font-size:13px;outline:none;transition:border-color .2s;}
 .search-input:focus{border-color:rgba(168,85,247,.5);background:var(--bg3);}
 .search-input:-webkit-autofill,.search-input:-webkit-autofill:focus{-webkit-box-shadow:0 0 0 1000px var(--bg3) inset;-webkit-text-fill-color:#ffffff;}
 .search-input::placeholder{color:var(--muted);}
 .search-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:14px;pointer-events:none;}
+.scr-expand{padding:6px 8px;background:rgba(45,212,191,.03);border:1px solid rgba(45,212,191,.08);border-radius:6px;margin-top:6px}
+.scr-expand-h{font-size:9px;color:rgba(45,212,191,.5);margin-bottom:4px;display:flex;align-items:center;justify-content:space-between;cursor:pointer}
+.scr-line{display:flex;align-items:flex-start;gap:6px;padding:2px 4px;font-size:10px;border-radius:3px}
+.scr-line.hit{background:rgba(168,85,247,.06);border:1px solid rgba(168,85,247,.1)}
+.scr-tc{color:#2dd4bf;font-size:9px;font-family:'Syne',monospace;min-width:42px;flex-shrink:0;cursor:pointer;text-decoration:none}
+.scr-tc:hover{text-decoration:underline}
+.scr-tx{color:rgba(255,255,255,.5);line-height:1.5}
+.hl-expand{padding:6px 8px;background:rgba(255,183,77,.03);border:1px solid rgba(255,183,77,.08);border-radius:6px;margin-top:4px}
+.hl-expand-h{font-size:9px;color:rgba(255,183,77,.5);margin-bottom:4px;cursor:pointer}
+.hl-line{display:flex;align-items:flex-start;gap:6px;font-size:10px;padding:2px 4px}
+.hl-tc{color:#ffb74d;font-size:9px;font-family:'Syne',monospace;min-width:46px;flex-shrink:0;cursor:pointer;text-decoration:none}
+.hl-tc:hover{text-decoration:underline}
+.hl-lb{color:rgba(255,255,255,.55);flex:1;line-height:1.5}
+.m-hl{background:rgba(168,85,247,.2);color:#c084fc;padding:0 2px;border-radius:2px}
+.m-hl-y{background:rgba(255,183,77,.15);color:#ffb74d;padding:0 2px;border-radius:2px}
 .filter-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
 .filter-divider{width:1px;height:18px;background:var(--border);align-self:center;}
 .btn{border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:4px 11px;font-family:'Noto Sans KR',sans-serif;
@@ -468,13 +483,19 @@ main{position:relative;z-index:1;max-width:1060px;margin:0 auto;padding:18px 16p
           oninput="document.getElementById('search-clear').style.display=this.value?'flex':'none';"
           onkeydown="if(event.key==='Enter'){render();}">
         <button id="search-clear" onclick="document.getElementById('search').value='';curQ='';render();this.style.display='none';"
-          style="display:none;position:absolute;right:60px;background:none;border:none;cursor:pointer;
+          style="display:none;position:absolute;right:96px;background:none;border:none;cursor:pointer;
                  font-size:13px;padding:0 4px;line-height:1;color:var(--muted);align-items:center;justify-content:center;">✕</button>
         <button id="bcast-tag-search-btn" onclick="toggleBcastTagSearch()"
-          style="position:absolute;right:34px;font-size:11px;font-weight:700;color:rgba(168,85,247,.45);font-family:'Noto Sans KR',sans-serif;border:1px solid rgba(168,85,247,.3);border-radius:4px;padding:1px 6px;background:none;cursor:pointer;transition:all .15s;line-height:1.4;"
+          style="position:absolute;right:72px;font-size:11px;font-weight:700;color:rgba(168,85,247,.45);font-family:'Noto Sans KR',sans-serif;border:1px solid rgba(168,85,247,.3);border-radius:4px;padding:1px 6px;background:none;cursor:pointer;transition:all .15s;line-height:1.4;"
           title="태그만 검색">#</button>
+        <button id="script-search-btn" onclick="toggleScriptSearch()"
+          style="position:absolute;right:50px;font-size:11px;font-weight:700;color:rgba(45,212,191,.3);font-family:'Syne',sans-serif;border:1px solid rgba(45,212,191,.2);border-radius:4px;padding:1px 6px;background:none;cursor:pointer;transition:all .15s;line-height:1.4;"
+          title="스크립트 검색">T</button>
+        <button id="hl-search-btn" onclick="toggleHlSearch()"
+          style="position:absolute;right:28px;font-size:10px;font-weight:700;color:rgba(255,183,77,.3);font-family:'Syne',sans-serif;border:1px solid rgba(255,183,77,.2);border-radius:4px;padding:1px 6px;background:none;cursor:pointer;transition:all .15s;line-height:1.4;"
+          title="하이라이트 검색">★</button>
         <button onclick="render()"
-          style="position:absolute;right:8px;background:none;border:none;cursor:pointer;
+          style="position:absolute;right:6px;background:none;border:none;cursor:pointer;
                  font-size:16px;padding:0;line-height:1;color:var(--muted);">🔍</button>
       </div>
       <div style="display:flex;border-radius:8px;overflow:hidden;border:1px solid var(--border);flex-shrink:0;">
@@ -800,6 +821,8 @@ const matchM=(arr)=>{
 
 /* ── state ── */
 let curTab="broadcast",curYearSet=new Set(),curMemSet=new Set(),curQ="",curTagQ="",curTagMode="include",curEra="all",curSpecial="all",curTGFilter="all",curSort="desc",curBcastTagSearchMode=false;
+let curScriptSearchOn=false, curHlSearchOn=false;
+let scriptSearchResults={}, hlSearchResults={};
 
 function toggleBcastTagSearch(){
   curBcastTagSearchMode=!curBcastTagSearchMode;
@@ -808,6 +831,28 @@ function toggleBcastTagSearch(){
     btn.style.color=curBcastTagSearchMode?"#a855f7":"rgba(168,85,247,.45)";
     btn.style.borderColor=curBcastTagSearchMode?"rgba(168,85,247,.7)":"rgba(168,85,247,.3)";
     btn.style.background=curBcastTagSearchMode?"rgba(168,85,247,.12)":"none";
+  }
+  render();
+}
+
+function toggleScriptSearch(){
+  curScriptSearchOn=!curScriptSearchOn;
+  const btn=document.getElementById("script-search-btn");
+  if(btn){
+    btn.style.color=curScriptSearchOn?"#2dd4bf":"rgba(45,212,191,.3)";
+    btn.style.borderColor=curScriptSearchOn?"rgba(45,212,191,.7)":"rgba(45,212,191,.2)";
+    btn.style.background=curScriptSearchOn?"rgba(45,212,191,.12)":"none";
+  }
+  render();
+}
+
+function toggleHlSearch(){
+  curHlSearchOn=!curHlSearchOn;
+  const btn=document.getElementById("hl-search-btn");
+  if(btn){
+    btn.style.color=curHlSearchOn?"#ffb74d":"rgba(255,183,77,.3)";
+    btn.style.borderColor=curHlSearchOn?"rgba(255,183,77,.7)":"rgba(255,183,77,.2)";
+    btn.style.background=curHlSearchOn?"rgba(255,183,77,.12)":"none";
   }
   render();
 }
@@ -2160,6 +2205,101 @@ function updateHeaderStats(){
 }
 function render(){
   renderUnified();
+  // Async script/highlight search
+  const q=document.getElementById("search")?.value||"";
+  if(q.length>=2 && (curScriptSearchOn||curHlSearchOn)){
+    doAsyncSearch(q);
+  } else {
+    scriptSearchResults={}; hlSearchResults={};
+    document.querySelectorAll(".scr-expand,.hl-expand").forEach(e=>e.remove());
+  }
+}
+
+async function doAsyncSearch(q){
+  const promises=[];
+  if(curScriptSearchOn){
+    promises.push(
+      fetch(WORKER_URL+"?action=searchScripts&q="+encodeURIComponent(q)+"&_t="+Date.now())
+        .then(r=>r.json()).then(d=>{
+          if(d.ok){
+            scriptSearchResults={};
+            Object.entries(d.results).forEach(([sid,rows])=>{
+              const tn=rows[0]?.tab_name;
+              if(tn) scriptSearchResults[tn]=rows.slice(0,5);
+            });
+          }
+        }).catch(()=>{})
+    );
+  } else { scriptSearchResults={}; }
+  if(curHlSearchOn){
+    promises.push(
+      fetch(WORKER_URL+"?action=searchHighlights&q="+encodeURIComponent(q)+"&_t="+Date.now())
+        .then(r=>r.json()).then(d=>{
+          if(d.ok){
+            hlSearchResults={};
+            Object.entries(d.results).forEach(([sid,rows])=>{
+              const tn=rows[0]?.tab_name;
+              if(tn) hlSearchResults[tn]=rows;
+            });
+          }
+        }).catch(()=>{})
+    );
+  } else { hlSearchResults={}; }
+  await Promise.all(promises);
+  injectSearchResults(q);
+}
+
+function highlightKw(text,q){
+  if(!q) return text;
+  const esc=q.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+  return text.replace(new RegExp(`(${esc})`,"gi"),`<span class="m-hl">$1</span>`);
+}
+function highlightKwY(text,q){
+  if(!q) return text;
+  const esc=q.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+  return text.replace(new RegExp(`(${esc})`,"gi"),`<span class="m-hl-y">$1</span>`);
+}
+
+function tcToYtLink(vurl,tc){
+  if(!vurl||!tc) return "#";
+  const parts=tc.split(":").map(Number);
+  const sec=parts.length===3?parts[0]*3600+parts[1]*60+parts[2]:parts[0]*60+parts[1];
+  const base=vurl.split("?")[0];
+  return base+"?t="+sec;
+}
+
+function injectSearchResults(q){
+  document.querySelectorAll(".scr-expand,.hl-expand").forEach(e=>e.remove());
+  document.querySelectorAll(".card[data-sid]").forEach(card=>{
+    const sid=card.getAttribute("data-sid");
+    const vurl=card.querySelector("a.card-thumb-link")?.href||"";
+    let html="";
+    // Script results
+    if(scriptSearchResults[sid]){
+      const rows=scriptSearchResults[sid];
+      html+=`<div class="scr-expand"><div class="scr-expand-h">📜 스크립트 매칭 ${rows.length}건</div>`;
+      rows.forEach(r=>{
+        const link=tcToYtLink(vurl,r.timecode);
+        html+=`<div class="scr-line hit"><a class="scr-tc" href="${link}" target="_blank" onclick="event.stopPropagation()">${r.timecode}</a><span class="scr-tx">${highlightKw(r.content,q)}</span></div>`;
+      });
+      html+=`</div>`;
+    }
+    // Highlight results
+    if(hlSearchResults[sid]){
+      const rows=hlSearchResults[sid];
+      html+=`<div class="hl-expand"><div class="hl-expand-h">⭐ 하이라이트 매칭 ${rows.length}건</div>`;
+      rows.forEach(r=>{
+        const link=tcToYtLink(vurl,r.timecode);
+        html+=`<div class="hl-line"><a class="hl-tc" href="${link}" target="_blank" onclick="event.stopPropagation()">${r.timecode||"-"}</a><span class="hl-lb">${highlightKwY(r.content,q)}</span></div>`;
+      });
+      html+=`</div>`;
+    }
+    if(html){
+      const div=document.createElement("div");
+      div.innerHTML=html;
+      card.appendChild(div);
+    }
+  });
 }
 
 function getSid(type,item){
