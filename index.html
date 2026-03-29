@@ -13,7 +13,7 @@
   --border:rgba(255,255,255,0.07);--text:#e8e8f0;--muted:#8888aa;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-top:0;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-top:0;min-width:312px;}
 body::before{content:'';position:fixed;inset:0;
   background-image:
     radial-gradient(1px 1px at 15% 20%,rgba(255,255,255,.4) 0%,transparent 100%),
@@ -41,7 +41,7 @@ header{position:sticky;top:0;z-index:101;background:rgba(6,6,17,.97);backdrop-fi
 .logo-sub{font-size:11px;letter-spacing:.3em;color:var(--muted);text-transform:uppercase;margin-top:5px;}
 
 .tab-bar{position:sticky;top:0;z-index:100;background:rgba(6,6,17,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
-.tab-row{max-width:1200px;margin:0 auto;display:flex;padding:0 16px;align-items:center;justify-content:space-between;}
+.tab-row{max-width:1144px;margin:0 auto;display:flex;padding:0 16px;align-items:center;justify-content:space-between;}
 .btn-add-live{background:rgba(168,85,247,.12);border:1px solid rgba(168,85,247,.3);border-radius:7px;
   color:var(--noah);font-family:'Noto Sans KR',sans-serif;font-size:11px;font-weight:500;
   padding:6px 12px;cursor:pointer;display:flex;align-items:center;gap:5px;
@@ -60,7 +60,7 @@ header{position:sticky;top:0;z-index:101;background:rgba(6,6,17,.97);backdrop-fi
 #filters-collapsible::before{content:'';position:absolute;top:0;left:0;right:0;height:50%;background:linear-gradient(to top,transparent,var(--bg));opacity:0;pointer-events:none;transition:opacity .1s ease;z-index:1;}
 #filters-collapsible.collapsing::after{opacity:1;}
 #filters-collapsible.expanding::before{opacity:1;}
-.controls-inner{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:6px;}
+.controls-inner{max-width:1144px;margin:0 auto;display:flex;flex-direction:column;gap:6px;}
 .search-row{position:relative;}
 .search-input{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;
   padding:8px 72px 8px 12px;color:#ffffff;font-family:'Noto Sans KR',sans-serif;font-size:13px;outline:none;transition:border-color .2s;}
@@ -140,7 +140,7 @@ header{position:sticky;top:0;z-index:101;background:rgba(6,6,17,.97);backdrop-fi
 .era-뿌우크리.active,.era-뿌우크리:hover{background:rgba(248,113,113,.35);}
 .era-칼파투.active,.era-칼파투:hover{background:rgba(220,38,38,.35);}
 
-main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16px 60px;}
+main{position:relative;z-index:1;max-width:1144px;margin:0 auto;padding:18px 16px 60px;}
 .result-count{font-size:11px;color:var(--muted);margin-bottom:12px;padding:0 2px;}
 .section-view{display:none;}
 .section-view.active{display:block;}
@@ -647,7 +647,7 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
   </div>
 </div>
 
-<div id="songs-filter" style="display:none;padding:10px 20px 6px;flex-direction:column;gap:6px;background:rgba(6,6,17,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:99;">
+<div id="songs-filter" style="display:none;padding:10px 0 6px;flex-direction:column;gap:6px;background:rgba(6,6,17,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:99;"><div style="max-width:1144px;margin:0 auto;padding:0 16px;display:flex;flex-direction:column;gap:6px;width:100%;box-sizing:border-box;">
       <!-- 검색 행 -->
       <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
         <button id="song-search-mode-btn" onclick="toggleSongSearchMode()"
@@ -738,7 +738,7 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
       </div>
       </div><!-- /songs-filters-collapsible -->
 
-</div>
+</div></div>
 
 <main>
   <div class="result-count" id="result-count"></div>
