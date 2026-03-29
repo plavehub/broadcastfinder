@@ -33,14 +33,14 @@ body::before{content:'';position:fixed;inset:0;
     radial-gradient(1px 1px at 5% 50%,rgba(255,255,255,.15) 0%,transparent 100%);
   pointer-events:none;z-index:0;}
 
-header{position:sticky;top:0;z-index:101;background:rgba(6,6,17,.97);backdrop-filter:blur(12px);text-align:center;padding:18px 20px 14px;border-bottom:1px solid var(--border);}
+header{position:sticky;top:0;z-index:101;background:rgba(6,6,17,1);text-align:center;padding:18px 20px 14px;border-bottom:1px solid var(--border);}
 
 .logo-title{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(22px,4.5vw,42px);letter-spacing:.12em;
   background:linear-gradient(90deg,var(--yejun) 0%,var(--yejun) 12%,var(--noah) 28%,var(--bambi) 50%,var(--eunho) 72%,var(--hamin) 88%,var(--hamin) 100%);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .logo-sub{font-size:11px;letter-spacing:.3em;color:var(--muted);text-transform:uppercase;margin-top:5px;}
 
-.tab-bar{position:sticky;top:0;z-index:100;background:rgba(6,6,17,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.tab-bar{position:sticky;top:0;z-index:100;background:rgba(6,6,17,1);border-bottom:1px solid var(--border);}
 .tab-row{max-width:1060px;margin:0 auto;display:flex;padding:0 16px;align-items:center;justify-content:space-between;}
 .btn-add-live{background:rgba(168,85,247,.12);border:1px solid rgba(168,85,247,.3);border-radius:7px;
   color:var(--noah);font-family:'Noto Sans KR',sans-serif;font-size:11px;font-weight:500;
@@ -53,7 +53,7 @@ header{position:sticky;top:0;z-index:101;background:rgba(6,6,17,.97);backdrop-fi
 .tab-btn:hover{color:var(--text);}
 .tab-btn.active{color:var(--text);border-bottom-color:var(--noah);}
 
-.controls{position:sticky;top:0;z-index:99;background:rgba(6,6,17,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:10px 20px;isolation:isolate;}
+.controls{position:sticky;top:0;z-index:99;background:rgba(6,6,17,1);border-bottom:1px solid var(--border);padding:10px 20px;isolation:isolate;}
 #filters-collapsible{transition:max-height .18s cubic-bezier(0.4,0,0.2,1),opacity .15s ease;overflow:hidden;max-height:300px;opacity:1;position:relative;}
 #filters-collapsible.collapsed{max-height:0!important;opacity:0;}
 #filters-collapsible::after{content:'';position:absolute;bottom:0;left:0;right:0;height:50%;background:linear-gradient(to bottom,transparent,var(--bg));opacity:0;pointer-events:none;transition:opacity .1s ease;z-index:1;}
@@ -243,11 +243,11 @@ main{position:relative;z-index:1;max-width:1060px;margin:0 auto;padding:18px 16p
 
 /* thumbnail card layout */
 .card-with-thumb{display:flex;gap:11px;align-items:flex-start;}
-.card-thumb-link{flex-shrink:0;width:133px;height:75px;border-radius:5px;overflow:hidden;background:var(--bg3);display:block;position:relative;}
+.card-thumb-link{flex-shrink:0;width:110px;height:62px;border-radius:5px;overflow:hidden;background:var(--bg3);display:block;position:relative;}
 .card-thumb-link img{width:100%;height:100%;object-fit:cover;display:block;}
 .card-thumb-link:hover img{opacity:.85;}
-.card-thumb-empty{flex-shrink:0;width:133px;height:75px;border-radius:5px;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;opacity:.3;}
-.card-body-wrap{display:flex;flex-direction:column;justify-content:space-between;width:84px;flex-shrink:0;overflow:hidden;}
+.card-thumb-empty{flex-shrink:0;width:110px;height:62px;border-radius:5px;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;opacity:.3;}
+.card-body-wrap{display:flex;flex-direction:column;justify-content:space-between;width:107px;flex-shrink:0;overflow:hidden;}
 .card-body-left{display:contents;}
 .card-main-link{display:inline-flex;align-items:center;gap:5px;margin-top:6px;
   font-size:11px;color:var(--yejun);text-decoration:none;opacity:.85;transition:opacity .15s;}
@@ -399,6 +399,8 @@ main{position:relative;z-index:1;max-width:1060px;margin:0 auto;padding:18px 16p
 #search-mode-btn.title-only{border-color:rgba(255,255,255,.8) !important;color:#ffffff !important;background:transparent !important;}
 .empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px;color:var(--muted);font-size:13px;gap:8px;}
 .empty-icon{display:none;}
+
+.controls::after{content:'';position:absolute;bottom:-12px;left:0;right:0;height:12px;background:linear-gradient(to bottom,rgba(6,6,17,1),transparent);pointer-events:none;z-index:1;}
 </style>
 <body>
 
@@ -421,7 +423,7 @@ main{position:relative;z-index:1;max-width:1060px;margin:0 auto;padding:18px 16p
 </div>
 
 <!-- 연동하기 고정 바 (최상단 단독) -->
-<div id="sync-fixed-bar" style="position:fixed;top:0;right:0;left:0;z-index:999;display:flex;justify-content:flex-end;align-items:center;gap:12px;padding:6px 16px;background:rgba(11,11,30,.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.06);">
+<div id="sync-fixed-bar" style="position:fixed;top:0;right:0;left:0;z-index:999;display:flex;justify-content:flex-end;align-items:center;gap:12px;padding:6px 16px;background:rgba(11,11,30,1);border-bottom:1px solid rgba(255,255,255,.06);">
   <span id="sync-status" style="font-size:10px;font-weight:400;color:rgba(255,255,255,.35);font-family:'Noto Sans KR',sans-serif;"></span>
   <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px;">
     <button id="sync-btn" onclick="syncAll()"
@@ -647,7 +649,7 @@ main{position:relative;z-index:1;max-width:1060px;margin:0 auto;padding:18px 16p
   </div>
 </div>
 
-<div id="songs-filter" style="display:none;padding:10px 0 6px;flex-direction:column;gap:6px;background:rgba(6,6,17,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:99;"><div style="max-width:1144px;margin:0 auto;padding:0 16px;display:flex;flex-direction:column;gap:6px;width:100%;box-sizing:border-box;">
+<div id="songs-filter" style="display:none;padding:10px 0 6px;flex-direction:column;gap:6px;background:rgba(6,6,17,1);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:99;"><div style="max-width:1144px;margin:0 auto;padding:0 16px;display:flex;flex-direction:column;gap:6px;width:100%;box-sizing:border-box;">
       <!-- 검색 행 -->
       <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
         <button id="song-search-mode-btn" onclick="toggleSongSearchMode()"
@@ -1966,7 +1968,7 @@ function renderLive(){
           vurl?'<span class="badge" style="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);color:var(--muted);">🔗</span>':'',
         ].filter(Boolean).join("");
         const thumbHtml=thumb
-          ?`<a class="card-thumb-link" href="${escH(vurl||'#')}" target="_blank" onclick="event.stopPropagation()"><img src="${escH(thumb)}" onerror="window.thumbErr&&window.thumbErr(this)" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></a>`
+          ?`<a class="card-thumb-link" href="${escH(vurl||'#')}" target="_blank" onclick="event.stopPropagation()"><img src="${escH(thumb)}" onerror="window.thumbErr&&window.thumbErr(this)" alt="" style="width:110px;height:62px;object-fit:cover;display:block;"></a>`
           :`<div class="card-thumb-empty">📺</div>`;
         const isDebut=SEASON_DATES.has(toNum(b.y,b.d));
         const eraLabel=isDebut?SEASON_LABEL[toNum(b.y,b.d)]:"";
@@ -2081,7 +2083,7 @@ function renderRadio(){
         let rthumb=r.thumb||"";
         if(!rthumb&&vurl){const _v=vurl.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|live\/|embed\/))([a-zA-Z0-9_-]{11})/);if(_v)rthumb=`https://i.ytimg.com/vi/${_v[1]}/mqdefault.jpg`;}
         const rThumbHtml=rthumb
-          ?`<a class="card-thumb-link" href="${escH(vurl||'#')}" target="_blank" onclick="event.stopPropagation()"><img src="${escH(rthumb)}" onerror="window.thumbErr&&window.thumbErr(this)" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></a>`
+          ?`<a class="card-thumb-link" href="${escH(vurl||'#')}" target="_blank" onclick="event.stopPropagation()"><img src="${escH(rthumb)}" onerror="window.thumbErr&&window.thumbErr(this)" alt="" style="width:110px;height:62px;object-fit:cover;display:block;"></a>`
           :`<div class="card-thumb-empty">📻</div>`;
         return`<div class="card ${cc(r.dj)}" data-sid="${escH(sid)}" data-title="${escH(cardTitle)}" data-date="${yy}.${r.d}" data-type="radio" onclick="if(!event.target.closest('a,button'))handleCardClick(this)">
           <div class="card-with-thumb">
@@ -2174,7 +2176,7 @@ function renderUnifiedCard(item,yy){
     if(v) thumb=`https://i.ytimg.com/vi/${v[1]}/mqdefault.jpg`;
   }
   const thumbHtml=thumb
-    ?`<a class="card-thumb-link" href="${escH(vurl||'#')}" target="_blank" onclick="event.stopPropagation()"><img src="${escH(thumb)}" onerror="window.thumbErr&&window.thumbErr(this)" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></a>`
+    ?`<a class="card-thumb-link" href="${escH(vurl||'#')}" target="_blank" onclick="event.stopPropagation()"><img src="${escH(thumb)}" onerror="window.thumbErr&&window.thumbErr(this)" alt="" style="width:110px;height:62px;object-fit:cover;display:block;"></a>`
     :`<div class="card-thumb-empty">${type==="radio"?"📻":type==="lassgo"?"🚀":"📺"}</div>`;
   let badge="",title="",memberPills="";
   if(type==="live"){
@@ -2311,7 +2313,7 @@ function renderLassgo(){
         let pthumb=p.thumb||"";
         if(!pthumb&&pvurl){const _v=pvurl.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|live\/|embed\/))([a-zA-Z0-9_-]{11})/);if(_v)pthumb=`https://i.ytimg.com/vi/${_v[1]}/mqdefault.jpg`;}
         const pThumbHtml=pthumb
-          ?`<a class="card-thumb-link" href="${escH(pvurl||'#')}" target="_blank" onclick="event.stopPropagation()"><img src="${escH(pthumb)}" onerror="window.thumbErr&&window.thumbErr(this)" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></a>`
+          ?`<a class="card-thumb-link" href="${escH(pvurl||'#')}" target="_blank" onclick="event.stopPropagation()"><img src="${escH(pthumb)}" onerror="window.thumbErr&&window.thumbErr(this)" alt="" style="width:110px;height:62px;object-fit:cover;display:block;"></a>`
           :`<div class="card-thumb-empty">🚀</div>`;
         return`<div class="card c-all" data-sid="${escH(sid)}" data-title="${escH(p.t)}" data-date="${p.y}.${p.d}" data-type="lassgo" onclick="if(!event.target.closest('a,button'))handleCardClick(this)">
           <div class="card-with-thumb">
