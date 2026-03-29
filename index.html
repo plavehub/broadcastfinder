@@ -170,7 +170,7 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 .card.c-hamin::before{background:var(--hamin);}
 .card.c-all::before{background:linear-gradient(90deg,var(--yejun),var(--noah),var(--bambi),var(--eunho),var(--hamin));}
 .card.c-mixed::before{background:linear-gradient(90deg,var(--yejun),var(--noah));}
-.card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;}
+.card-top{display:flex;flex-direction:column;align-items:flex-end;gap:4px;margin-bottom:6px;min-width:0;flex-shrink:0;}
 .card-date{font-family:'Syne',sans-serif;font-size:10px;font-weight:600;letter-spacing:.08em;color:var(--muted);}
 .card-badges{display:flex;gap:3px;flex-wrap:wrap;justify-content:flex-end;align-items:center;}
 .badge{font-size:10px;border-radius:4px;padding:1px 6px;letter-spacing:.02em;}
@@ -180,7 +180,7 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 .badge-type-live{background:rgba(77,166,255,.07);color:#6a9fd8;border:1px solid rgba(77,166,255,.14);font-size:9px;}
 .badge-type-radio{background:rgba(82,204,122,.07);color:#4aaa66;border:1px solid rgba(82,204,122,.18);font-size:9px;}
 .badge-type-lassgo{background:rgba(255,183,77,.08);color:#ffb74d;border:1px solid rgba(255,183,77,.2);font-size:9px;}
-.card-title{font-size:12px;line-height:1.5;color:var(--text);margin-bottom:8px;
+.card-title{font-size:12px;line-height:1.5;color:var(--text);margin-bottom:6px;
   display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
 .card-ep{font-family:'Syne',sans-serif;font-size:11px;color:var(--muted);margin-bottom:7px;letter-spacing:.05em;}
 .card-row{display:flex;align-items:flex-start;gap:7px;margin-bottom:5px;}
@@ -223,7 +223,7 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
   background:rgba(77,166,255,.08);color:var(--yejun);border:1px solid rgba(77,166,255,.16);
   text-decoration:none;transition:background .15s;}
 .card-link:hover{background:rgba(77,166,255,.2);}
-.card-edit-hint{position:absolute;bottom:8px;right:10px;font-size:9px;color:var(--muted);
+.card-edit-hint{display:none;position:absolute;bottom:8px;right:10px;font-size:9px;color:var(--muted);
   opacity:0;transition:opacity .2s;pointer-events:none;letter-spacing:.05em;}
 
 /* sort toggle */
@@ -239,16 +239,16 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 .card.season-debut::before{opacity:1!important;background:linear-gradient(90deg,#e8c97a,#f5e0a0,#e8c97a)!important;}
 
 /* thumbnail card layout */
-.card-with-thumb{display:flex;gap:10px;margin-bottom:7px;}
-.card-thumb-link{flex-shrink:0;width:110px;height:62px;border-radius:6px;overflow:hidden;
+.card-with-thumb{display:flex;gap:12px;margin-bottom:8px;}
+.card-thumb-link{flex-shrink:0;width:128px;height:72px;border-radius:6px;overflow:hidden;
   background:var(--bg3);display:block;position:relative;}
 .card-thumb-link img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity .2s;}
 .card-thumb-link:hover img{opacity:.85;}
-.card-thumb-empty{flex-shrink:0;width:110px;height:62px;border-radius:6px;
+.card-thumb-empty{flex-shrink:0;width:128px;height:72px;border-radius:6px;
   background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;
   justify-content:center;font-size:20px;opacity:.3;}
 .card-body-wrap{flex:1;min-width:0;}
-.card-body-wrap .card-top{margin-bottom:4px;}
+.card-body-wrap{display:flex;flex-direction:row;justify-content:space-between;align-items:flex-start;flex:1;min-width:0;gap:8px;}.card-body-wrap .card-top{margin-bottom:0;}
 .card-body-wrap .card-title{margin-bottom:0;font-size:11px;-webkit-line-clamp:2;}
 .card-main-link{display:inline-flex;align-items:center;gap:5px;margin-top:6px;
   font-size:11px;color:var(--yejun);text-decoration:none;opacity:.85;transition:opacity .15s;}
@@ -415,8 +415,6 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
       <button class="tab-btn" onclick="switchTab('songs',this)">💿 발매곡</button>
     </div>
     <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-      <!-- 백업하기 (태그 + 수기 추가 통합) -->
-      <div style="position:relative;display:inline-flex;flex-direction:column;gap:2px;">
       </div>
       <button class="btn-add-live" onclick="openAddLive()" title="새 방송 추가" style="padding:5px 10px;font-size:16px;">＋</button>
     </div>
@@ -526,7 +524,7 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
                white-space:nowrap;transition:all .15s;font-family:'Noto Sans KR',sans-serif;">검색</button>
       <div style="width:1px;height:18px;background:rgba(255,255,255,.1);flex-shrink:0;"></div>
       <div class="search-row" style="flex:1;position:relative;display:flex;align-items:center;">
-        <input class="search-input" id="search" type="text" placeholder="검색어 입력 후 Enter"
+        <input class="search-input" id="search" type="text" placeholder="🛸 방송 키워드 검색..."
           oninput="document.getElementById('search-clear').style.display=this.value?'flex':'none';"
           onkeydown="if(event.key==='Enter'){render();}">
         <button id="search-clear" onclick="document.getElementById('search').value='';curQ='';render();this.style.display='none';"
@@ -655,7 +653,7 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
                  font-family:'Noto Sans KR',sans-serif;font-size:11px;cursor:pointer;color:rgba(255,255,255,.3);
                  white-space:nowrap;transition:all .15s;flex-shrink:0;">검색</button>
         <div class="search-row" style="flex:1;position:relative;display:flex;align-items:center;">
-          <input class="search-input" id="song-search" type="text" placeholder="곡명, 앨범명 검색..."
+          <input class="search-input" id="song-search" type="text" placeholder="💿 발매곡 키워드 검색..."
             oninput="curSongQ=this.value;document.getElementById('song-search-clear').style.display=this.value?'flex':'none';renderSongs();"
             onkeydown="if(event.key==='Enter'){renderSongs();}if(event.key==='Escape'){this.value='';curSongQ='';document.getElementById('song-search-clear').style.display='none';renderSongs();}">
           <button id="song-search-clear" onclick="document.getElementById('song-search').value='';curSongQ='';renderSongs();this.style.display='none';"
@@ -689,6 +687,16 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
 
       <!-- 접히는 필터 영역 -->
       <div id="songs-filters-collapsible" style="display:flex;flex-direction:column;gap:6px;overflow:hidden;transition:max-height .18s cubic-bezier(0.4,0,0.2,1),opacity .15s ease;max-height:300px;opacity:1;">
+      <!-- 태그 -->
+      <div class="filter-row-labeled" style="align-items:flex-start;margin-top:6px;">
+        <button class="filter-label filter-label-btn grad-border" onclick="resetSongTGFilter()" title="태그 초기화">태그</button>
+        <div class="filter-sep"></div>
+        <div style="display:flex;gap:5px;flex-wrap:wrap;flex:1;">
+          <button class="btn active" id="song-tg-filter-a" data-tg="a" onclick="setSongTGFilter(this)">#컨텐츠</button>
+          <button class="btn active" id="song-tg-filter-b" data-tg="b" onclick="setSongTGFilter(this)">#대사</button>
+          <button class="btn active" id="song-tg-filter-c" data-tg="c" onclick="setSongTGFilter(this)">#움찔</button>
+        </div>
+      </div>
       <!-- 앨범 -->
       <div class="filter-row-labeled" style="align-items:flex-start;margin-top:6px;">
         <button class="filter-label filter-label-btn grad-border" onclick="resetSongAlbum()" title="앨범 초기화">앨범</button>
@@ -782,8 +790,6 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
               <span style="font-size:10px;color:var(--muted);">컨텐츠태그</span>
             </div>
             <div class="tags-display" id="m-tags-a" style="margin-bottom:0;min-height:24px;flex-wrap:wrap;flex:1;"></div>
-            <input class="m-input" id="m-tag-in-a" placeholder="입력 후 Enter" style="font-size:10px;padding:1px 6px;font-size:9px;border-radius:4px;"
-              onkeydown="if(event.key==='Enter'&&!event.isComposing){addTagG('a');event.preventDefault();}">
           </div>
 
           <!-- B -->
@@ -793,8 +799,6 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
               <span style="font-size:10px;color:var(--muted);">대사태그</span>
             </div>
             <div class="tags-display" id="m-tags-b" style="margin-bottom:0;min-height:24px;flex-wrap:wrap;flex:1;"></div>
-            <input class="m-input" id="m-tag-in-b" placeholder="입력 후 Enter" style="font-size:10px;padding:1px 6px;font-size:9px;border-radius:4px;"
-              onkeydown="if(event.key==='Enter'&&!event.isComposing){addTagG('b');event.preventDefault();}">
           </div>
 
           <!-- C -->
@@ -804,8 +808,6 @@ main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:18px 16p
               <span style="font-size:10px;color:var(--muted);">움찔태그</span>
             </div>
             <div class="tags-display" id="m-tags-c" style="margin-bottom:0;min-height:24px;flex-wrap:wrap;flex:1;"></div>
-            <input class="m-input" id="m-tag-in-c" placeholder="입력 후 Enter" style="font-size:10px;padding:1px 6px;font-size:9px;border-radius:4px;"
-              onkeydown="if(event.key==='Enter'&&!event.isComposing){addTagG('c');event.preventDefault();}">
           </div>
 
         </div>
@@ -1079,7 +1081,7 @@ function renderMainLink(){
 }
 
 
-function writeLog(){} // 비활성화
+function writeLog(){}
 
 function openModalLink(){
   const d=getData(mId);
@@ -1431,31 +1433,26 @@ async function syncAll(){
   btn.style.opacity="";btn.disabled=false;hideBar("sync-bar");
 }
 const WORKER_URL = "https://plave-worker.kgb2020sr-be5.workers.dev";
-/* ── Supabase에서 데이터 로드 ── */
+/* ── Supabase 데이터 로드 ── */
 function safeParseArr(str){
   try{const v=JSON.parse(str||"[]");return Array.isArray(v)?v:[];}catch{return[];}
 }
-
 function thumbFromUrl(url){
   if(!url) return "";
   const vid=url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|live\/|embed\/))([a-zA-Z0-9_-]{11})/);
   return vid?`https://i.ytimg.com/vi/${vid[1]}/mqdefault.jpg`:"";
 }
-
 async function loadFromSupabase(onStatus){
   const st=onStatus||((t)=>{});
   try{
     st("데이터 불러오는 중");
     const res=await fetch(WORKER_URL+"?action=getArchive");
-    if(!res.ok) throw new Error("Worker 응답 오류");
+    if(!res.ok) throw new Error("Worker 오류");
     const data=await res.json();
     if(!data.ok) throw new Error("데이터 오류");
-
-    // 커스텀 수기 방송 보존
     const customBackup=L.filter(b=>b._custom);
     L.length=0; R.length=0; P.length=0;
     customBackup.forEach(b=>L.push(b));
-
     if(data.live&&data.live.length){
       data.live.forEach(r=>{
         const members=r.members?r.members.split(/[,，]/).map(s=>s.trim()).filter(Boolean):["전원"];
@@ -1466,7 +1463,6 @@ async function loadFromSupabase(onStatus){
       });
       document.getElementById("stat-live").textContent=L.length;
     }
-
     if(data.radio&&data.radio.length){
       data.radio.forEach(r=>{
         const djArr=r.dj?r.dj.split(/[,，]/).map(s=>s.trim()).filter(Boolean):[];
@@ -1478,7 +1474,6 @@ async function loadFromSupabase(onStatus){
       });
       document.getElementById("stat-radio").textContent=R.length;
     }
-
     if(data.lassgo&&data.lassgo.length){
       data.lassgo.forEach(r=>{
         const d=r.live_date?r.live_date.slice(5).replace("-","."):"";
@@ -1488,7 +1483,6 @@ async function loadFromSupabase(onStatus){
       });
       document.getElementById("stat-lassgo").textContent=P.length;
     }
-
     render();
   }catch(e){console.warn("Supabase 로드 실패:",e);}
 }
@@ -1970,11 +1964,16 @@ function renderLive(){
           <div class="card-with-thumb">
             ${thumbHtml}
             <div class="card-body-wrap">
-              <div class="card-top"><span class="card-date">${yy}.${normD(b.d)}</span><div class="card-badges">${badges}</div></div>
-              <div class="card-title">${b.t}</div>
+              <div style="flex:1;min-width:0;">
+                <div class="card-title" style="margin-bottom:6px;">${b.t}</div>
+                <div class="card-members">${pills(b.m)}</div>
+              </div>
+              <div class="card-top">
+                <span class="card-date">${yy}.${normD(b.d)}</span>
+                <div class="card-badges">${badges}</div>
+              </div>
             </div>
           </div>
-          <div class="card-members">${pills(b.m)}</div>
           ${extras}
           <span class="card-edit-hint">✏ 편집</span>
         </div>`;
@@ -2077,13 +2076,15 @@ function renderRadio(){
           <div class="card-with-thumb">
             ${rThumbHtml}
             <div class="card-body-wrap">
+              <div style="flex:1;min-width:0;">
+                <div class="card-ep" style="margin-bottom:4px;">Ep.${ep}</div>
+                <div class="card-row" style="margin-bottom:4px;"><span class="card-row-label">DJ</span><div class="card-members">${pills(r.dj)}</div></div>
+                <div class="card-row"><span class="card-row-label">게스트</span><div class="card-members">${gHtml}</div></div>
+              </div>
               <div class="card-top">
                 <span class="card-date">${yy}.${normD(r.d)}</span>
                 <div class="card-badges"><span class="badge badge-type-radio">📻 라디오</span>${vurl?'<span class="badge" style="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);color:var(--muted);">🔗</span>':''}</div>
               </div>
-              <div class="card-ep">Ep.${ep}</div>
-              <div class="card-row"><span class="card-row-label">DJ</span><div class="card-members">${pills(r.dj)}</div></div>
-              <div class="card-row"><span class="card-row-label">게스트</span><div class="card-members">${gHtml}</div></div>
             </div>
           </div>
           ${extras}
@@ -2109,6 +2110,29 @@ function resetTGFilter(){
   curTGFilter="all";
   document.querySelectorAll("#tg-filter-a,#tg-filter-b,#tg-filter-c").forEach(b=>b.classList.add("active"));
   render();
+}
+
+let curSongTGSet=new Set(["a","b","c"]),curSongTGFilter="all";
+function setSongTGFilter(btn){
+  const g=btn.dataset.tg;
+  if(curSongTGSet.has(g)){
+    if(curSongTGSet.size===1){
+      curSongTGSet=new Set(["a","b","c"]);curSongTGFilter="all";
+      document.querySelectorAll("#song-tg-filter-a,#song-tg-filter-b,#song-tg-filter-c").forEach(b=>b.classList.add("active"));
+    } else {
+      curSongTGSet.delete(g);btn.classList.remove("active");
+      curSongTGFilter=curSongTGSet.size===3?"all":[...curSongTGSet].join(",");
+    }
+  } else {
+    curSongTGSet.add(g);btn.classList.add("active");
+    curSongTGFilter=curSongTGSet.size===3?"all":[...curSongTGSet].join(",");
+  }
+  renderSongs();
+}
+function resetSongTGFilter(){
+  curSongTGSet=new Set(["a","b","c"]);curSongTGFilter="all";
+  document.querySelectorAll("#song-tg-filter-a,#song-tg-filter-b,#song-tg-filter-c").forEach(b=>b.classList.add("active"));
+  renderSongs();
 }
 /* ── 방송 타입 복수선택 ── */
 function setBcast(btn){
@@ -2178,13 +2202,14 @@ function renderUnifiedCard(item,yy){
     <div class="card-with-thumb">
       ${thumbHtml}
       <div class="card-body-wrap">
+        <div style="flex:1;min-width:0;">
+          <div class="card-title" style="margin-bottom:6px;">${escH(title)}</div>
+          ${memberPills?`<div class="card-pills">${memberPills}</div>`:""}
+        </div>
         <div class="card-top">
           <span class="card-date">${yy}.${normD(item.d)}</span>
           <div class="card-badges">${badge}${vurl?'<span class="badge" style="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);color:var(--muted);">🔗</span>':''}</div>
         </div>
-        <div class="card-title">${escH(title)}</div>
-        ${memberPills?`<div class="card-pills">${memberPills}</div>`:""}
-        <span class="card-edit-hint">✏ 편집</span>
       </div>
     </div>
   </div>`;
@@ -2431,13 +2456,8 @@ async function loadSongsFromSheet(){
     const data=await res.json();
     if(!data.ok||!data.songs) return;
     SONGS=data.songs.map(r=>({
-      date:r.release_date||"",
-      albumType:r.album_type||"",
-      album:r.album_name||"",
-      track:r.track_no||"",
-      title:r.title||"",
-      type:r.song_type||"",
-      url:r.youtube_url||""
+      date:r.release_date||"",albumType:r.album_type||"",album:r.album_name||"",
+      track:r.track_no||"",title:r.title||"",type:r.song_type||"",url:r.youtube_url||""
     }));
     if(curTab==="songs") renderSongs();
   }catch(e){console.warn("발매곡 로드 실패",e);}
@@ -2633,10 +2653,6 @@ function openSongModal(s){
         <div class="song-tag-label">🏷️ 태그</div>
         <div class="song-tag-list" id="song-tag-list">
           ${tags.length?tags.map(t=>`<span class="song-tag" onclick="removeSongTag('${escH(sid)}','${escH(t)}')">${escH(t)} ✕</span>`).join(""):'<span class="song-tag-empty">없음</span>'}
-        </div>
-        <div class="song-tag-input-wrap">
-          <input class="song-tag-input" id="song-tag-input" placeholder="입력 후 Enter"
-            onkeydown="if(event.key==='Enter'){addSongTag('${escH(sid)}');}" />
         </div>
       </div>
     </div>
