@@ -844,8 +844,8 @@ main{position:relative;z-index:1;max-width:1060px;margin:0 auto;padding:18px 16p
           <input id="lassgo-search" type="text" placeholder="라쓰고 키워드 검색..."
             style="flex:1;background:transparent;border:none;color:#fff;font-family:'Noto Sans KR',sans-serif;font-size:13px;outline:none;padding:7px 0;"
             oninput="curLassgoQ=this.value;renderLassgoTab();"
-            onkeydown="if(event.key==='Enter'){renderLassgoTab();}if(event.key==='Escape'){this.value='';curLassgoQ='';renderLassgoTab();}">
-          <button onclick="document.getElementById('lassgo-search').value='';curLassgoQ='';renderLassgoTab();document.getElementById('lassgo-search').focus();"
+            onkeydown="if(event.key==='Enter'){renderLassgoTab();runLassgoExtSearch();}if(event.key==='Escape'){this.value='';curLassgoQ='';lassgoScriptSearchResults={};lassgoHlSearchResults={};renderLassgoTab();}">
+          <button onclick="document.getElementById('lassgo-search').value='';curLassgoQ='';lassgoScriptSearchResults={};lassgoHlSearchResults={};renderLassgoTab();document.getElementById('lassgo-search').focus();"
             style="background:none;border:none;cursor:pointer;font-size:12px;color:var(--muted);display:flex;align-items:center;flex-shrink:0;padding:2px;"
             title="검색어 지우기">✕</button>
           </div>
@@ -858,9 +858,16 @@ main{position:relative;z-index:1;max-width:1060px;margin:0 auto;padding:18px 16p
               style="padding:4px 10px;font-size:10px;font-weight:600;background:transparent;color:rgba(255,255,255,.3);border:none;border-left:1px solid rgba(255,255,255,.12);cursor:pointer;border-radius:0;font-family:'Noto Sans KR',sans-serif;">제목</button>
           </div>
           <div style="width:1px;height:16px;background:rgba(255,255,255,.08);flex-shrink:0;"></div>
+          <div id="lassgo-search-all-toggle" onclick="toggleAllLassgoSearchBtns()" style="width:12px;height:12px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:transparent;cursor:pointer;transition:all .15s;flex-shrink:0;" title="# T ★ 전체 토글"></div>
           <button id="lassgo-tag-search-btn" onclick="toggleLassgoTagSearch()"
             style="width:26px;height:22px;font-size:11px;font-weight:700;color:rgba(250,204,21,.45);font-family:'Noto Sans KR',sans-serif;border:1.5px solid rgba(250,204,21,.3);border-radius:5px;padding:0;background:none;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;flex-shrink:0;"
             title="태그만 검색">#</button>
+          <button id="lassgo-script-search-btn" onclick="toggleLassgoScriptSearch()"
+            style="width:26px;height:22px;font-size:11px;font-weight:700;color:rgba(45,212,191,.3);font-family:'Noto Sans KR',sans-serif;border:1.5px solid rgba(45,212,191,.2);border-radius:5px;padding:0;background:none;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;flex-shrink:0;"
+            title="스크립트 검색">T</button>
+          <button id="lassgo-hl-search-btn" onclick="toggleLassgoHlSearch()"
+            style="width:26px;height:22px;font-size:10px;font-weight:700;color:rgba(255,183,77,.3);font-family:'Noto Sans KR',sans-serif;border:1.5px solid rgba(255,183,77,.2);border-radius:5px;padding:0;background:none;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;flex-shrink:0;"
+            title="쇼츠 검색"><i class="pxi"><svg viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" shape-rendering="crispEdges"><rect x="7" y="1" width="2" height="2"/><rect x="4" y="4" width="8" height="2"/><rect x="5" y="6" width="6" height="2"/><rect x="4" y="8" width="3" height="2"/><rect x="9" y="8" width="3" height="2"/><rect x="3" y="10" width="3" height="2" opacity=".6"/><rect x="10" y="10" width="3" height="2" opacity=".6"/><rect x="7" y="12" width="2" height="2" opacity=".4"/><rect x="6" y="5" width="1" height="1" fill="var(--bg,#060606)"/><rect x="9" y="5" width="1" height="1" fill="var(--bg,#060606)"/></svg></i></button>
           <div style="flex:1;"></div>
           <div style="display:flex;border-radius:8px;overflow:hidden;border:1px solid rgba(250,204,21,.3);flex-shrink:0;">
             <button id="lassgo-sort-desc" onclick="setLassgoSort('desc')"
@@ -953,7 +960,7 @@ main{position:relative;z-index:1;max-width:1060px;margin:0 auto;padding:18px 16p
         </button>
         <button class="mtab" id="mtab-hl" onclick="setMTab('hl')" style="flex:1.2;">
           <span class="mtab-ib mtab-ib-s" id="mtab-hl-ib"><i class="pxi"><svg viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" shape-rendering="crispEdges"><rect x="7" y="1" width="2" height="2"/><rect x="4" y="4" width="8" height="2"/><rect x="5" y="6" width="6" height="2"/><rect x="4" y="8" width="3" height="2"/><rect x="9" y="8" width="3" height="2"/><rect x="3" y="10" width="3" height="2" opacity=".6"/><rect x="10" y="10" width="3" height="2" opacity=".6"/><rect x="7" y="12" width="2" height="2" opacity=".4"/><rect x="6" y="5" width="1" height="1" fill="var(--bg,#060606)"/><rect x="9" y="5" width="1" height="1" fill="var(--bg,#060606)"/></svg></i></span>
-          <span>하이라이트</span>
+          <span id="mtab-hl-label">하이라이트</span>
           <input class="mtab-search c-s" id="mtab-hl-q" placeholder="검색..." onclick="event.stopPropagation();setMTab('hl');" onkeydown="if(event.key==='Enter'){searchModalHl();event.stopPropagation();}">
           <span class="mtab-count" id="mtab-hl-count"></span>
         </button>
@@ -1310,6 +1317,7 @@ function findBySid(type,sid){
 
 function openEdit(id,title,dateStr,type){
   mId=id;
+  modalType=type;
   modalScripts=null; modalHl=null; curMTab="mem";
   document.getElementById("m-date").textContent=dateStr;
   document.getElementById("m-title").textContent=title;
@@ -1317,6 +1325,9 @@ function openEdit(id,title,dateStr,type){
   if(type==="radio"){tb.innerHTML=`<i class="pxi"><svg viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" shape-rendering="crispEdges"><rect x="2" y="5" width="12" height="9"/><rect x="3" y="6" width="10" height="7" fill="var(--bg,#060606)"/><rect x="4" y="8" width="2" height="1"/><rect x="10" y="8" width="2" height="1"/><rect x="6" y="10" width="1" height="1"/><rect x="9" y="10" width="1" height="1"/><rect x="7" y="11" width="2" height="1" opacity=".6"/><rect x="5" y="2" width="1" height="4" opacity=".5"/><rect x="6" y="1" width="1" height="2" opacity=".5"/></svg></i> 라디오`;tb.className="badge badge-type-radio";}
   else if(type==="lassgo"){tb.innerHTML=`<i class="pxi"><svg viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" shape-rendering="crispEdges"><rect x="6" y="1" width="4" height="2"/><rect x="5" y="3" width="6" height="3"/><rect x="4" y="6" width="8" height="4"/><rect x="6" y="10" width="4" height="2"/><rect x="6" y="7" width="1" height="1" fill="var(--bg,#060606)"/><rect x="9" y="7" width="1" height="1" fill="var(--bg,#060606)"/><rect x="7" y="9" width="2" height="1" fill="var(--bg,#060606)" opacity=".5"/><rect x="3" y="8" width="1" height="2" opacity=".5"/><rect x="12" y="8" width="1" height="2" opacity=".5"/><rect x="6" y="12" width="1" height="2" opacity=".4"/><rect x="9" y="12" width="1" height="2" opacity=".4"/></svg></i> 라쓰고`;tb.className="badge badge-type-lassgo";}
   else{tb.textContent="📺 라이브";tb.className="badge badge-type-live";}
+  // 라쓰고는 '하이라이트' 대신 '쇼츠' 라벨 사용
+  const hlLabel=document.getElementById("mtab-hl-label");
+  if(hlLabel) hlLabel.textContent=type==="lassgo"?"쇼츠":"하이라이트";
   const thumbWrap=document.getElementById("m-thumb-wrap");
   const thumbLink=document.getElementById("m-thumb-link");
   const item=findBySid(type,id);
@@ -1377,6 +1388,7 @@ function closeModal(){
 
 let curMTab="mem";
 let modalScripts=null, modalHl=null;
+let modalType="live";
 let modalVurl="";
 
 function setMTab(tab){
@@ -1426,7 +1438,7 @@ async function loadModalHl(){
       modalHl=res.highlights;
       renderModalHl();
     } else {
-      document.getElementById("m-hl-list").innerHTML='<div class="mpanel-empty">하이라이트 없음</div>';
+      document.getElementById("m-hl-list").innerHTML='<div class="mpanel-empty">'+(modalType==="lassgo"?"쇼츠":"하이라이트")+' 없음</div>';
       modalHl=[];
     }
   }catch(e){
@@ -1468,7 +1480,7 @@ function renderModalScripts(q){
 
 function renderModalHl(q){
   const el=document.getElementById("m-hl-list");
-  if(!modalHl||!modalHl.length){el.innerHTML='<div class="mpanel-empty">하이라이트 없음</div>';return;}
+  if(!modalHl||!modalHl.length){el.innerHTML='<div class="mpanel-empty">'+(modalType==="lassgo"?"쇼츠":"하이라이트")+' 없음</div>';return;}
   const info=document.getElementById("m-hl-info");
   let filtered=modalHl;
   if(q && q.length>=1){
@@ -1830,6 +1842,7 @@ async function loadFromSupabase(onStatus){
     // Load script/highlight registered sessions for T/★ badges
     const uuidToSid={};
     Object.entries(sidToUuid).forEach(([sid,uuid])=>{uuidToSid[uuid]=sid;});
+    window._uuidToSidMap=uuidToSid;
     try{
       const [scrRes,hlRes]=await Promise.all([
         fetch(WORKER_URL+"?action=getScriptIds&_t="+Date.now()).then(r=>r.json()),
@@ -2052,9 +2065,18 @@ function switchTab(t,btn){
 function resetLassgoFilters(){
   curLassgoQ="";curLassgoSort="asc";curLassgoTitleOnly=false;curLassgoTagSearch=false;
   curLassgoYearSet=new Set();curLassgoEraSet=new Set();curLassgoBday=false;
+  curLassgoScriptSearchOn=false;curLassgoHlSearchOn=false;
+  lassgoScriptSearchResults={};lassgoHlSearchResults={};
   document.getElementById("lassgo-search").value="";
   document.querySelectorAll(".lassgo-year,.lassgo-era").forEach(b=>b.classList.remove("active"));
   document.querySelectorAll(".lassgo-bday").forEach(b=>b.classList.remove("active"));
+  // 검색 토글 버튼 시각 리셋
+  const sb=document.getElementById("lassgo-script-search-btn");
+  if(sb){sb.style.color="rgba(45,212,191,.3)";sb.style.borderColor="rgba(45,212,191,.2)";sb.style.background="none";}
+  const hb=document.getElementById("lassgo-hl-search-btn");
+  if(hb){hb.style.color="rgba(255,183,77,.3)";hb.style.borderColor="rgba(255,183,77,.2)";hb.style.background="none";}
+  const ac=document.getElementById("lassgo-search-all-toggle");
+  if(ac){ac.style.background="transparent";ac.style.borderColor="rgba(255,255,255,.2)";}
   const s=document.getElementById("lassgo-search-mode-btn"),t=document.getElementById("lassgo-search-title-btn");
   if(s){s.style.background="rgba(255,255,255,.06)";s.style.color="rgba(255,255,255,.6)";}
   if(t){t.style.background="transparent";t.style.color="rgba(255,255,255,.3)";}
@@ -2736,6 +2758,112 @@ function toggleLassgoTagSearch(){
   const btn=document.getElementById("lassgo-tag-search-btn");
   if(btn){btn.style.color=curLassgoTagSearch?"#facc15":"rgba(250,204,21,.45)";btn.style.borderColor=curLassgoTagSearch?"rgba(250,204,21,.7)":"rgba(250,204,21,.3)";btn.style.background=curLassgoTagSearch?"rgba(250,204,21,.12)":"none";}
   renderLassgoTab();
+  updateLassgoSearchAllCircle();
+}
+
+/* 라쓰고 스크립트/쇼츠 검색 (방송과 동일 워커 액션 재사용) */
+let curLassgoScriptSearchOn=false, curLassgoHlSearchOn=false;
+let lassgoScriptSearchResults={}, lassgoHlSearchResults={};
+
+function toggleLassgoScriptSearch(){
+  curLassgoScriptSearchOn=!curLassgoScriptSearchOn;
+  const btn=document.getElementById("lassgo-script-search-btn");
+  if(btn){
+    btn.style.color=curLassgoScriptSearchOn?"#2dd4bf":"rgba(45,212,191,.3)";
+    btn.style.borderColor=curLassgoScriptSearchOn?"rgba(45,212,191,.7)":"rgba(45,212,191,.2)";
+    btn.style.background=curLassgoScriptSearchOn?"rgba(45,212,191,.12)":"none";
+  }
+  runLassgoExtSearch();
+  updateLassgoSearchAllCircle();
+}
+function toggleLassgoHlSearch(){
+  curLassgoHlSearchOn=!curLassgoHlSearchOn;
+  const btn=document.getElementById("lassgo-hl-search-btn");
+  if(btn){
+    btn.style.color=curLassgoHlSearchOn?"#ffb74d":"rgba(255,183,77,.3)";
+    btn.style.borderColor=curLassgoHlSearchOn?"rgba(255,183,77,.7)":"rgba(255,183,77,.2)";
+    btn.style.background=curLassgoHlSearchOn?"rgba(255,183,77,.12)":"none";
+  }
+  runLassgoExtSearch();
+  updateLassgoSearchAllCircle();
+}
+function toggleAllLassgoSearchBtns(){
+  const allOn=curLassgoTagSearch&&curLassgoScriptSearchOn&&curLassgoHlSearchOn;
+  if(allOn){
+    if(curLassgoTagSearch) toggleLassgoTagSearch();
+    if(curLassgoScriptSearchOn) toggleLassgoScriptSearch();
+    if(curLassgoHlSearchOn) toggleLassgoHlSearch();
+  } else {
+    if(!curLassgoTagSearch) toggleLassgoTagSearch();
+    if(!curLassgoScriptSearchOn) toggleLassgoScriptSearch();
+    if(!curLassgoHlSearchOn) toggleLassgoHlSearch();
+  }
+}
+function updateLassgoSearchAllCircle(){
+  const c=document.getElementById("lassgo-search-all-toggle");
+  if(!c)return;
+  const allOn=curLassgoTagSearch&&curLassgoScriptSearchOn&&curLassgoHlSearchOn;
+  c.style.background=allOn?"rgba(255,255,255,.25)":"transparent";
+  c.style.borderColor=allOn?"rgba(255,255,255,.25)":"rgba(255,255,255,.2)";
+}
+async function runLassgoExtSearch(){
+  const q=(curLassgoQ||"").trim();
+  // T꺼짐+★꺼짐 → 결과 비우고 끝
+  if(!curLassgoScriptSearchOn&&!curLassgoHlSearchOn){
+    lassgoScriptSearchResults={}; lassgoHlSearchResults={};
+    renderLassgoTab();
+    return;
+  }
+  if(!q){renderLassgoTab();return;}
+  try{
+    const tasks=[];
+    if(curLassgoScriptSearchOn){
+      tasks.push(fetch(WORKER_URL+"?action=searchScripts&q="+encodeURIComponent(q)+"&_t="+Date.now()).then(r=>r.json()).then(d=>{
+        lassgoScriptSearchResults={};
+        if(d.ok){
+          const res=d.results;
+          if(Array.isArray(res)){
+            res.forEach(r=>{
+              const tn=r.tab_name;
+              if(tn){
+                if(!lassgoScriptSearchResults[tn]) lassgoScriptSearchResults[tn]=[];
+                if(lassgoScriptSearchResults[tn].length<5) lassgoScriptSearchResults[tn].push(r);
+              }
+            });
+          } else if(res){
+            Object.values(res).forEach(rows=>{
+              const tn=rows[0]?.tab_name;
+              if(tn) lassgoScriptSearchResults[tn]=rows.slice(0,5);
+            });
+          }
+        }
+      }).catch(()=>{}));
+    } else { lassgoScriptSearchResults={}; }
+    if(curLassgoHlSearchOn){
+      tasks.push(fetch(WORKER_URL+"?action=searchHighlights&q="+encodeURIComponent(q)+"&_t="+Date.now()).then(r=>r.json()).then(d=>{
+        lassgoHlSearchResults={};
+        if(d.ok){
+          const res=d.results;
+          if(Array.isArray(res)){
+            res.forEach(r=>{
+              const tn=r.tab_name;
+              if(tn){
+                if(!lassgoHlSearchResults[tn]) lassgoHlSearchResults[tn]=[];
+                if(lassgoHlSearchResults[tn].length<5) lassgoHlSearchResults[tn].push(r);
+              }
+            });
+          } else if(res){
+            Object.values(res).forEach(rows=>{
+              const tn=rows[0]?.tab_name;
+              if(tn) lassgoHlSearchResults[tn]=rows.slice(0,5);
+            });
+          }
+        }
+      }).catch(()=>{}));
+    } else { lassgoHlSearchResults={}; }
+    await Promise.all(tasks);
+  }catch(e){console.warn("라쓰고 검색 실패",e);}
+  renderLassgoTab();
 }
 function setLassgoSort(s){
   curLassgoSort=s;
@@ -2790,6 +2918,9 @@ function matchLassgoEra(y,d){
 }
 function matchLassgoSearch(t,sid){
   const q=curLassgoQ;
+  // T/★ 토글 ON일 때, 워커 결과에 매칭된 sid는 우선 통과
+  if(curLassgoScriptSearchOn && lassgoScriptSearchResults[sid]) return true;
+  if(curLassgoHlSearchOn && lassgoHlSearchResults[sid]) return true;
   if(!q) return true;
   if(curLassgoTagSearch){
     const d=getData(sid);
@@ -2798,6 +2929,39 @@ function matchLassgoSearch(t,sid){
   }
   if(curLassgoTitleOnly) return t.toLowerCase().includes(q.toLowerCase());
   return t.toLowerCase().includes(q.toLowerCase());
+}
+
+/* 라쓰고 카드에 검색 결과 펼쳐 붙이기 (방송 injectSearchResults 패턴, ★ → 쇼츠 라벨) */
+function injectLassgoSearchResults(q){
+  document.querySelectorAll("#view-lassgo .scr-expand, #view-lassgo .hl-expand").forEach(e=>e.remove());
+  document.querySelectorAll("#view-lassgo .card[data-sid]").forEach(card=>{
+    const sid=card.getAttribute("data-sid");
+    const vurl=card.querySelector("a.card-thumb-link")?.href||"";
+    let html="";
+    if(lassgoScriptSearchResults[sid]){
+      const rows=lassgoScriptSearchResults[sid];
+      html+=`<div class="scr-expand"><div class="scr-expand-h">📜 스크립트 매칭 ${rows.length}건</div>`;
+      rows.forEach(r=>{
+        const link=tcToYtLink(vurl,r.timecode);
+        html+=`<div class="scr-line hit"><a class="scr-tc" href="${link}" target="_blank" onclick="event.stopPropagation()">${r.timecode}</a><span class="scr-tx">${highlightKw(r.content,q)}</span></div>`;
+      });
+      html+=`</div>`;
+    }
+    if(lassgoHlSearchResults[sid]){
+      const rows=lassgoHlSearchResults[sid];
+      html+=`<div class="hl-expand"><div class="hl-expand-h"><i class="pxi"><svg viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" shape-rendering="crispEdges"><rect x="7" y="1" width="2" height="2"/><rect x="4" y="4" width="8" height="2"/><rect x="5" y="6" width="6" height="2"/><rect x="4" y="8" width="3" height="2"/><rect x="9" y="8" width="3" height="2"/><rect x="3" y="10" width="3" height="2" opacity=".6"/><rect x="10" y="10" width="3" height="2" opacity=".6"/></svg></i> 쇼츠 매칭 ${rows.length}건</div>`;
+      rows.forEach(r=>{
+        const link=tcToYtLink(vurl,r.timecode);
+        html+=`<div class="hl-line"><a class="hl-tc" href="${link}" target="_blank" onclick="event.stopPropagation()">${r.timecode||"-"}</a><span class="hl-lb">${highlightKwY(r.content,q)}</span></div>`;
+      });
+      html+=`</div>`;
+    }
+    if(html){
+      const div=document.createElement("div");
+      div.innerHTML=html;
+      card.appendChild(div);
+    }
+  });
 }
 
 function renderLassgoTab(){
@@ -2815,9 +2979,13 @@ function renderLassgoTab(){
   const rc=document.getElementById("lassgo-result-count");
   if(rc){
     const hasFilter=curLassgoYearSet.size>0||curLassgoEraSet.size>0||curLassgoBday||!!curLassgoQ;
+    const scrOn=curLassgoScriptSearchOn&&Object.keys(lassgoScriptSearchResults).length>0;
+    const hlOn=curLassgoHlSearchOn&&Object.keys(lassgoHlSearchResults).length>0;
     let txt=`${f.length}개 결과`;
     if(curLassgoQ) txt=`"${curLassgoQ}" ${txt}`;
-    if(hasFilter){
+    if(scrOn) txt+=` · 📜 스크립트 ${Object.keys(lassgoScriptSearchResults).length}개 세션`;
+    if(hlOn) txt+=` · <i class="pxi"><svg viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" shape-rendering="crispEdges"><rect x="7" y="1" width="2" height="2"/><rect x="4" y="4" width="8" height="2"/><rect x="5" y="6" width="6" height="2"/><rect x="4" y="8" width="3" height="2"/><rect x="9" y="8" width="3" height="2"/><rect x="3" y="10" width="3" height="2" opacity=".6"/><rect x="10" y="10" width="3" height="2" opacity=".6"/></svg></i> 쇼츠 ${Object.keys(lassgoHlSearchResults).length}개 세션`;
+    if(hasFilter||scrOn||hlOn){
       rc.innerHTML=`<span style="color:#ffffff;">${txt}</span>`;
     } else {
       rc.textContent=txt;
@@ -2854,12 +3022,13 @@ function renderLassgoTab(){
             +'<div class="card-ep" style="color:rgba(255,183,77,.8);">Ep.'+p.ep+'</div>'
             +'<div class="card-title">'+escH(p.t.replace(/^EP\.\d+\s*\|\s*/,""))+'</div>'
             +'</div></div>'
-            +tagRowHtml(sid)
+            +tagRowHtml(sid,scriptSids.has(sid),hlSids.has(sid))
             +'</div>';
         }).join("")}</div>`;
       }).join("")}
     </div>`;
   }).join("");
+  injectLassgoSearchResults(curLassgoQ);
 }
 /* ══════════════════════════════════════════════
    <i class="pxi"><svg viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" shape-rendering="crispEdges"><rect x="5" y="2" width="7" height="2"/><rect x="5" y="4" width="2" height="6"/><rect x="11" y="2" width="2" height="8"/><rect x="3" y="10" width="4" height="3"/><rect x="9" y="8" width="4" height="3"/></svg></i> 발매곡
